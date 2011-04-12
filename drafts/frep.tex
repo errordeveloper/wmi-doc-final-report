@@ -23,6 +23,8 @@
  scale of deployment has been observed. Instead most of research papers
  are oriented towards the use of IP-enabled networks for wireless sensing.
 
+%%%
+
   As stated in the interim report, the task which was still to be
  completed then had been the development of radio transceiver driver
  code for the chosen platform (\Chip{ATmega128RFA1}). After spending
@@ -36,7 +38,7 @@
  currently provided by the \emph{Contiki OS}. Due to the time limit for
  this project, various alternatives were considered.
 
-\subsubsection{TinyOS}
+\subsection{TinyOS}
 
   It has been discovered that a few members of \emph{TinyOS} community
  have recently worked on porting \emph{TinyOS} to run on \Chip{ATmega128RFA1}
@@ -52,9 +54,40 @@
  and are currently working at the University of California, Berkley
  and Standford.
 
+\subsubsection{Programming TinyOS: Compilers and Abstractions}
+
   The greatest achievement of \emph{TinyOS} is its specialised language,
- the benefits of which had been overlooked at the earlier stage of research
- for this project. Network 
+ benefits of which had been overlooked at the earlier stage of research
+ for this project. "Network Embedded Systems C" (nesC) was designed
+ especially \dots
+
+ \emph{TinyOS} currently had been ported to a variety of 8-, 16- and
+ 32-bit microcontrollers, most of the peripherals (such as I2C and SPI)
+ have unified high-level access mechanisms, unlike in \emph{Contki}.
+ Most of development documentation is provided as "TinyOS Enhancement
+ Proposals" (known as TEPs), and there is also documentation generated
+ from code (\emph{nescdoc}) as well as various on-line resources and
+ the companion book mentioned above. %% REFERENCES NEEDED %%
+
+ It is important to note that current implementation of the compiler
+ translates higher-level nesC code into C language. The resulting
+ programs are specifically suited for embedded devices. Direct
+ compilation would be possible and, if desired, there is an interesting
+ platform to look into. \emph{LLVM} ("Low-level Virtual Machine") is a
+ new generation compiler technology. It is know that using \emph{LLVM}
+ and its family member \emph{clang} implementation of compiler for
+ a C-like language would be simplified (comparing to more traditional
+ techniques). One good example of industrial grade compiler based on
+ \emph{LLVM} is the \emph{XC} toolchain for \emph{XS-1} devices from
+ a UK semiconductor company \emph{XMOS} \cite{paper:xmos:docs:xcc}.
+
+ Nevertheless, currently \emph{nesC} compiler is known to be fully
+ functional and it's task is not as complex as it may seem. Programming
+ in any language is always done by applying code patterns, general
+ to some degree, to accomplish desired behaviour of a program.
+ The purpose of \emph{nesC} abstraction layer can be seen as making
+ the details of complex coding - with which high degree of modularity
+ can be achieved - rather hidden away from the programmer.
 
   \emph{TinyOS} has become widely adopted and there are many researcher
  who contributed significant work in different application areas, one
@@ -70,5 +103,73 @@
  support for these features of \emph{P802.15.4} is currently uncertain.
  ( Perhaps mention NanoRX ? )
 
+\subsubsection{Network Protocols in TinyOS}
  
+  After several aspects of \emph{TinyOS} were studied, it was clear
+ that its current implementation of \emph{6loWPAN} is fully compatible
+ with \emph{Contiki} and it had been desired to prove this in practice.
+ However it has not been achieved at the time of writing of this paper.
+  
+  A problem exists however, there was no fully working IP-enabled driver
+ for \emph{ATmega128RFA1} transceiver. The IP layers are provided by
+ \emph{BLIP} stack (this stands for Berkley Lightweight IP), the stack
+ is currently undergoing major development. Details on what is required
+ are available on \emph{TinyOS} wiki page \cite{tinyos:wiki:blip-2-0},
+ implementing it in \emph{nesC} was not as trivial due to the learning
+ curve. Therefore this task had be postponed.
+
+  This problem requires further explanation. \emph{TinyOS} has been
+ developed since 2001, while \emph{Contiki} first dates back to two
+ years later - 2003\footnote{\emph{No exact information has been
+ found, these are the earlies dates which appear in the source code.}}. 
+ In the early days of WSN research \emph{P802.15.4} and \emph{ZigBee}
+ where still emerging, the \emph{6loWPAN} RFCs appeared at IETF more
+ recently\footnote{\emph{First revision of P802.15.4 was released in
+ 2003 (latest revision in 2006) and first draft of 6loWPAN is dated
+ April 2007.}}. \emph{TinyOS} has originally used its own protocol
+ called \emph{ActiveMessage}.
+
+  Currently \emph{BLIP} stack was released by UC Berkley WEBS Wireless
+ Embedded Systems research group in the summer 2008, know as \emph{
+ bl6lowpan} then \cite{ucb:webs:blip}. As mentioned below, at the time
+ of writing major code changes had been still in progress. The driver
+ code which fully implements all new features of \emph{BLIP} stack
+ (including point-to-point tunnelling for USB connectivity) is only
+ for the most popular \Chip{CC2420} radio chips.
+
+\subsubsection{Hardware Resources}
+
+ There is a large repository of board design files featuring so called
+ \emph{Epic Mote} platform, that is base around \Chip{CC2420} and the
+ \Chip{MSP430} \cite{epic:homepage}. The most interesting device
+ designed by Prabal Duta \cite{duta:homepage} is shown in Figure
+ \ref{fig:mote:quanto}. The reason why it is so interesting is because
+ features \Chip{Digi Connect ME} microprocessor system block that is
+ of standard RJ45 form factor \cite{digi:connect-me}. This tiny device
+ has 55MHz ARM7TDMI CPU, 4MB of flash and 8MB of SDRAM as well as
+ hardware cryptographic unit and capable of running Linux OS.
+
+
+% INCLUDE THIS IMAGE:
+% http://www.cs.berkeley.edu/~prabal/projects/epic/epic-quanto.jpg
+
+\subsubsection{Conclusion}
+
+  Several step were made in attempt to bring up \emph{TinyOS} on the
+ hardware chose for this project earlier, though it appeared rather
+ unmanageable withing the give time frame. This is still a subject
+ of interest and shall be look into at a later time.
+
+%% to be added to the bibtex file:
+
+ %http://www.cs.berkeley.edu/~prabal/projects/epic/
+ %http://www.cs.berkeley.edu/~prabal/
+ %http://www.digi.com/products/wireless-wired-embedded-solutions/solutions-on-module/digi-connect/digiconnectme.jsp
+
+ %http://smote.cs.berkeley.edu:8000/tracenv/wiki/blip
+ %http://docs.tinyos.net/index.php/BLIP_2.0_Platform_Support_Guide
+
+ %http://standards.ieee.org/getieee802/download/802.15.4-2006.pdf
+ %http://standards.ieee.org/getieee802/download/802.15.4-2003.pdf
+ %http://tools.ietf.org/pdf/rfc4944.pdf
 
