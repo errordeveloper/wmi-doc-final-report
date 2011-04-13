@@ -1,3 +1,6 @@
+\newcommand{\contiki}{\emph{Contiki}
+\newcommand{\contikios}{\emph{Contiki OS}}
+\newcommand{\tos}{\emph{TinyOS}
 
 %% in introduction part:
 
@@ -186,6 +189,9 @@
  \emph{Freescale} device has an outstanding set of peripheral and
  rather large amount of memory (128KB of flash, 96KB of RAM and
  80K of ROM) the processor clock frequency is 24MHz.
+
+\sussection{MC1322x Architecture Overview}
+
  Below is the diagram of \Chip{MC1322x} \emph{Platform in Package}
  \emph{PiP}.
 % INCLUDE THIS IMAGE:
@@ -216,6 +222,30 @@
  %http://www.analog.com/static/imported-files/data_sheets/ADMP441.pdf
  
 %% write about freescale usb stick and the Econotag, include circuits
+
+\subsection{MC1322x Development Hardware}
+
+  The homepage of \Chip{MC1322x} port of \contiki has a detailed
+ overview of what development boards are available \cite{homepage:mc1322x:hw}.
+ Two boards which were chosen for this project are \emph{Freescale
+ 1322xUSB} and \emph{Redbee Econotag}.
+ \emph{1322xUSB} is a very small USB device that doesn't provide the
+ access to any of the pin and therefore is well suited as a network
+ gateway. \emph{Redbee Econotag} is an open-source development board.
+  Circuit diagrams are shown in figures \ref{cir:econotag} and 
+ \ref{cir:freescale-usb}.
+
+\subsubsection{Redbee Econotag}
+
+  The \emph{Econotag} is specifically design to meet all important
+ requirenements of a development board with very constrained bill of
+ materials. The board provides access to all of the I/O pins and
+ and is very convenient for programming and debugging. Both of these
+ functions are achived with the help of dual-port USB UART chip,
+ \emph{FTDI} \Chip{FT2??} \ref{datasheet:ftdi:dual}. One of the two
+ ports is connected 
+
+ 
 
 %%%%% last part
 
@@ -255,7 +285,7 @@
  one of the latest \emph{OMAP} chips is the \emph{PandaBoard}
  \cite{ti:omap:wiki:pb}, however it is available for back-order only,
  the maker is producing these boards on demand. \emph{TI} does
- promote the \emph{PandaBoard}, though does appear to support sales.
+ promote the \emph{PandaBoard}, though it is not made by \emph{TI}.
  %http://www.omappedia.org/wiki/DSPBridge_Project
  %http://www.omappedia.org/wiki/PandaBoard
 
