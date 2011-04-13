@@ -159,17 +159,111 @@
  hardware chose for this project earlier, though it appeared rather
  unmanageable withing the give time frame. This is still a subject
  of interest and shall be look into at a later time.
+ %FOOTNOTE https://github.com/errordeveloper/tinyos-wmi/commits/wmi-work?author=errordeveloper
 
 %% to be added to the bibtex file:
 
  %http://www.cs.berkeley.edu/~prabal/projects/epic/
  %http://www.cs.berkeley.edu/~prabal/
  %http://www.digi.com/products/wireless-wired-embedded-solutions/solutions-on-module/digi-connect/digiconnectme.jsp
-
  %http://smote.cs.berkeley.edu:8000/tracenv/wiki/blip
  %http://docs.tinyos.net/index.php/BLIP_2.0_Platform_Support_Guide
-
  %http://standards.ieee.org/getieee802/download/802.15.4-2006.pdf
  %http://standards.ieee.org/getieee802/download/802.15.4-2003.pdf
  %http://tools.ietf.org/pdf/rfc4944.pdf
+
+
+\section{Contiki OS Development Platform}
+
+  Examining the code for various hardware platforms in the source
+ tree of \emph{Contiki OS}, it was understood that \chip{MC1322x}
+ devices from \emph{Freescale} is organised in a much clearer way.
+ Current implementation appeares to support most of important
+ features of these chips and in general these are very robust
+ devices. As mentioned earlier \Chip{MC1322x} is an \Chip{ARM7TDMI}
+ microcontroller with fully integrated radio and the only component
+ external to the chip itself is the antenna. Apart from this, the
+ \emph{Freescale} device has an outstanding set of peripheral and
+ rather large amount of memory (128KB of flash, 96KB of RAM and
+ 80K of ROM) the processor clock frequency is 24MHz.
+ Below is the diagram of \Chip{MC1322x} \emph{Platform in Package}
+ \emph{PiP}.
+% INCLUDE THIS IMAGE:
+% http://cache.freescale.com/files/graphic/block_diagram/2150_MC1322X_BD.gif
+
+  In addition to standard peripherals (UART, 12 A/D converters,
+ SPI and I2C) this device has Synchronous Serial Interface (SSI)
+ that would allow communication with I2S devices as well other
+ synchronous serial peripherals. Being a 32-bit microcontroller
+ it can be used for some basic audio signal processing. For example,
+ with \emph{Analog Devices} \Chip{ADMP441} omnidirectional microphone
+ with 24-bit I2S digital output \cite{datasheet:adi:ADMP441} an
+ acoustic measurement sensor node can be designed. According to the
+ datasheet, \Chip{ADMP441} has a very linear frequency response in
+ the band between 100Hz to 15kHz. Such wireless node would be
+ suitable for field noise measurement at popular music festivals
+ or construction sites and industrial areas.
+ Another sensor that could be included on such board would be an
+ accelerometer, according to \emph{Freescale Application
+ Note AN3751} \cite{appnote:freescale:AN3751} by utilising standard
+ DSP techniques on accelerometer signal data, various vibration
+ frequency analysis results can be produced.
+
+%% to be added to the bibtex file:
+
+ %http://www.freescale.com/files/rf_if/doc/ref_manual/MC1322xRM.pdf
+ %http://www.freescale.com/files/rf_if/doc/app_note/AN3751.pdf
+ %http://www.analog.com/static/imported-files/data_sheets/ADMP441.pdf
+ 
+%% write about freescale usb stick and the Econotag, include circuits
+
+%%%%% last part
+
+%% FINAL PRODUCT vs DEVELOPMENT SYSTEM
+
+\subsection{DSP Host Hardware}
+
+  A set of hardware platforms suitable for DSP host were considered.
+ Among those are the fallowing:
+ 	\begin{itemize}
+		\item \emph{x86} (\emph{Intel} and other vendors)
+		\item \emph{OMAP} (\emph{Texas Instruments})
+		\item \emph{SHARC} (\emph{Analog Devices})
+		\item \emph{Sheeva} (\emph{Marvell})
+	\end{itemize}
+ All of these processor architectures are fully supported and widely
+ used in embedded systems. There various other architecture families
+ which were considered to be rather inappropriate due to price range
+ dictated by the target market are. Device such as \emph{NetLogic
+ MIPS64} many-core system on chip \cite{netlogic:mips64:multicore},
+ for example, have very large computational capacity, thought it is
+ to expensive for this system to use.
+
+\subsubsection{x86}
+
+\subsubsection{OMAP}
+
+  The \emph{OMAP} application processors form \emph{TI} has become
+ popular in the open-source community, and in fact \emph{TI} promotes
+ \emph{Linux} and \emph{Android} as most suitable operating systems
+ for this platform. The \emph{OMAP} architecture is based around
+ an \emph{ARM} processor (there various models with different version
+ of \emph{ARM} core) and \emph{TI DSP} block. There one little problem
+ associated with how the DSP unit is integrated, there is very little
+ documentation on how it can be used in \emph{Linux} environment
+ \cite{ti:omap:wiki:dsp}. The most outstanding platform which uses
+ one of the latest \emph{OMAP} chips is the \emph{PandaBoard}
+ \cite{ti:omap:wiki:pb}, however it is available for back-order only,
+ the maker is producing these boards on demand. \emph{TI} does
+ promote the \emph{PandaBoard}, though does appear to support sales.
+ %http://www.omappedia.org/wiki/DSPBridge_Project
+ %http://www.omappedia.org/wiki/PandaBoard
+
+
+\subsection{Conclusion}
+
+  It had been desired to build an embedded DSP host system as one of
+ addition project targets, however due to various limitations, including
+ the time frame, the project has not achieved this at the time of
+ writing of the final report.
 
