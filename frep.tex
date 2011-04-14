@@ -1,0 +1,76 @@
+
+
+\newcommand{\Chip}[1]{\emph{\texttt{#1}}}
+\newcommand{\MCX}[0]{\Chip{MC1322x}}
+\newcommand{\RFA}[0]{\Chip{ATmega128RFA1}}
+\newcommand{\Port}[1]{\emph{\texttt{Port #1}}}
+\newcommand{\Comp}[1]{\emph{\texttt{#1}}}
+\newcommand{\WPAN}[0]{\emph{LR-WPAN}}
+\newcommand{\Tracker}[0]{\subsubsection{\emph{Tracked Issues}}\begin{description}}
+
+%% Comment out this for printing
+\newcommand{\Issue}[1]{\href{http://wmi.new-synth.info/issues/#1}{Issue \##1}}
+%% Uncomment this for printing
+%\newcommand{\Issue}[1]{Issue \##1}
+
+%% Comment out this for printing
+\newcommand{\IssueX}[1]{\item[\href{http://wmi.new-synth.info/issues/#1}{\Issue{#1}}]:}
+%% Uncomment this for printing
+%\newcommand{\IssueX}[1]{\item[\Issue{#1}]:}
+
+\newcommand{\TEP}[1]{\emph{\href{http://www.tinyos.net/tinyos-2.x/doc/pdf/tep#1.pdf}{TEP#1}}}
+
+\newcommand{\Contiki}[0]{\emph{Contiki}}
+\newcommand{\ContikiOS}[0]{\emph{Contiki OS}}
+\newcommand{\TinyOS}[0]{\emph{TinyOS}}
+
+
+\documentclass[a4paper]{report}
+
+\usepackage{multirow}
+\usepackage{graphicx}
+
+%% Comment out this for printing
+\usepackage{hyperref} \newcommand{\URL}[1]{\[ \href{#1}{\texttt{\emph{#1}}} \]}
+
+%% Uncomment this for printing
+%\usepackage{url} \newcommand{\URL}[1]{\[ \texttt{\emph{#1}} \]} \newcommand{\href}[2]{#2 (\texttt{\emph{\url{#1}}})}
+
+%\usepackage{tikz}
+
+%\DeclareGraphicsExtensions{.eps,.epsi,.pdf,.png,.jpg}
+
+\title{WMI: Wireless Music Instruments\\ \emph{BSc Final Year Project} \\ Interim Report}
+%{Interim Report}
+\author{Ilya Dmitrichenko \\ \\ Department of Computing\\ London Metropolitan University}
+
+\date{\today}
+
+
+
+\begin{document}
+\maketitle
+
+
+\abstract
+{
+}
+
+\tableofcontents
+\listoffigures
+%\listoftables
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Operating Systems for Wireless Sensor Networks}
+\include{rtos/rtos-intro}
+\include{rtos/contiki-intro}
+\include{drafts/tinyos}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bibliographystyle{acm}
+
+\bibliography{../main,../../contiki/dunkels}
+
+\end{document}

@@ -1,0 +1,197 @@
+\section{Outlook Trial for the TinyOS} \label{sec:TINYOS}
+
+  It has been discovered that a few members of \TinyOS\ community
+ have recently worked on porting \TinyOS\ to run on \Chip{ATmega128RFA1}
+ \cite{tinyos:arch:rfa1-p1,tinyos:arch:rfa1-p2}. Comparing to \Contiki,
+ \TinyOS\ has rather superior abstraction layer that provides a seamless
+ cross-platform integration \cite{tinyos:tepXXX,tinyos:tepYYY,tinyos:tepZZZ}.
+ 
+  Various internals of \TinyOS\ had been studied, however it is 
+ certainly a very broad area to be described here. It is best described
+ in the \emph{"TinyOS Programming"} book by David Gay and Philip Levis
+ (it is available in print as well as a web-edition \cite{tinyos:book}).
+ Two authors of this book are lead developer of the \TinyOS\ project
+ and are currently working at the University of California, Berkley
+ and Standford.
+
+
+  \TinyOS\ currently had been ported to a variety of 8-, 16- and
+ 32-bit microcontrollers, most of the peripherals (such as I2C and SPI)
+ have unified high-level access mechanisms, unlike in \Contiki\footnote{
+ \emph{Most of peripheral drivers in Contiki OS are rather specific to
+ a certain platform and only some particular drives share a similar
+ interface.}}. Most of development documentation is provided in the
+ the format of \emph{"TinyOS Enhancement Proposal"} (known as
+ \emph{TEP}\footnote{\emph{These documents are commonly referred to as
+ TEP\texttt{n}, where \texttt{n} is a number. \TEP{1} defines the format
+ of the TEP documents.}}), there is also documentation generated from
+ the source code comments (\emph{nescdoc}) as well as various on-line
+ resources \cite{tos:wiki:docs} and the textbook mentioned above.
+ It is noticeable that \TinyOS\ documentation is more extensive the
+ what is currently presented for the \ContikiOS.
+
+
+\subsection{Programming TinyOS: Compilers and Abstractions}
+
+  The greatest achievement of \emph{TinyOS} is its specialised language,
+ benefits of which had been overlooked at the earlier stage of research
+ for this project. \emph{"Network Embedded Systems C" (nesC)} is a
+ C-based language, it provides abstractions for components, interfaces
+ and configurations. It is not an object-oriented language, though
+ it is rather component and interface oriented. As it was defined in
+ the previous section that \Contiki\ can be seen as a collection of
+ processes and events are communicated between those processes, then
+ \TinyOS\ can be defined as a collection of components and interfaces
+ which are wired together in configuration abstraction layer and
+ tasks, events and the data are communicated between the components
+ via the interfaces.
+
+  The control structures and all of C constructs are still valid in
+ \emph{nesC}. This can be seen as if \emph{nesC}-specific statements
+ are replaced by appropriate C source code that defines required behaviour.
+ Nevertheless, this is only a brief description of the relation between
+ \emph{nesC} and its ancestor. Just as if C could be defined by stating
+ a ratio of lines of code in C versus lines of assembly code.
+
+ It is important to note that current implementation of the compiler
+ translates higher-level nesC code into C language. The resulting
+ programs are specifically suited for embedded devices. Direct
+ compilation would be possible and, if desired, there is an interesting
+ platform to look into. \emph{LLVM} ("Low-level Virtual Machine") is a
+ new generation compiler technology. It is know that using \emph{LLVM}
+ and its family member \emph{clang} implementation of a new compiler
+ for a C-like language would be simplified (comparing to more traditional
+ techniques). One good example of industrial grade compiler based on
+ \emph{LLVM} is the \emph{XC} toolchain for \emph{XS-1} devices from
+ a UK semiconductor company \emph{XMOS} \cite{paper:xmos:docs:xcc}.
+
+ Nevertheless, currently \emph{nesC} compiler is known to be fully
+ functional and it's task is not as complex as it may seem. Programming
+ in any language is always done by applying code patterns, general
+ to some degree, to accomplish desired behaviour of a program.
+ The purpose of \emph{nesC} abstraction layer can be seen as making
+ the details of complex coding - with which high degree of modularity
+ can be achieved - rather hidden away from the programmer.
+
+
+\subsection{Network Protocols in TinyOS}
+ 
+  \TinyOS\ has become widely adopted and there are many researchers
+ who contributed significant work in different application areas, one
+ such area of great interest to WMI project is sensor node timer
+ synchronisation protocols. A number of papers are available and the
+ mainstream repository of \emph{TinyOS} source code already contains
+ implementations for some of those protocols.
+ \emph{( A few details with references needed )}
+  Further study and experimentation in this area are required to design
+ a system which could cope with real-time constraints of stage control
+ applications. It is important to note that \emph{P802.15.4} has addressed
+ some real-time application requirements, however the status of software
+ support for these features of \emph{P802.15.4} is currently uncertain.
+ \emph{( Perhaps mention NanoRX ? )}
+
+  After several aspects of \emph{TinyOS} were studied, it was clear
+ that its current implementation of \emph{6loWPAN} is fully compatible
+ with \emph{Contiki} and it had been desired to prove this in practice,
+ but this has not been achieved at the time of writing of this paper.
+  
+  A problem exists however, there was no fully working IP-enabled driver
+ for \emph{ATmega128RFA1} transceiver. The IP layers are provided by
+ \emph{BLIP} stack (this stands for Berkley Lightweight IP), the stack
+ is currently undergoing major development. Details on what is required
+ are available on \emph{TinyOS} wiki page \cite{tinyos:wiki:blip-2-0},
+ implementing it in \emph{nesC} was not as trivial due to the learning
+ curve. Therefore this task had be postponed.
+
+  This problem requires further explanation. \emph{TinyOS} has been
+ developed since 2001, while \emph{Contiki} first dates back to two
+ years later - 2003\footnote{\emph{No exact information has been
+ found, these are the earliest dates which appear in the source code.}}. 
+ In the early days of WSN research \emph{P802.15.4} and \emph{ZigBee}
+ where still emerging, the \emph{6loWPAN} RFCs appeared at IETF more
+ recently\footnote{\emph{The first revision of P802.15.4 was released
+ in 2003 (current revision is from 2006) and first draft of 6loWPAN
+ is dated April 2007.}}. \emph{TinyOS} has originally used its own
+ protocol called \emph{ActiveMessage}.
+
+  Currently \TinyOS\ incorporates \emph{BLIP} stack, which initially
+ was released by UC Berkley Wireless Embedded Systems research group
+ in the summer 2008, know as \emph{bl6lowpan} at that time \cite{ucb:webs:blip}.
+ As mentioned below, major code changes are currently still in progress.
+ The driver code which fully implements all new features of the \emph{BLIP}
+ stack (including point-to-point tunnelling for simple UART wired
+ connectivity) is only for the most popular \Chip{CC2420} radio chips.
+
+\subsection{Hardware Resources}
+
+  It is difficult to compare the two sets of what hardware platforms
+ \TinyOS\ and \Contiki\ had been ported to, since the status of support
+ for some platforms is uncertain. It is probably most appropriate to
+ say that these two sets are almost equal, however, some platforms
+ which appear in \Contiki\ source code, had not been ported to \TinyOS\
+ and vise versa. Two devices of interest to WMI project are \RFA\ and
+ \MCX. The issue with the first chip is already described above.
+ The second chip has not been ported to \TinyOS\ yet. This should not
+ be too difficult task to achieve considering that driver implementation
+ could be derived from \Contiki\ code. There also very noticeable
+ progress towards \emph{ARM Cortex} support\footnote{\emph{The homepage
+ of TinyOS Cortex project can be found at:
+ \URL{http://code.google.com/p/tinyos-cortex/}
+ The code structure was found to be well organised and most probably
+ can be relied upon. However it has not been desired to take this
+ challenge in the near future.}}, hence there is base for \emph{ARM}
+ devices (i.e. toolchain support and core architecture code).
+ 
+
+  There is a large repository of board design files featuring so called
+ \emph{Epic Mote} platform, that is base around \Chip{CC2420} and the
+ \Chip{MSP430} \cite{epic:homepage}. The most interesting designed by
+ Prabal Duta of UC Berkley \cite{duta:homepage} is shown in Figure
+ \ref{fig:mote:quanto}. The reason why it is so interesting is because
+ it features \emph{Digi Connect-ME} microprocessor system block that is
+ of standard RJ45 form-factor \cite{digi:connect-me}. This tiny device
+ has 55MHz \Chip{ARM7TDMI} CPU, 4MB of flash and 8MB of SDRAM as well as
+ hardware cryptographic unit and is capable to run Linux kernel and a
+ small subset of standard software in userspace, hence the advantage of
+ scripting languages can be utilised. Currently it is the smallest
+ device available on the market featuring such capabilities and
+ the unique form-factor. It is a very appropriate device to use for
+ wireless network edge gateway system, for example a hardware crypto
+ unit could accelerate secure tunneling of the network traffic. It
+ could be considered as a better solution instead of using a large
+ Ethernet chip, unless there would be a chip with a combination of
+ Ethernet and RF hardware in a single package.
+
+% INCLUDE THIS IMAGE:
+% http://www.cs.berkeley.edu/~prabal/projects/epic/epic-quanto.jpg
+
+
+\subsection{Conclusion}
+
+  Several steps were made in attempt to bring up \emph{TinyOS} on the
+ hardware chosen for this project earlier, though it appeared rather
+ unmanageable withing the give time frame. This is still a subject
+ of interest and shall be looked into at a later time. An evidence of
+ work carried out with \TinyOS\ code can be viewed on WMI website
+ issue tracker.
+
+\Tracker
+ \IssueX{30} Porting Radio Interface to BLIP 2.0
+ \end{description}
+
+%\URL{https://github.com/errordeveloper/tinyos-wmi/commits/wmi-work?author=errordeveloper}
+
+% number of bug tracker issues were filed on the WMI website
+
+
+
+%% to be added to the bibtex file:
+
+ %http://www.cs.berkeley.edu/~prabal/projects/epic/
+ %http://www.cs.berkeley.edu/~prabal/
+ %http://www.digi.com/products/wireless-wired-embedded-solutions/solutions-on-module/digi-connect/digiconnectme.jsp
+ %http://smote.cs.berkeley.edu:8000/tracenv/wiki/blip
+ %http://docs.tinyos.net/index.php/BLIP_2.0_Platform_Support_Guide
+ %http://standards.ieee.org/getieee802/download/802.15.4-2006.pdf
+ %http://standards.ieee.org/getieee802/download/802.15.4-2003.pdf
+ %http://tools.ietf.org/pdf/rfc4944.pdf

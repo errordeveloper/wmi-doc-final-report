@@ -1,0 +1,127 @@
+\section{Overview of Embedded Operating Systems} \label{sec:RTOS}
+
+		%% REWRITE !!
+
+   A subject of extensive research for this project has been into the
+  area of Real-Time Operating Systems for embedded devices, RTOS for short.
+  This family of operating systems is not like any other general
+  purpose OS family. The distinct feature that any RTOS has is the task
+  management in constrained time-scale, the term \emph{real-time} is relatively
+  abstract, it can be classified either as \emph{soft-} or \emph{hard-real-time}.
+  The classification is also an abstract matter, some operating systems provide
+  various approaches and it is up to the engineer to utilise it correctly for
+  any given application. Modern RTOS should provide communication
+  protocol stack and file storage drivers.
+ 
+ It is commonly known that RTOS is a rather expensive element in embedded design.
+ This is because until very recently most of well-know RTOS implementations were
+ provided only by specialised commercial vendors, brand names like \emph{Micrium},
+ \emph{VxWorks} and perhaps \emph{QNX} are popular in specific application fields
+ and there are also more obscure RTOS products offered at premium prices.
+
+ Currently the open sources community has presented a number of very interesting
+ RTOS projects, some of which are briefly introduced below. More details can be
+ found on the WMI website \cite{wmi:wiki:rtos} (all the general project URLs are
+ listed in that section of the website, and are omitted from the below text).
+ It is important to note that many of the project which are listed below
+ are originating from major universities, some of which previously gave
+ birth to very well know UNIX software.
+
+
+ \subsubsection{RTEMS} \label{sec:rtos:rtems}
+
+ The \emph{Real-Time Executive for Multiprocessor Systems} or \emph{RTEMS} is a
+ full featured RTOS that supports a variety of open API and interface standards.
+ It originates from US military and space exploration organisations. By definition
+ \emph{RTEMS} is a highly scalable system, i.e. it is designed for multi-processor 
+ deployment and is an interesting system to use for various possible applications,
+ \emph{RTEMS} appears to be the oldest open-source RTOS. Unlike other systems below,
+ the \emph{RTEMS} doesn't belong to sensor network OS sub-family on which this
+ project had been focused. 
+
+
+\subsubsection{TinyOS} \label{sec:rtos:tinyos}
+
+ \emph{TinyOS} originates from the University of California, Berkeley as a joint
+ project with a few important industry bodies \cite{links:tinyos:webs,
+ links:tinyos:homepage}. The approach of \emph{TinyOS} is very different from all
+ other systems, it uses a higher level abstraction language based on \emph{C},
+ which is called \emph{nesC}. It has a very modular semantics and some similarity
+ with Hardware Description Languages, such as \emph{VHDL} or \emph{Verilog}, can
+ be noticed. The name \emph{nesC} stands for "Network Embedded Systems C", in
+ analogy with HDL it describes application level connectivity of module interface,
+ protocols and drivers. Despite this high level of abstraction, compiled source
+ code is targeted for devices with limited compute resources \cite{links:tinyos:nesc}.
+ The \emph{TinyOS} development framework also includes a simulator \emph{TOSSIM}
+ \cite{links:tinyos:tossim}, which is a rather trivial element to design when
+ such level of abstraction is in place. At the start of the project \emph{TinyOS}
+ was of some interest, however it had been opted out in preference to \emph{Contiki}
+ for it's more tradition \emph{"plain C"} language abstractions. Nevertheless,
+ it had been tried out and more details can be found in this chapter under section
+ \ref{sec:TINYOS}.
+
+
+\subsubsection{Nano-RK} \label{sec:rtos:nanork}
+
+ \emph{Nano-RK} is a fully preemptive reservation-based RTOS, unlike
+ any others in this section it already contained source code for \RFA\
+ chip. The testing of \emph{Nano-RK} had been added to the project agenda.
+ This OS is developed by Carnegie Mellon University and there are various
+ interesting research papers available from the website
+ \cite{links:nanork:pubs, pubs:nrk07, pubs:nrk06b, pubs:nrk06a}.
+ Some particular features to mention are an implementation of real-time
+ wireless communication protocol for voice signal transmission \cite{pubs:nrk06a}
+ and a presence of an audio device driver within \emph{Nano-RK} kernel.
+
+
+\subsubsection{Contiki - "The OS of Things"} \label{sec:rtos:contiki}
+
+ {\emph{"Contiki is an open source, highly portable, multi-tasking operating
+ system for memory-efficient networked embedded systems and wireless
+ sensor networks. Contiki is designed for microcontrollers with small
+ amounts of memory. A typical Contiki configuration is 2kB of RAM
+ and 40kB of ROM.}}
+ 
+ {\emph{"Contiki provides IP communication, both for IPv4 and IPv6. (\dots)}}
+ 
+ {\emph{"Many key mechanisms and ideas from Contiki have been widely adopted in
+ the industry. The uIP embedded IP stack, originally released in 2001, is today used
+ by hundreds of companies in systems such as freighter ships, satellites
+ and oil drilling equipment. (\dots) Contiki's protothreads, first released
+ in 2005, have been used in many different embedded systems, ranging from
+ digital TV decoders to wireless vibration sensors.}}
+ 
+ {\emph{"Contiki introduced the idea of using IP communication in low-power
+ sensor networks networks. This subsequently lead to an IETF standard and
+ the IPSO Aliance, an international industry alliance. TIME Magazine
+ listed Internet of Things and the IPSO Alliance as the 30th most
+ important innovation of 2008.}}
+ 
+ {\emph{"Contiki is developed by a group of developers from industry and
+ academia lead by Adam Dunkels from the Swedish Institute of Computer
+ Science. The Contiki team currently consists of sixteen developers from
+ SICS, SAP AG, Cisco, Atmel, NewAE and TU Munich."} \cite{contiki:home}
+
+ Many publication by Adam Dunkels can be found on the SICS website
+ \cite{dunkels04contiki, tsiftes09enabling}. He is also an author of
+ two recent textbooks on IP WSN subject \cite{dunkels09operating,
+ vasseur10interconnecting}. In addition, there is a reach set of simple
+ code examples illustrating basic applications. The source code has
+ well-defined directory hierarchy, build system and programming style
+ \cite{contiki:code:style}.
+
+ \emph{Contiki} provides a very simple API for advanced functions, such as
+ real-time task scheduling, \emph{protothread} multitasking, filesystem access,
+ event timers, TCP \emph{protosockets} and other networking features.
+
+ More detailed description \emph{Contiki} is provided in this chapter
+ under section \ref{sec:CONTIKI}.
+  
+  \emph{Contiki} includes a large set of stable drivers for various
+ RCBs which were mentioned previously, such as \emph{Zolertia Z1}, \emph{Tmote
+ Sky}, \emph{Atmel} \Chip{RF230}\emph{-based} and \emph{Raven} boards,
+ \emph{TI} \Chip{CC2430} and \emph{MSP430} as well as \emph{ARM Conrtex-MX}
+ and many older devices, including \emph{Comondore 64} and \emph{Apple II}
+ computers. Details regarding the \Chip{MC1322x} port \cite{links:contiki:port:mc1322x}
+ are to follow in this chapter, since \Chip{MC1322x} has been chosen as
+ the target platfrom of this project.

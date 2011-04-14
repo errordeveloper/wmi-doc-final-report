@@ -1,7 +1,3 @@
-\newcommand{\contiki}{\emph{Contiki}
-\newcommand{\contikios}{\emph{Contiki OS}}
-\newcommand{\tos}{\emph{TinyOS}
-
 %% in introduction part:
 
   The major emphasis of this project had been in the area of development
@@ -15,7 +11,7 @@
  for wireless sensor networks. Current best practice suggests that IP-enabled
  networking technology is most suitable for its global adoption, hence simple
  to integrate with various existing applications. It is rather difficult to
- imagine where in the modern technology world a non-IP network may be useful.
+ imagine where in the modern technology world a non-IP network may be useful.%% 
  The closes reference to this can be found in papers published by IPSO 
  \cite{IPSO_PAPERS} and general industry trends. Certainly non-IP networking
  technology is available on the market, however if such device are going to
@@ -41,211 +37,7 @@
  currently provided by the \emph{Contiki OS}. Due to the time limit for
  this project, various alternatives were considered.
 
-\subsection{TinyOS}
 
-  It has been discovered that a few members of \emph{TinyOS} community
- have recently worked on porting \emph{TinyOS} to run on \Chip{ATmega128RFA1}
- \cite{tinyos:arch:rfa1-p1,tinyos:arch:rfa1-p2}. Comparing to \emph{Contiki},
- \emph{TinyOS} has rather superior abstraction layer that provides a seamless 
- cross-platform integration \cite{tinyos:tepXXX,tinyos:tepYYY,tinyos:tepZZZ}.
- 
-  Various internal of \emph{TinyOS} had been studied, however it is
- certainly a very broad area to be described here. It is best described
- in the "TinyOS Programming" book by David Gay and Philip Levis (it is
- available in print as well as web-edition \cite{tinyos:book}). Two
- authors of this book are lead developer of the \emph{TinyOS} project
- and are currently working at the University of California, Berkley
- and Standford.
-
-\subsubsection{Programming TinyOS: Compilers and Abstractions}
-
-  The greatest achievement of \emph{TinyOS} is its specialised language,
- benefits of which had been overlooked at the earlier stage of research
- for this project. "Network Embedded Systems C" (nesC) was designed
- especially \dots
-
- \emph{TinyOS} currently had been ported to a variety of 8-, 16- and
- 32-bit microcontrollers, most of the peripherals (such as I2C and SPI)
- have unified high-level access mechanisms, unlike in \emph{Contki}.
- Most of development documentation is provided as "TinyOS Enhancement
- Proposals" (known as TEPs), and there is also documentation generated
- from code (\emph{nescdoc}) as well as various on-line resources and
- the companion book mentioned above. %% REFERENCES NEEDED %%
-
- It is important to note that current implementation of the compiler
- translates higher-level nesC code into C language. The resulting
- programs are specifically suited for embedded devices. Direct
- compilation would be possible and, if desired, there is an interesting
- platform to look into. \emph{LLVM} ("Low-level Virtual Machine") is a
- new generation compiler technology. It is know that using \emph{LLVM}
- and its family member \emph{clang} implementation of compiler for
- a C-like language would be simplified (comparing to more traditional
- techniques). One good example of industrial grade compiler based on
- \emph{LLVM} is the \emph{XC} toolchain for \emph{XS-1} devices from
- a UK semiconductor company \emph{XMOS} \cite{paper:xmos:docs:xcc}.
-
- Nevertheless, currently \emph{nesC} compiler is known to be fully
- functional and it's task is not as complex as it may seem. Programming
- in any language is always done by applying code patterns, general
- to some degree, to accomplish desired behaviour of a program.
- The purpose of \emph{nesC} abstraction layer can be seen as making
- the details of complex coding - with which high degree of modularity
- can be achieved - rather hidden away from the programmer.
-
-  \emph{TinyOS} has become widely adopted and there are many researcher
- who contributed significant work in different application areas, one
- such area of great interest to WMI project is sensor device time
- synchronisation protocols. A number of papers are available and the
- mainstream repository of \emph{TinyOS} source code already contains
- implementations for some of those protocols.
- ( A few details with references needed )
-  Further study and experimentation in this area are required to design
- a system which could cope with real-time constraints of stage control
- applications. It is important to note that \emph{P802.15.4} has addressed
- some real-time application requirements, however the status of software
- support for these features of \emph{P802.15.4} is currently uncertain.
- ( Perhaps mention NanoRX ? )
-
-\subsubsection{Network Protocols in TinyOS}
- 
-  After several aspects of \emph{TinyOS} were studied, it was clear
- that its current implementation of \emph{6loWPAN} is fully compatible
- with \emph{Contiki} and it had been desired to prove this in practice.
- However it has not been achieved at the time of writing of this paper.
-  
-  A problem exists however, there was no fully working IP-enabled driver
- for \emph{ATmega128RFA1} transceiver. The IP layers are provided by
- \emph{BLIP} stack (this stands for Berkley Lightweight IP), the stack
- is currently undergoing major development. Details on what is required
- are available on \emph{TinyOS} wiki page \cite{tinyos:wiki:blip-2-0},
- implementing it in \emph{nesC} was not as trivial due to the learning
- curve. Therefore this task had be postponed.
-
-  This problem requires further explanation. \emph{TinyOS} has been
- developed since 2001, while \emph{Contiki} first dates back to two
- years later - 2003\footnote{\emph{No exact information has been
- found, these are the earlies dates which appear in the source code.}}. 
- In the early days of WSN research \emph{P802.15.4} and \emph{ZigBee}
- where still emerging, the \emph{6loWPAN} RFCs appeared at IETF more
- recently\footnote{\emph{First revision of P802.15.4 was released in
- 2003 (latest revision in 2006) and first draft of 6loWPAN is dated
- April 2007.}}. \emph{TinyOS} has originally used its own protocol
- called \emph{ActiveMessage}.
-
-  Currently \emph{BLIP} stack was released by UC Berkley WEBS Wireless
- Embedded Systems research group in the summer 2008, know as \emph{
- bl6lowpan} then \cite{ucb:webs:blip}. As mentioned below, at the time
- of writing major code changes had been still in progress. The driver
- code which fully implements all new features of \emph{BLIP} stack
- (including point-to-point tunnelling for USB connectivity) is only
- for the most popular \Chip{CC2420} radio chips.
-
-\subsubsection{Hardware Resources}
-
- There is a large repository of board design files featuring so called
- \emph{Epic Mote} platform, that is base around \Chip{CC2420} and the
- \Chip{MSP430} \cite{epic:homepage}. The most interesting device
- designed by Prabal Duta \cite{duta:homepage} is shown in Figure
- \ref{fig:mote:quanto}. The reason why it is so interesting is because
- features \Chip{Digi Connect ME} microprocessor system block that is
- of standard RJ45 form factor \cite{digi:connect-me}. This tiny device
- has 55MHz ARM7TDMI CPU, 4MB of flash and 8MB of SDRAM as well as
- hardware cryptographic unit and capable of running Linux OS.
-
-
-% INCLUDE THIS IMAGE:
-% http://www.cs.berkeley.edu/~prabal/projects/epic/epic-quanto.jpg
-
-\subsubsection{Conclusion}
-
-  Several step were made in attempt to bring up \emph{TinyOS} on the
- hardware chose for this project earlier, though it appeared rather
- unmanageable withing the give time frame. This is still a subject
- of interest and shall be look into at a later time.
- %FOOTNOTE https://github.com/errordeveloper/tinyos-wmi/commits/wmi-work?author=errordeveloper
-
-%% to be added to the bibtex file:
-
- %http://www.cs.berkeley.edu/~prabal/projects/epic/
- %http://www.cs.berkeley.edu/~prabal/
- %http://www.digi.com/products/wireless-wired-embedded-solutions/solutions-on-module/digi-connect/digiconnectme.jsp
- %http://smote.cs.berkeley.edu:8000/tracenv/wiki/blip
- %http://docs.tinyos.net/index.php/BLIP_2.0_Platform_Support_Guide
- %http://standards.ieee.org/getieee802/download/802.15.4-2006.pdf
- %http://standards.ieee.org/getieee802/download/802.15.4-2003.pdf
- %http://tools.ietf.org/pdf/rfc4944.pdf
-
-
-\section{Contiki OS Development Platform}
-
-  Examining the code for various hardware platforms in the source
- tree of \emph{Contiki OS}, it was understood that \chip{MC1322x}
- devices from \emph{Freescale} is organised in a much clearer way.
- Current implementation appeares to support most of important
- features of these chips and in general these are very robust
- devices. As mentioned earlier \Chip{MC1322x} is an \Chip{ARM7TDMI}
- microcontroller with fully integrated radio and the only component
- external to the chip itself is the antenna. Apart from this, the
- \emph{Freescale} device has an outstanding set of peripheral and
- rather large amount of memory (128KB of flash, 96KB of RAM and
- 80K of ROM) the processor clock frequency is 24MHz.
-
-\sussection{MC1322x Architecture Overview}
-
- Below is the diagram of \Chip{MC1322x} \emph{Platform in Package}
- \emph{PiP}.
-% INCLUDE THIS IMAGE:
-% http://cache.freescale.com/files/graphic/block_diagram/2150_MC1322X_BD.gif
-
-  In addition to standard peripherals (UART, 12 A/D converters,
- SPI and I2C) this device has Synchronous Serial Interface (SSI)
- that would allow communication with I2S devices as well other
- synchronous serial peripherals. Being a 32-bit microcontroller
- it can be used for some basic audio signal processing. For example,
- with \emph{Analog Devices} \Chip{ADMP441} omnidirectional microphone
- with 24-bit I2S digital output \cite{datasheet:adi:ADMP441} an
- acoustic measurement sensor node can be designed. According to the
- datasheet, \Chip{ADMP441} has a very linear frequency response in
- the band between 100Hz to 15kHz. Such wireless node would be
- suitable for field noise measurement at popular music festivals
- or construction sites and industrial areas.
- Another sensor that could be included on such board would be an
- accelerometer, according to \emph{Freescale Application
- Note AN3751} \cite{appnote:freescale:AN3751} by utilising standard
- DSP techniques on accelerometer signal data, various vibration
- frequency analysis results can be produced.
-
-%% to be added to the bibtex file:
-
- %http://www.freescale.com/files/rf_if/doc/ref_manual/MC1322xRM.pdf
- %http://www.freescale.com/files/rf_if/doc/app_note/AN3751.pdf
- %http://www.analog.com/static/imported-files/data_sheets/ADMP441.pdf
- 
-%% write about freescale usb stick and the Econotag, include circuits
-
-\subsection{MC1322x Development Hardware}
-
-  The homepage of \Chip{MC1322x} port of \contiki has a detailed
- overview of what development boards are available \cite{homepage:mc1322x:hw}.
- Two boards which were chosen for this project are \emph{Freescale
- 1322xUSB} and \emph{Redbee Econotag}.
- \emph{1322xUSB} is a very small USB device that doesn't provide the
- access to any of the pin and therefore is well suited as a network
- gateway. \emph{Redbee Econotag} is an open-source development board.
-  Circuit diagrams are shown in figures \ref{cir:econotag} and 
- \ref{cir:freescale-usb}.
-
-\subsubsection{Redbee Econotag}
-
-  The \emph{Econotag} is specifically design to meet all important
- requirenements of a development board with very constrained bill of
- materials. The board provides access to all of the I/O pins and
- and is very convenient for programming and debugging. Both of these
- functions are achived with the help of dual-port USB UART chip,
- \emph{FTDI} \Chip{FT2??} \ref{datasheet:ftdi:dual}. One of the two
- ports is connected 
-
- 
 
 %%%%% last part
 
@@ -289,11 +81,69 @@
  %http://www.omappedia.org/wiki/DSPBridge_Project
  %http://www.omappedia.org/wiki/PandaBoard
 
+\subsection{ARM Cortex}
+
+% Freescale i.MX family info:
+% http://cache.freescale.com/files/32bit/doc/brochure/FLYRIMXPRDCMPR.pdf
+%^% NO DETAILS ABOUT NEON/VFP specified !!
+
+% i.MX31 - mid range (532 MHz ARM1136JF-S)
+% i.MX31 has VFP:
+% http://www.freescale.com/webapp/sps/site/prod_summary.jsp?code=i.MX31
+% http://www.freescale.com/files/32bit/doc/ref_manual/MCIMX31RM.pdf
+%^% NOT MUCH APART FROM THE VFP.
+
+% i.MX53 - top end of the family (1 GHz ARM Cortex-A8)
+% i.MX535 and i.MX538 Applications Processors Fact Sheet 
+% http://www.freescale.com/webapp/sps/site/overview.jsp?code=IMX53_FAMILY
+% http://cache.freescale.com/files/32bit/doc/fact_sheet/IMX5CNFS.pdf
+%^% IT SAYS THAT A BASIC DEV BOARD IS JUST $150, WITH TOUCHSCREEN - $200
+% i.MX538 has NEON and VFP + SATA:
+% http://www.freescale.com/webapp/sps/site/prod_summary.jsp?code=i.MX538
+% http://www.freescale.com/files/32bit/doc/ref_manual/iMX53RM.pdf
+
+\subsection{Building Embedded Linux OS}
+
+
+\subsubsection{Background}
+
+  Until quite recently, it had been rather more difficult to achieve
+ the task of building embedded (custom) Linux system. Traditionally,
+ the engineer who desired to do so, would need to follow instruction
+ provided in the reference book \emph{"Linux from Scratch"}, commonly
+ known as \emph{LFS} \cite{book:lfs}. This text provides details on
+ how to utilise various tools for building an embedded Linux kernel
+ and the file system from source, it discusses how to tweak various
+ features at build time and configure appropriate runtime services.
+
+\subsubsection{Build Utilities}
+ 
+  More recently an number of project emerged, which do a
+ great job of extending the flexibility by automating some of the
+ simpler task, e.g. package dependency tracking and build version
+ control (enabling the maintainer to revert to previous builds).
+ One of the most outstanding and widely used projects in the areas
+ is \emph{OpenEmbedded} \cite{links:oe} it has recently been adopted
+ by a major software company \emph{Mentor Graphics}. \emph{Mentor
+ Embedded Linux} extends \emph{OpenEmbedded} framework with a set
+ of tools which are useful in a large-scale development project.
+ 
+  There a few alternative approaches which lead to similar results,
+ one may wish to use \emph{Gentoo Linux} meta-distribution.
+ Generally, there is no big difference between \emph{Gentoo} and
+ \emph{OpenEmbedded}. Many internals are know to be very similar,
+ tough \emph{Gentoo} doesn't provide some specialised tools which 
+ are provided in \emph{OpenEmbedded}, hence \emph{Gentoo} has been
+ originally designed for custom desktop and server systems.
+ The conclusion is that \emph{OpenEmbedded} is most like to be
+ more convenient to use for an embedded target.
+ 
 
 \subsection{Conclusion}
 
-  It had been desired to build an embedded DSP host system as one of
- addition project targets, however due to various limitations, including
- the time frame, the project has not achieved this at the time of
- writing of the final report.
+  It had been desired to build an embedded DSP host OS as one of
+ additional project targets, however due to various limitations, most
+ importantly - the time frame, the project has not achieved this at
+ the time of writing of the final report. The above section had included
+ to provide the evidence of research in this area.
 
