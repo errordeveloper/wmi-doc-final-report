@@ -1,0 +1,88 @@
+\subsection{Building Embedded Linux OS}
+
+\subsubsection{Background}
+
+  Until quite recently, it had been rather more difficult to achieve
+ the task of building embedded (custom) Linux system. Traditionally,
+ the engineer who desired to do so, would need to follow instruction
+ provided in the reference book \emph{"Linux from Scratch"}, commonly
+ known as \emph{LFS} \cite{book:lfs}. This text provides details on
+ how to utilise various tools for building an embedded Linux kernel
+ and the file system from source, it discusses how to tweak various
+ features at build time and configure appropriate runtime services.
+
+\subsubsection{Build Utilities}
+ 
+  More recently an number of project emerged, which do a
+ great job of extending the flexibility by automating some of the
+ simpler task, e.g. package dependency tracking and build version
+ control (enabling the maintainer to revert to previous builds).
+ One of the most outstanding and widely used projects in the areas
+ is \emph{OpenEmbedded} \cite{links:oe} it has recently been adopted
+ by a major software company \emph{Mentor Graphics}. \emph{Mentor
+ Embedded Linux} extends \emph{OpenEmbedded} framework with a set
+ of tools which are useful in a large-scale development project.
+ 
+  There a few alternative approaches which lead to similar results,
+ one may wish to use \emph{Gentoo Linux} meta-distribution
+ \cite{links:gentoo:embedded}.
+ Generally, there is no big difference between \emph{Gentoo} and
+ \emph{OpenEmbedded}. Many internals are know to be very similar,
+ tough \emph{Gentoo} doesn't provide some specialised tools which 
+ are provided in \emph{OpenEmbedded}, hence \emph{Gentoo} has been
+ originally designed for custom desktop and server systems.
+ The conclusion is that \emph{OpenEmbedded} is most like to be
+ more convenient to use for an embedded target.
+ 
+  A little different approach can be taken with \emph{BuildRoot}
+ \cite{links:buildroot:homepage}, which is a build system for
+ embedded Linux based around the same framework which was design
+ for configuring the Linux kernel builds. This tool is a set of
+ scripts controlled via a console menu. Although, it appears to
+ have a simple to use front-end, the underlying configuration
+ system is certainly behind the competition with \emph{OpenEmbedded}.
+
+  A project which have a slightly different orientation is
+ \emph{ScratchBox} \cite{links:sbox:homepage}. It provide a
+ cross-compilation toolkit for an application developers.
+ However it is rather limited in various ways, i.e it a
+ distribution rather then a build system.
+ 
+  Another project in this area of interest is \emph{Linaro Foundation}
+ \cite{links:linaro:about}, the initiative has been originated by
+ London-based \emph{Canonical Limited} (the company behind now most
+ popular Linux distribution - \emph{Ubuntu}).
+ The purpose of \emph{Linaro} is to improve various issues related to
+ embedded Linux and provide a higher grade platform for Android and
+ other multimedia and consumer oriented distribution. \emph{Linaro} is
+ still an emerging project and has not produced any significant output
+ \cite{links:linaro:homepage}. It has specific orientation in terms of
+ hardware, being currently involved only with \emph{ARM} platform and
+ in terms software it is bound to \emph{Ubuntu} methodology.
+
+\subsection{Conclusion}
+
+  It had been desired to build an embedded DSP host OS as one of
+ additional project targets, however due to various limitations, most
+ importantly - the time frame, the project has not achieved this at
+ the time of writing of the final report. The above section had included
+ to provide the evidence of research in this area.
+
+% Mentor Embedded Linux - Technical Brief
+% by Mentor Graphics Corporation
+% http://www.mentor.com/embedded-software/upload/embedded-linux-brief.pdf
+
+% OpenEmbedded - User Manual
+% http://docs.openembedded.org/usermanual/usermanual.pdf
+
+% BuildRoot - Home Page
+% http://buildroot.uclibc.org/
+
+% Linaro - Foundation Home Page
+% http://www.linaro.org/about-linaro/
+
+% ScratchBox - Project Home Page
+% http://www.scratchbox.org/
+
+% Gentoo Linux - Embedded Handbook
+% http://www.gentoo.org/proj/en/base/embedded/handbook/
