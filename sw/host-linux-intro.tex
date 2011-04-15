@@ -1,37 +1,43 @@
-\subsection{Building Embedded Linux OS}
+\section{Building Embedded Linux OS}
 
-\subsubsection{Background}
+\subsection{Background}
 
   Until quite recently, it had been rather more difficult to achieve
  the task of building embedded (custom) Linux system. Traditionally,
- the engineer who desired to do so, would need to follow instruction
+ the engineer who desired to do so, would need to follow instructions
  provided in the reference book \emph{"Linux from Scratch"}, commonly
  known as \emph{LFS} \cite{book:lfs}. This text provides details on
  how to utilise various tools for building an embedded Linux kernel
  and the file system from source, it discusses how to tweak various
  features at build time and configure appropriate runtime services.
 
-\subsubsection{Build Utilities}
+\subsection{Build Utilities}
  
-  More recently an number of projecs emerged, which do a
- great job of extending the flexibility by automating some of the
- simpler tasks, e.g. package dependency tracking and build version
- control (enabling the maintainer to revert to previous builds).
+  More recently, a number of projects emerged, which do a great job
+ of extending the flexibility by automating some of the simpler
+ tasks, e.g. package dependency tracking and build version control
+ (enabling the maintainer to revert to previous builds).
  One of the most outstanding and widely used projects in this areas
  is \emph{OpenEmbedded} \cite{links:oe} it has recently been adopted
  by a major software company \emph{Mentor Graphics}. \emph{Mentor
  Embedded Linux} extends \emph{OpenEmbedded} framework with a set
  of tools which are useful in a large-scale development project.
  
-  There a few alternative approaches which lead to similar results,
- one may wish to use \emph{Gentoo Linux} meta-distribution
- \cite{links:gentoo:embedded}.
- Generally, there is no big difference between \emph{Gentoo} and
- \emph{OpenEmbedded}. Many internals are know to be very similar,
- tough \emph{Gentoo} doesn't provide some specialised tools which 
- are provided in \emph{OpenEmbedded}, hence \emph{Gentoo} has been
- originally designed for custom desktop and server systems.
- The conclusion is that \emph{OpenEmbedded} is most like to be
+  There are a few alternative approaches which lead to similar results,
+ one may wish to use \emph{Gentoo Linux} meta-distribution, there
+ is only one source of documentation - \emph{"Gentoo Linux Embedded
+ Handbook"} \cite{links:gentoo:embedded}. Generally, \emph{Gentoo}
+ framework (named {\emph{Portage}) has all necessary components
+ which a system designer may need and there is no big difference
+ between \emph{Gentoo} and \emph{OpenEmbedded}. Many internals
+ are known to be very similar, tough \emph{Gentoo} doesn't provide
+ some specialised tools which are provided in \emph{OpenEmbedded},
+ hence \emph{Gentoo} has been originally designed for custom
+ desktop and server systems. Major aspect which is different is
+ that \emph{Gentoo} is rather bound to package releases, while
+ \emph{OpenEmbedded} is more flexible when a development revision
+ number has to be specified for a certain source code package.
+ The conclusion is that \emph{OpenEmbedded} is most likely to be
  more convenient to use for an embedded target.
  
   A little different approach can be taken with \emph{BuildRoot}
@@ -44,9 +50,12 @@
 
   A project which have a slightly different orientation is
  \emph{ScratchBox} \cite{links:sbox:homepage}. It provides
- a cross-compilation toolkit for an application developers.
- However it is rather limited in various ways, i.e it is a
- static distribution, rather then a build system.
+ a cross-compilation toolkit for application developers.
+ It can be used to provide an SDK for a 3rd-party developer
+ with appropriate toolchain and hardware emulator. However,
+ \emph{OpenEmbedded} includes support for building SDK and
+ \emph{ScratchBox} is rather limiting in various ways, i.e.
+ it is a static distribution, rather then a build system.
  
   Another project in this area of interest is \emph{Linaro Foundation}
  \cite{links:linaro:about}, the initiative has been originated by
@@ -64,10 +73,11 @@
 \subsection{Conclusion}
 
   It had been desired to build an embedded DSP host OS as one of
- additional project targets, however due to various limitations, most
- importantly - the time frame, the project has not achieved this at
- the time of writing of the final report. The above section had included
- to provide the evidence of research in this area.
+ additional project targets, however due to various\footnote{\emph{
+ Another aspect was due to hardware selection and purchasing issues.}}
+ limitations, most importantly - the time frame, the project has not
+ achieved this at the time of writing of the final report. The above
+ section was included to provide the evidence of research in this area.
 
 % Mentor Embedded Linux - Technical Brief
 % by Mentor Graphics Corporation

@@ -1,0 +1,127 @@
+\section{DSP Host Hardware}
+
+  A set of hardware platforms suitable for DSP host were considered.
+ Among those are the following:
+ 	\begin{itemize}
+		\item \emph{Analog Devices SHARC}
+		\item \emph{ARM:} \begin{itemize}
+		\item \emph{Marvell Sheeva}
+		\item \emph{Texas Instruments OMAP}
+		\item \emph{Freescale i.MX}
+		\end{itemize}
+	\end{itemize}
+ All of these processor architectures are fully supported and widely
+ used in embedded systems. Various other architecture families were
+ considered, but found rather inappropriate due to the price range
+ dictated by the target of this project. Multi-core \emph{MISP64}
+ devices by \emph{NetLogic} \cite{netlogic:mips64:multicore}, for
+ example, have great computational capacity, thought these are too
+ expensive for this particular application.
+
+\subsection{x86-based Embedded Devices}
+
+  The list above does not include \emph{x86}-based CPUs due to the
+ fact that it had been very difficult to find a target board using
+ Intel or any \emph{x86} CPU from other vendors. There are many boards
+ from a large variety of manufacturers, hence the selection process
+ becomes particularly time consuming. Quality evaluation would also
+ be necessary\footnote{\emph{Due to the scale of production in this
+ market, there is a great chance to obtain a device with a failure.}},
+ when looking at \emph{x86} devices. Although, there are boards that
+ would match the low-power and small form-factor requirements, most
+ of these are with a handful of peripherals, for example low quality
+ audio and video interfaces and, if these are not present, the board
+ may have two or more RS-232 connectors. Another aspect of \emph{x86}
+ system design is that it comes with legacy \emph{BIOS} technology,
+ while most of \emph{ARM} systems, for example, have rather more
+ flexible facilities for booloader and set-up.
+
+  Nevertheless, an \emph{x86} machine has been used for most of the
+ development work on this project, that is for a rather transparent
+ reason.
+
+\subsection{OMAP}
+
+  The \emph{OMAP} application processors form \emph{TI} has become
+ popular in the open-source community, and in fact \emph{TI} promotes
+ Linux and Android as most suitable operating systems for this platform.
+ The \emph{OMAP} architecture is based around an \emph{ARM} processor
+ (there are various models with different versions of \emph{ARM} core)
+ and \emph{TI C64x} DSP block. However, there is a little problem
+ associated with how the DSP unit is integrated with the CPU.
+ Very limited documentation is provided on how it can be used in the
+ \emph{Linux} environment \cite{ti:omap:wiki:dsp}.
+
+ One most outstanding development platform that uses an \emph{OMAP}
+ chips with dual-core \emph{Cortex-A8} CPU clocked at 1GHz, is the
+ \emph{PandaBoard} \cite{ti:omap:wiki:pb}, however it is available
+ for back-order only, the maker is producing these boards on demand
+ and the lead time would be at least one month. Otherwise this board
+ would have been purchased despite the fact that DSP unit would be
+ difficult to utilised.
+
+ %http://www.omappedia.org/wiki/DSPBridge_Project
+ %http://www.omappedia.org/wiki/PandaBoard
+
+\subsection{Other ARM CPUs}
+
+  \emph{ARM} CPUs are produced by almost any major semiconductor firm,
+ so do \emph{Freescale} and \emph{Marvell}. Not all of those companies
+ make very high performance \emph{ARM} chips, i.e. clocked near to 1GHz,
+ and few make multi-core CPUs. And only some CPUs have an FPU.
+ \emph{ARM} floating point instruction set is know as \emph{VFP}
+ ("Vector Floating Point"). There are different versions of \emph{VFP},
+ though in this context this wasn't a concern.
+
+\subsubsection{Marvell Sheeva}
+
+  \emph{Marvell} has originally started offering \emph{ARM} processors
+ since their purchase of Intel's \emph{PXA} devision. Now \emph{Marvell}
+ produces a series of high-performance \emph{ARM} chips, most of which
+ are multi-core. \emph{Sheeva} is the brand name for these SoC devices.
+ The clock frequency ranges from 800 MHz to 1.6 GHz, gigabit Ethernet
+ is one of the outstanding features, since \emph{Marvell} specialises
+ in the networking and storage IC market. As mentioned above, most
+ important feature of \emph{ARM} chips that is necessary for the design
+ of DSP host for this project is \emph{VFP}. Some of \emph{ARMADA}
+ SoCs include \emph{VFP}, namely \emph{ARMADA XP} series,
+ \emph{ARMADA 510} and \emph{610} \cite{links:marvell:armada}.
+ \emph{Kirkwood} series are not featuring \emph{VFP}, thought there
+ are some outstanding embedded development platforms available.
+
+  \emph{Plug Commputer} (also know as \emph{Seeva Plug}) is small, yet
+ very powerful computer in a form-factor of wall socket DC adaptor
+ \cite{links:marvell:plug,links:plugcomp:homepage}. There many exciting
+ application where these devices could be the best fit, thought due to
+ above mentioned lack of \emph{VFP}, this CPU is not well suited as the
+ DSP host.
+
+% Marvell Semiconductor, Inc. - ARMAD Processor Family
+% http://www.marvell.com/products/processors/armada.html
+% http://www.marvell.com/platforms/plug_computer/
+% http://www.plugcomputer.org/
+
+\subsubsection{Freescale i.MX}
+% Freescale i.MX family info:
+% http://cache.freescale.com/files/32bit/doc/brochure/FLYRIMXPRDCMPR.pdf
+%^% NO DETAILS ABOUT NEON/VFP specified !!
+
+% i.MX31 - mid range (532 MHz ARM1136JF-S)
+% i.MX31 has VFP:
+% http://www.freescale.com/webapp/sps/site/prod_summary.jsp?code=i.MX31
+% http://www.freescale.com/files/32bit/doc/ref_manual/MCIMX31RM.pdf
+%^% NOT MUCH APART FROM THE VFP.
+
+% i.MX53 - top end of the family (1 GHz ARM Cortex-A8)
+% i.MX535 and i.MX538 Applications Processors Fact Sheet 
+% http://www.freescale.com/webapp/sps/site/overview.jsp?code=IMX53_FAMILY
+% http://cache.freescale.com/files/32bit/doc/fact_sheet/IMX5CNFS.pdf
+%^% IT SAYS THAT A BASIC DEV BOARD IS JUST $150, WITH TOUCHSCREEN - $200
+% i.MX538 has NEON and VFP + SATA:
+% http://www.freescale.com/webapp/sps/site/prod_summary.jsp?code=i.MX538
+% http://www.freescale.com/files/32bit/doc/ref_manual/iMX53RM.pdf
+
+\subsection{SHARC}
+
+  The DSP instruction can be used directly and a library is provided
+ which \dots blah \dots blah.
