@@ -1,0 +1,64 @@
+\subsection{Test Results}
+
+  The most generic test that provides nearly ultimate performance measure
+ for an IP network, is the \texttt{ping} test. No other particular formal
+ tests were yet performed during the work on this project, however some
+ possible test scenarios had been considered. Firstly the graphs obtained
+ from several ping test shall presented.
+
+\subsubsection{Latency Measurement}
+
+  \dots
+
+  These results are deliberately presented on separate graphs for clarity.
+ Even if simultaneous ping tests were to be attempted, those may not be
+ combined in one-to-one graphs, unless the size of the network had been
+ greater then 2 nodes. Then it would be appropriate to consider overlaying
+ the datasets based on latency intervals, instead of sequential timebase
+ as presented here.
+
+  \dots
+
+\subsubsection{Other Test Scenarios}
+
+  It had been desired to set-up such test, where a MIDI device would send
+ data to a wireless link and to a wired with MIDI interface simultaneously,
+ however wireless transceivers would need to provide packet timestamping.
+ Otherwise no precise measurement can be taken. This facility can be added
+ to \MCX\ driver code, though it has not yet been studied how this would
+ need to be implemented. It would need to synchronise the timer with host
+ clock, which adds more complexity to this problem. Without synchronisation
+ protocol there no particular use for hardware packet timestamps.
+
+ %% CAN WE DO A BASIC LOOPBACK TEST WITH A RUBY SCRIPT ?
+ 
+ %% provide URL where ruby scripts can be found on github.
+
+\subsubsection{Throughput Observations}
+
+  An attempt has been made to measure the throughput of wireless MIDI link,
+ nevertheless this appeared quite difficult to measure. Certainly more work
+ is required to find out the most accurate way to calculate the statistics
+ of bytes arriving from the MIDI port and bytes received on the other end
+ of the wireless link. The reason why this has become difficult is because
+ the estimate figures are worse then expected and do not match from one
+ test to another. Use of dedicated hardware would be desired here, which
+ can be done by utilising an additional microcontroller, though that could
+ not be implemented by the deadline of this report.
+  A graph in figure \ref{fig:tests:stat1} shows the worst case of system
+ throughput. This measurements were take once before improved algorithm
+ with additional polling callback was implemented. After this had been
+ added to the program, the code which statistics were relying upon has
+ evolved to more complex form and new statistics methods are needed now.
+ The current implementation can be viewed in the repository, it has omitted
+ from the program listing \ref{app:code:talker} for clarity.
+ First attempt to implement those methods has not demonstrated the same
+ level of improvements which has been observed, clearly there a few bugs
+ due to race conditions between the counter variables. Most important is
+ the fact that visual improvement had been made with the polling callback.
+ However, It should be noted that this problem is not due to statics code.
+ What appears to be the bottleneck of throughput is the scheduling of packet
+ transmission. Further work is require to achieve suitable results with
+ \Contiki\ and \emph{uIP}, in-depth study of the system core implementation
+ is necessary to resolve this issue.
+
