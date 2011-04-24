@@ -45,8 +45,8 @@
 %	\MAN{gcc}
 %	\MAN{2, open}
 
-\newcommand{\MAN}[1]{\AltRef{\emph{\texttt{#1}{http://manpages.debian.net/cgi-bin/man.cgi\?query=#1\&sektion=0\&format=pdf}{\cite{doc:linux:man:0:#1}}
-\newcommand{\MANX}[2]{\AltRef{\emph{\texttt{#1}{http://manpages.debian.net/cgi-bin/man.cgi\?query=#2\&sektion=#1\&format=pdf}{\cite{doc:linux:man:#1:#2}}
+\newcommand{\MAN}[1]{\AltRef{\emph{\texttt{#1}{http://manpages.debian.net/cgi-bin/man.cgi\?query=#1\&sektion=0\&format=pdf}{\cite{doc:linux:man:0:#1}}}}}
+\newcommand{\MANX}[2]{\AltRef{\emph{\texttt{#1}{http://manpages.debian.net/cgi-bin/man.cgi\?query=#2\&sektion=#1\&format=pdf}{\cite{doc:linux:man:#1:#2}}}}}
 
 
 %% For this commands we need to use \Href explicitly
@@ -58,7 +58,26 @@
 \newcommand{\Tree}[1]{\Href{https://github.com/errordeveloper/contiki-wmi/tree/wmi-work/#1}{\texttt{#1}}}
 \newcommand{\Blame}[1]{\Href{https://github.com/errordeveloper/contiki-wmi/blame/wmi-work/#1}{\texttt{#1}}}
 
-%\usepackage{tikz}
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning,shapes,arrows}
+
+\tikzstyle{C} = [diamond,
+			draw, fill=blue!20,
+			text width=4.5em, text badly centered,
+			node distance=3cm, inner sep=0pt]
+
+\tikzstyle{F} = [rectangle,
+			draw, fill=green!20,
+			text width=5em, text centered,
+			rounded corners, minimum height=2.5em]
+
+\tikzstyle{E} = [ellipse,
+			draw, fill=red!20,
+			node distance=3cm, minimum height=3em]
+
+\tikzstyle{L} = [draw, -latex']
+
+\usepackage{pstricks-add}
 
 %\DeclareGraphicsExtensions{.eps,.epsi,.pdf,.png,.jpg}
 
@@ -110,6 +129,10 @@
 \chapter{DSP Host System}
 \include{hw/host-intro}
 \include{sw/host-linux-intro}
+
+\chapter{State Machines}
+\include{sw/node-app-sm-adv-listener}
+\include{sw/node-app-sm-adv-talker}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
