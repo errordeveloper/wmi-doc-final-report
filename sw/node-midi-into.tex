@@ -1,0 +1,57 @@
+
+  To programs where written to test transmission of MIDI. The concept of
+ server/client communication could be applied, nevertheless it had been
+ found more appropriate to name the parties as the \emph{Talker} and the
+ \emph{Listener}. At the time of writing of this report the \emph{Talker}
+ program had been fully tested and debugged. The second program can be
+ cosidered only as a prototype and does require further work.
+
+  The \emph{protosocket} macros had been utilised for the implementation,
+ hence the communication protocol imposed by \emph{protosocket} was TCP.
+ There are various improvements that are still to be considered.
+ The specification of TCP includes a notion for \emph{urgent data}
+ \rfc{0793}, however this feature has received a very limited adoption and
+ is known to be handled differently by various implementations of the TCP
+ \cite{ietf:draft:tcpm-urgent-data}. It has been found that the \emph{uIP}
+ stack does implement some mechanism for the \emph{urgent data}, however
+ the documentation on how it can be applied in \Contiki application code
+ could not be found. 
+
+
+% http://tools.ietf.org/pdf/draft-ietf-tcpm-urgent-data-07
+ 
+
+\subsection{UDP Multicasting}
+
+  A variety of packages exist which utilise UDP multicasting for streaming
+ of MIDI data on LAN. These include \emph{ipMIDI} \cite{links:ipmidi} for
+ Microsoft Windows and Apple Mac OS X platforms as well as compatible
+ packages for Linux - \emph{multimidicast} \cite{links:multimidicast} and
+ \emph{qmidinet} \cite{links:qmidinet}. This two Linux packages had been
+ tested with current implementation of the \emph{Talker} program and were
+ shown suitable performance. The multicasting approach is considered to be
+ quite appropriate for streaming of MIDI signals on IP networks, since no
+ configuration is required, i.e. none of the participants have to set-up
+ connection between each other and only need to send data to the multicast
+ IP address\footnote{\emph{For compatibility with ipMIDI the multicast IP
+ address should be 225.0.0.37 and the port numbers from 21928 and above.}
+ However the \emph{ipMIDI} has not formal protocol and simply streams the
+ MIDI signals to a UDP socket, i.e. there is no any error correcting or
+ detecting mechanisms.
+
+% http://nerds.de/
+% http://llg.cubic.org/tools/multimidicast/
+% http://qmidinet.sourceforge.net/qmidinet-index.html
+
+\emph{MIDI Networking in Linux}
+
+  On Linux networking of MIDI clients has been implemented in user-space
+ by \emph{ALSA ("Advanced Linux Sound Architecture") utilities package
+ \cite{links:linux:alsa}.
+ The specification of \emph{ALSA Sequencer Network} is also limited to
+ comments in the source code of the \man{1, aseqnet} program. It is design
+ using UDP and a specific data structure. The two programs mentioned in
+ the previous section do not communicate with \man{aseqnet}, but use
+ the \emph{ALSA Sequencer} inteface directly.
+
+% http://alsa-project.org/main/index.php/Developer_Zone

@@ -8,18 +8,6 @@
 \newcommand{\WPAN}[0]{\emph{LR-WPAN}}
 \newcommand{\Tracker}[0]{\subsubsection{\emph{Tracked Issues}}\begin{description}}
 
-%% Comment out this for printing
-\newcommand{\Issue}[1]{\href{http://wmi.new-synth.info/issues/#1}{Issue \##1}}
-%% Uncomment this for printing
-%\newcommand{\Issue}[1]{Issue \##1}
-
-%% Comment out this for printing
-\newcommand{\IssueX}[1]{\item[\href{http://wmi.new-synth.info/issues/#1}{\Issue{#1}}]:}
-%% Uncomment this for printing
-%\newcommand{\IssueX}[1]{\item[\Issue{#1}]:}
-
-\newcommand{\TEP}[1]{\emph{\href{http://www.tinyos.net/tinyos-2.x/doc/pdf/tep#1.pdf}{TEP#1}}}
-
 \newcommand{\Contiki}[0]{\emph{Contiki}}
 \newcommand{\ContikiOS}[0]{\emph{Contiki OS}}
 \newcommand{\TinyOS}[0]{\emph{TinyOS}}
@@ -31,10 +19,44 @@
 \usepackage{graphicx}
 
 %% Comment out this for printing
-\usepackage{hyperref} \newcommand{\URL}[1]{\[ \href{#1}{\texttt{\emph{#1}}} \]}
+\usepackage{hyperref}
+
+\newcommand{\Href}[2]{\href{#1}{#2}} %% use this for proper href
+%\newcommand{\Href}[2]{{#2}} %% fake version for printing
+
+%% use \Href  and for printing we use \cite{something}
+%% so we end up with link to the URL and bibliography
+%% reference number as well. If \Href is fake there
+%% will be no URL in the text.
+\newcommand{\AltRef}[3]{\Href{#2}{#1} \cite{#3}}
+
+\newcommand{\URL}[1]{\[ \href{#1}{\texttt{\emph{#1}}} \]}
 
 %% Uncomment this for printing
 %\usepackage{url} \newcommand{\URL}[1]{\[ \texttt{\emph{#1}} \]} \newcommand{\href}[2]{#2 (\texttt{\emph{\url{#1}}})}
+
+
+\newcommand{\Issue}[1]{\Href{http://wmi.new-synth.info/issues/#1}{Issue \##1}}
+\newcommand{\IssueX}[1]{\item[\Href{http://wmi.new-synth.info/issues/#1}{\Issue{#1}}]:}
+
+\newcommand{\TEP}[1]{\AltRef{\emph{TEP#1}{http://www.tinyos.net/tinyos-2.x/doc/pdf/tep#1.pdf}{links:tinyos:tep:#1}}}
+
+%% usage:
+%	\MAN{gcc}
+%	\MAN{2, open}
+
+\newcommand{\MAN}[1]{\AltRef{\emph{\texttt{#1}{http://manpages.debian.net/cgi-bin/man.cgi\?query=#1\&sektion=0\&format=pdf}{\cite{doc:linux:man:0:#1}}
+\newcommand{\MANX}[2]{\AltRef{\emph{\texttt{#1}{http://manpages.debian.net/cgi-bin/man.cgi\?query=#2\&sektion=#1\&format=pdf}{\cite{doc:linux:man:#1:#2}}
+
+
+%% For this commands we need to use \Href explicitly
+%% so if Href is proper - the display the path and link it
+%% otherwise - just display the path. Because there's no
+%% reason to show various refences to this in the bibtex
+
+\newcommand{\Blob}[1]{\Href{https://github.com/errordeveloper/contiki-wmi/blob/wmi-work/#1}{\texttt{#1}}}
+\newcommand{\Tree}[1]{\Href{https://github.com/errordeveloper/contiki-wmi/tree/wmi-work/#1}{\texttt{#1}}}
+\newcommand{\Blame}[1]{\Href{https://github.com/errordeveloper/contiki-wmi/blame/wmi-work/#1}{\texttt{#1}}}
 
 %\usepackage{tikz}
 
