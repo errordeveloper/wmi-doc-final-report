@@ -62,8 +62,7 @@
 
 %\DeclareGraphicsExtensions{.eps,.epsi,.pdf,.png,.jpg}
 
-\title{WMI: Wireless Music Instruments\\ \emph{BSc Final Year Project} \\ Interim Report}
-%{Interim Report}
+\title{WMI: Wireless Music Instruments\\ \emph{BSc Final Year Project} \\ Final Report}
 \author{Ilya Dmitrichenko \\ \\ Department of Computing\\ London Metropolitan University}
 
 \date{\today}
@@ -76,6 +75,24 @@
 
 \abstract
 {
+
+   This an end of year report for BSc degree project which had originally targeted
+  a design of complete wireless system for streaming of music control data collected
+  from sensor devices and MIDI hardware to a host machine which would synthesise an
+  audio signal the delivered into loudspeakers or recorded on disk. Despite rather
+  simple design idea, the research and development had taken extended time period
+  and the emphasis of this report is on a variety of aspects related to wireless
+  network design and implementation. These aspects include cross-platform operating
+  system architecture, microcontroller development hardware, application design and
+  the abstraction layer requirements, hardware interfacing for the system and the
+  application software as well as other miscellaneous subjects intersecting these
+  areas. Two popular operating systems are presented in this report - \emph{Contiki}
+  and \emph{TinyOS}. Two microcontroller architecture had been used in the course
+  of this project - 32-bit \emph{ARM} and 8-bit \emph{AVR}. \emph{IEEE 802.15.4}
+  devices where considered as the only suitable radio harware option, due to the
+  wide use and availability of chips which implement this protocol. Another key
+  assumption is that complice to the Internet Protocol (IP) is neccessary.
+
 }
 
 \tableofcontents
@@ -84,12 +101,15 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\part{Introduction \& Research}
+\part{Design \& Development} 
 \chapter{Operating Systems for Wireless Sensor Networks}
 \include{sw/node-rtos-intro}
 \include{sw/node-contiki-intro}
 \include{sw/node-tinyos-intro}
-\include{sw/host-linux-intro}
+\chapter{DSP Host System}
 \include{hw/host-intro}
+\include{sw/host-linux-intro}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
