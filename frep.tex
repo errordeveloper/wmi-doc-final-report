@@ -1,5 +1,3 @@
-
-
 \newcommand{\Chip}[1]{\emph{\texttt{#1}}}
 \newcommand{\MCX}[0]{\Chip{MC1322x}}
 \newcommand{\RFA}[0]{\Chip{ATmega128RFA1}}
@@ -95,22 +93,26 @@
 \abstract
 {
 
-   This an end of year report for BSc degree project which had originally targeted
-  a design of complete wireless system for streaming of music control data collected
-  from sensor devices and MIDI hardware to a host machine which would synthesise an
-  audio signal the delivered into loudspeakers or recorded on disk. Despite rather
-  simple design idea, the research and development had taken extended time period
-  and the emphasis of this report is on a variety of aspects related to wireless
-  network design and implementation. These aspects include cross-platform operating
-  system architecture, microcontroller development hardware, application design and
-  the abstraction layer requirements, hardware interfacing for the system and the
-  application software as well as other miscellaneous subjects intersecting these
-  areas. Two popular operating systems are presented in this report - \emph{Contiki}
-  and \emph{TinyOS}. Two microcontroller architecture had been used in the course
-  of this project - 32-bit \emph{ARM} and 8-bit \emph{AVR}. \emph{IEEE 802.15.4}
-  devices where considered as the only suitable radio harware option, due to the
-  wide use and availability of chips which implement this protocol. Another key
-  assumption is that complice to the Internet Protocol (IP) is neccessary.
+   This is the end of year report for a BSc degree project which had originally
+   targeted a design of complete wireless system for streaming of music control
+   data collected from sensor devices and MIDI hardware to a host machine which
+   would synthesise an audio signal to be delivered into loudspeakers or recorded
+   on disk. Despite rather simple design idea, the research and development had
+   taken extended time period and the emphasis of this report is on a variety of
+   aspects related to wireless sensor network design and implementation. These
+   aspects include: cross-platform operating system architecture, development
+   hardware, application design and the abstraction layer requirements for
+   interfacing hardware functions to the software as well as other miscellaneous
+   subjects intersecting these areas. Two popular operating systems are presented
+   in this report - \emph{Contiki} and \emph{TinyOS}. Two common microcontroller
+   architectures had been used in the course of this project - 32-bit \emph{ARM}
+   and 8-bit \emph{AVR}. \emph{IEEE 802.15.4} devices where considered as the
+   only suitable radio harware option, due to the wide use and availability of
+   the chips which implement this protocol. Another key assumption has been that
+   the complice to the Internet Protocol (IP) is neccessary. A simple prototype
+   has been implemented and a set of solutions proposed for a complete product
+   design. Several advanced subjects for further work are also addressed in this
+   report.
 
 }
 
@@ -121,6 +123,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \part{Introduction \& Research}
+\chapter{General Background}
+
+\include{bg/motivation}
+
 \part{Design \& Development} 
 \chapter{Operating Systems for Wireless Sensor Networks}
 \include{sw/node-rtos-intro}
@@ -133,6 +139,10 @@
 \chapter{State Machines}
 \include{sw/node-app-sm-adv-listener}
 \include{sw/node-app-sm-adv-talker}
+
+\chapter{System View}
+
+\include{hw/host-integration}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

@@ -1,0 +1,71 @@
+\section{Key System Components: \\ Specification \& Requirements} \label{sec:SPECS}
+
+  This section outlines the specification which had been proposed
+ after initial research phase has been accomplished. Diagram shown
+ in figure \ref{fig:sketch1} illustrates the function blocks of the
+ complete system that meets this specification, however it is now
+ considered suitable only for the development system and not the
+ final product design.
+
+\subsection*{Sensor Node}
+
+\emph{Sensor Node} is a device featuring a microcontroller chip
+that contains following function blocks and peripherals:
+
+\begin{itemize}
+	\item \emph{internal:}
+	\begin{itemize}
+		\item 2.4Ghz RF transceiver,
+		\item A/D converters,
+		\item GPIO,
+		\item SPI, and
+		\item USART
+	\end{itemize}
+	
+	\item \emph{external:}
+	\begin{itemize}
+		\item digital or analogue sensors,
+		\item external connectors for MIDI,
+		\item wired remote sensors, and
+		\item serial port header
+	\end{itemize}
+\end{itemize}
+
+The \emph{Sensor Node} runs software which consists of:
+
+\begin{itemize}
+	\item \emph{operating system:}
+	\begin{itemize}
+		\item communication protocol stack,
+		\item devices drivers, and
+		\item application task management,
+		\item service tasks, and
+		\item the main program
+	\end{itemize}
+	\item \emph{bootloader:}
+	\begin{itemize}
+		\item loads new software
+	\end{itemize}
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.4]{../figures/sketch1.pdf}
+\caption{\emph{Abstract Sketch of the Development System}} \label{fig:sketch1}
+\end{figure}
+
+
+\pagebreak
+\section{Final Product Design}
+
+  The block diagrams in figure \ref{fig:products} briefly illustrate
+ a subset of a product line suitable for a commercial solution. Some
+ of the device proposed here can be used in a variety of applications
+ and others are rather specific for the applications mention in the
+ first part of this report.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.8]{../../poster/figures/figure1.pdf}
+\caption{\emph{TEST}} \label{fig:products}
+\end{figure}
