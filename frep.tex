@@ -1,10 +1,13 @@
 \newcommand{\Chip}[1]{\emph{\texttt{#1}}}
+\newcommand{\Symb}[1]{\emph{\texttt{#1}}}
 \newcommand{\MCX}[0]{\Chip{MC1322x}}
 \newcommand{\RFA}[0]{\Chip{ATmega128RFA1}}
 \newcommand{\Port}[1]{\emph{\texttt{Port #1}}}
 \newcommand{\Comp}[1]{\emph{\texttt{#1}}}
 \newcommand{\WPAN}[0]{\emph{LR-WPAN}}
-\newcommand{\Tracker}[0]{\subsubsection{\emph{Tracked Issues}}\begin{description}}
+
+\newcommand{\TrackerList}[0]{\subsubsection{\emph{Tracked Issues}}\begin{description}}
+\newcommand{\TrackerEnd}[0]{\end{description}}
 
 \newcommand{\Contiki}[0]{\emph{Contiki}}
 \newcommand{\ContikiOS}[0]{\emph{Contiki OS}}
@@ -16,11 +19,28 @@
 \usepackage{multirow}
 \usepackage{graphicx}
 
-%% Comment out this for printing
-\usepackage{hyperref}
+%02:36 <kahrl> errordeveloper: http://physics.wm.edu/~norman/latexhints/conditional_macros.html
+%01:37 <kahrl> so \makeatletter \ifx \PRINTING \@empty \renewcommand{\href}{FAKE_VERSION_OF_HREF} \fi \makeatother
+%01:39 <kahrl> or \makeatletter \ifx \PRINTING \@empty \relax \else \renewcommand{\href}{FAKE_VERSION_OF_HREF} \fi \makeatother
 
+% `latex '\def\NOHREF{}\input{foo.tex}'`
+
+\ifdefined \NOHREF
+
+	\usepackage{url}
+	\newcommand{\URL}[1]{\[ \texttt{\emph{#1}} \]}
+	%% \newcommand{\href}[2]{#2 (\texttt{\emph{\url{#1}}})} %% not needed probably
+	
+	\newcommand{\Href}[2]{{#2}} %% fake version for printing
+\else
+
+\usepackage{hyperref}
 \newcommand{\Href}[2]{\href{#1}{#2}} %% use this for proper href
-%\newcommand{\Href}[2]{{#2}} %% fake version for printing
+\newcommand{\URL}[1]{\[ \Href{#1}{\texttt{\emph{#1}}} \]}
+
+\fi
+
+
 
 %% use \Href  and for printing we use \cite{something}
 %% so we end up with link to the URL and bibliography
@@ -28,24 +48,22 @@
 %% will be no URL in the text.
 \newcommand{\AltRef}[3]{\Href{#2}{#1} \cite{#3}}
 
-\newcommand{\URL}[1]{\[ \href{#1}{\texttt{\emph{#1}}} \]}
-
-%% Uncomment this for printing
-%\usepackage{url} \newcommand{\URL}[1]{\[ \texttt{\emph{#1}} \]} \newcommand{\href}[2]{#2 (\texttt{\emph{\url{#1}}})}
 
 
 \newcommand{\Issue}[1]{\Href{http://wmi.new-synth.info/issues/#1}{Issue \##1}}
 \newcommand{\IssueX}[1]{\item[\Href{http://wmi.new-synth.info/issues/#1}{\Issue{#1}}]:}
 
-\newcommand{\TEP}[1]{\AltRef{\emph{TEP#1}{http://www.tinyos.net/tinyos-2.x/doc/pdf/tep#1.pdf}{links:tinyos:tep:#1}}}
+\newcommand{\TEP}[1]{\AltRef{\emph{TEP#1}}{http://www.tinyos.net/tinyos-2.x/doc/pdf/tep#1.pdf}{links:tinyos:tep:#1}}
 
 %% usage:
 %	\MAN{gcc}
 %	\MAN{2, open}
 
-\newcommand{\MAN}[1]{\AltRef{\emph{\texttt{#1}{http://manpages.debian.net/cgi-bin/man.cgi\?query=#1\&sektion=0\&format=pdf}{\cite{doc:linux:man:0:#1}}}}}
-\newcommand{\MANX}[2]{\AltRef{\emph{\texttt{#1}{http://manpages.debian.net/cgi-bin/man.cgi\?query=#2\&sektion=#1\&format=pdf}{\cite{doc:linux:man:#1:#2}}}}}
+%\newcommand{\MAN}[1]{\AltRef{\emph{\texttt{#1}}}{http://manpages.debian.net/cgi-bin/man.cgi?query=#1&sektion=0&format=pdf}{doc:linux:man:0:#1}}
+%\newcommand{\MANX}[2]{\AltRef{\emph{\texttt{#2}}}{http://manpages.debian.net/cgi-bin/man.cgi?query=#2&sektion=#1&format=pdf}{doc:linux:man:#1:#2}}
 
+\newcommand{\MAN}[1]{\AltRef{\emph{\texttt{#1}}}{http://manpages.debian.net/cgi-bin/man.cgi?query=#1&sektion=0&format=ascii}{doc:linux:man:0:#1}}
+\newcommand{\MANX}[2]{\AltRef{\emph{\texttt{#2}}}{http://manpages.debian.net/cgi-bin/man.cgi?query=#2&sektion=#1&format=ascii}{doc:linux:man:#1:#2}}
 
 %% For this commands we need to use \Href explicitly
 %% so if Href is proper - the display the path and link it
@@ -55,6 +73,8 @@
 \newcommand{\Blob}[1]{\Href{https://github.com/errordeveloper/contiki-wmi/blob/wmi-work/#1}{\texttt{#1}}}
 \newcommand{\Tree}[1]{\Href{https://github.com/errordeveloper/contiki-wmi/tree/wmi-work/#1}{\texttt{#1}}}
 \newcommand{\Blame}[1]{\Href{https://github.com/errordeveloper/contiki-wmi/blame/wmi-work/#1}{\texttt{#1}}}
+\newcommand{\Logs}[1]{\Href{https://github.com/errordeveloper/contiki-wmi/commits/wmi-work/#1}{\texttt{#1}}}
+\newcommand{\Contrib}[1]{\Href{https://github.com/errordeveloper/contiki-wmi/commits/wmi-work/#1?author=errordeveloper}{\texttt{#1}}}
 
 \usepackage{tikz}
 \usetikzlibrary{automata,positioning,shapes,arrows}
@@ -94,7 +114,7 @@
 {
 
    This is the end of year report for a BSc degree project which had originally
-   targeted a design of complete wireless system for streaming of music control
+   targeted a design of a complete wireless system for streaming of music control
    data collected from sensor devices and MIDI hardware to a host machine which
    would synthesise an audio signal to be delivered into loudspeakers or recorded
    on disk. Despite rather simple design idea, the research and development had
@@ -126,6 +146,8 @@
 \chapter{General Background}
 
 \include{bg/motivation}
+\include{bg/organisation}
+\include{bg/overview}
 
 \part{Design \& Development} 
 \chapter{Operating Systems for Wireless Sensor Networks}
@@ -135,6 +157,9 @@
 \chapter{DSP Host System}
 \include{hw/host-intro}
 \include{sw/host-linux-intro}
+
+\chapter{Application Development}
+\include{sw/node-contiki-devel}
 
 \chapter{State Machines}
 \include{sw/node-app-sm-adv-listener}

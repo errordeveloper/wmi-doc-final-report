@@ -1,0 +1,527 @@
+\chapter{Field \& Market Trends}
+
+ This chapter intends to review the variety of available
+ technologies and discuss why some desitions and preference
+ had been made.
+
+ \emph{The terminology of the OSI 7-layer model will be used,
+ therefore table \ref{tab:osi} will illustrate the stacking
+ of all layers and in comparison to the Internet Protocol
+ model (presuming that the reader is already familiar with
+ this terminology, hence it is for only for reference).}
+
+\begin{table}[h]
+\begin{center}
+ \begin{tabular}{|c||c|}
+ \hline
+ {\bf OSI model}&{\bf IP model}\\
+ \hline \hline
+ \ \ \  Application \ \ \   & \multirow{2}{*}{ \ \ \   Application \ \ \ }   \\
+ \cline{1-1}
+ Presentation & \\
+ \hline
+ Session & \multirow{2}{*}{TCP, UDP,\  \dots }\\
+ \cline{1-1}
+ Transport & \\
+ \hline
+ Network & IP\\
+ \hline
+ Data Link & Data Link\\
+ \hline
+ Physical & Physical\\
+ \hline
+ \end{tabular}
+ \end{center}
+\caption{\emph{Open System Interconnection Model
+	and The Internet Protocol}}\label{tab:osi}
+\end{table}
+
+
+\section{Music Control Protocols}
+
+   One of original targets of motivation to work on low-power
+  wireless network for music control, had been a desire to
+  experiment in the area of high-level representation of control
+  data specific to live music performance and audio in general.
+  Started by considering to extend not so recently proposed OSC
+  ("Open Sound Control") protocol \cite{paper:osc11} with a
+  set features which it appears to be missing. This is a subject
+  to more extensive experimentation and therefore has not been
+  included in the scope of the project itself.
+
+   OSC is effectively only an application layer data format and
+  is mostly used with UDP. It had been proposed by a group of
+  researchers at the Centrer for New Music \& Audio Technologies
+  (CNMAT), UC Berkley \cite{links:cnmat}. It was first presented
+  in 1997 \cite{paper:osc97} and has received a rather limited
+  adoption. Although, it was observed that there is a tendency
+  towards a wider adoption of OSC - a number of interesting
+  hardware product had been released which use OSC as primary
+  protocol. Some of these devices are listed below.
+
+  \begin{itemize}
+  	\item \emph{Livid Block64 \cite{links:livid:block64}}
+	%http://www.lividinstruments.com/hardware_ohm64.php
+	\item \emph{Jazz Mutant Lemur \cite{links:jazzmutant:lemur}}
+	%http://www.jazzmutant.com/lemur_overview.php
+	\item \emph{Monome \cite{links:monome}}
+	%http://monome.org
+	%http://docs.monome.org/doku.php?id=tech:protocol:osc
+  \end{itemize}
+
+  It has to be said that OSC seems to be intended as a candidate
+  to replace the MIDI protocol (which had been define in 1983 and
+  therefore considered in need of a replacement). The greatest
+  limitation seen in MIDI today is the size of values it can
+  represent, i.e. most control values a bound in 0-127 range.
+  Nevertheless, wireless transmission of MIDI was chosen to
+  be the initial target for this project. To avoid going
+  outside of the scope of this report, it shall be defined
+  that MIDI is quite likely to be most appropriate to implement
+  at this stage, since OSC format is certainly not suitable.
+  The reason for this is that microcontrollers do not have
+  the capabilities to handle large amount of data represented
+  as character strings. Therefore a new protocol needs to be
+  designed, which would overcome most these limitations; though,
+  that is already in the scope of another project.
+
+%http://cnmat.berkeley.edu/
+
+%http://archive.cnmat.berkeley.edu/ICMC97/postscript/0118030b.org-OSC-paper.ps
+
+\section{Low-power Digital Radio}
+
+  This section gives an overview of currently available low-power
+ wireless communication technologies in general terms, then some of
+ the important concepts are briefly introduced to support further
+ discussion of these devices and software with appropriate terminology.
+
+  One of the main subjects of the initial research was wireless data
+ communication standards for sensing and control applications and it
+ should be noted that the transmission of audio signals has not been
+ taken into consideration. Also as outlined in the requirenments,
+ radio protocols such as UWB (e.g. WUSB, WiMAX) and \emph{IEEE 802.11}
+ (i.e. WiFi) are not low-power and therefore are not applicable for the
+ purpose of this project. Although, short-range\footnote{\emph{Recent
+ amendments in P802.15.4a specify alternative physical layer options
+ that include sub-gigahertz UWB modes \cite{links:wiki:p:wpan}.}} UWB
+ could be of great use for its potential throughput capabilities, the
+ cost and availability of transceivers are yet unknown.
+ 
+  The main interest is in low-power radio of 2.4GHz range. The semiconductor
+ market is currently flooded with a variety of inexpensive devices that
+ implement either \emph{IEEE 802.15.4} standard or patented protocols such
+ as \emph{ZigBee}, \emph{RF4CE} or other that are based on \emph{P802.15.4}.
+
+ A few more different low-power wireless networking technologies exist, such
+ as \emph{DASH7} and \emph{ANT}. \emph{DASH7} is an active RFID protocol for
+ extended range and it is very specific for certain applications, it operates
+ in 434MHz band \cite{links:wiki:p:dash7}. \emph{ANT} is a proprietary standard
+ which uses 2.4GHz band \cite{links:wiki:p:ant}. Both of these technologies
+ are support only by small groups of silicon chip vendors.
+
+ Multiple standards exist which are using the same hardware functions provided
+ by \emph{P802.14.5}-compliant devices\footnote{\emph{This implies that all of
+ these protocols are effectively defined only by software.}}, some of these are
+ \emph{ZigBee}, \emph{RF4CE} and \emph{6loWPAN} \cite{links:wiki:p:6lowpan}.
+ \emph{RF4CE} belongs to the \emph{ZigBee} \cite{links:wiki:p:zigbee} family
+ together with a number of other application area specific variations.
+ \emph{6loWPAN} \cite{links:wiki:p:6lowpan} is most interesting patent-free
+ protocol and it is transparent to existing software, since it is compliant
+ to the Internet Protocol. %\IETF
+
+  Nevertheless, all of these technologies are not yet widely available in
+ the consumer market, where \emph{BlueTooth} \cite{links:wiki:p:mrwpan} and
+ simplistic sub-gigahertz serial radio transceivers or infra-red are commonly
+ found. Although, it is most likely that \emph{P802.15.4} transceivers will
+ soon dominate low-power wireless application markets.
+
+ Further in this report \emph{P802.15.4} will be referred to as \WPAN\ 
+ (stands for Low-Rate\footnote{\emph{Medium-rate (MR-WPAN) are the BlueTooth
+ (P802.15.1) networks. Also there is HR-WPAN (P802.15.3) standard defining
+ high-rate (UWB) networks. All classes of WPAN together with WLAN are
+ are referred to as short-range wireless networks.}} Wireless Personal
+ Area Network). A number of amendments to \emph{IEEE 802.15.4} had been
+ published, the latest version is \emph{P802.15.4-2006}. In this report
+ it shall be looked at as a de-facto solution \cite{links:wiki:p:wpan,
+ links:wiki:p:lrwpan, links:ieee:802:15}.
+
+ \emph{Some general concepts of the \WPAN\ hardware described below
+ are considered to be absolutely complete for understanding the
+ system operation from the software design perspective.}
+
+\subsection{\emph{IEEE 802.15.4} - Low-Rate WPAN}
+
+  This standard was first proposed by the IEEE in 2003 and has
+ evolved since. As far as the concepts essestial for application
+ development are concerned, there is no major difference between
+ the revisions.
+
+ It is important to understand at this point that the concept of
+ low-power consumption applies to all layers, so the application
+ layer indeed is required to co-operate in order to preserve the
+ energy. However, the task of this project is to get maximum
+ throughput on \WPAN\ network and attempt to reduce the latency
+ and maximize quality of service, hence power preservation
+ techniques are considered very briefly. However, the low-power
+ requirement for the design is met, since the avarage power rating
+ of the device remains relatively low without applying these
+ techniques.
+ 
+
+ \WPAN\ defines two layers of the OSI model, the \emph{Physical (PHY)}
+ and \emph{Media Access Control (MAC)} layers. Network and Applications
+ layers are defined by other standards mentioned above.
+
+
+\subsubsection{Physical Layer (PHY)}
+
+\begin{flushright} \small{
+\emph{Source: "ZigBee Wireless Networks and Transceivers" \\
+	by Shahin Farahani (2008) \cite{b:zigbee}}}
+	\end{flushright}
+
+
+% This layer functions for transmission and reception of radio packets,
+%provides control facilities for channel selection and power management.
+
+ "The PHY layer is the closest layer to hardware and directly controls
+ and communicates with the radio transceiver.
+ The PHY layer is responsible for the following:
+ \begin{itemize}
+
+        \item Activating and deactivating the radio transceiver.
+
+	\item Transmitting and receiving data.
+
+	\item Selecting the channel frequency.
+
+	\item Performing energy detection (ED).\\
+	\small{\emph{The ED is the task of estimating the signal energy within the
+	frequency band of interest. This estimate is used to understand
+	whether or not a channel is clear and can be used for transmission.}}
+
+	\item Performing Clear Channel Assessment (CCA).
+
+	\item Generating a Link Quality Indication (LQI).\\
+	\small{\emph{The LQI is an indication of the quality of the data packets
+	received by the receiver. The signal strength can be used as
+	an indication of signal quality.}}"
+	\end{itemize}
+
+ The \WPAN\ standard defines use
+ for a number of bands in different geographical regions, the 2.4GHz
+ band can be used anywhere in the world.  The details regarding RF
+ modulation techniques and various regulations are outside of the
+ subject of this report. There are 27 channels in different bands, 
+ 2.4GHz band has been assigned with channel numbers 11 to 26.
+
+  Power regulations apply depending on geographical region, the
+ measures are transceiver output power and duty cycle. The global
+ ISM band can be utilized at 100\% duty on approximately 10mW level.
+
+ Two modulation techniques can be used in 2.4GHz band:
+ \begin{description}
+ \item[\emph{Offset-QPSK}]- Offset Quadrature Phase-Shift Keying
+ \cite{links:wiki:qpsk}
+ \item[\emph{DSSS}]- Direct-Sequence Spread Spectrum (was used in 2003 revision)
+ \cite{links:wiki:dsss}
+ \end{description}
+
+ Alternative modulations techniques are defined in amendment
+ \emph{P802.15.4a}, these include Ultra-Wide Band \emph{(UWB)}
+ and Chirp Spread Spectrum \emph{(CSS)}.
+
+ Common basic data rate is 250kbps and distance coverage is from 10m
+ to 100m, but higher limits can be achieved (up to 2Mbps).
+
+\subsubsection{Media Access Control (MAC)}
+
+\begin{flushright} \small{
+\emph{Source: "ZigBee Wireless Networks and Transceivers" \\
+	by Shahin Farahani (2008) \cite{b:zigbee}}}
+	\end{flushright}
+
+  "The MAC provides the interface between the PHY
+ and the next higher layer above the MAC."
+
+% {This layer is above physical and therefore it controls what is being
+% transmitted and how it is done.
+% Some of the most important concepts are:
+%	\begin{itemize}
+% 		\item Super Frames and Timeslots\\
+%		\small{\emph{These provide mechanism for real-time data transmission.}
+%		\item Encryption\\
+%		\small{\emph{Most of commercially available devices use 128-bit AES}
+%		\dots Beacon Frames\\
+%		\small{\emph{Essentially beacons can be seen as advertisement messages.}
+
+ "The IEEE 802.15.4 defines four MAC frame structures:
+\begin{itemize}
+       \item \texttt{Beacon Frame}
+	\small{\emph{ --- used by a coordinator to transmit beacons.\\
+       			The beacons are used to synchronize the clock\\
+			of all the devices within the same network.}}
+       \item \texttt{Data Frame}
+	\small{\emph{ --- used to transmit data.}}
+
+       \item \texttt{Acknowledge Frame}
+	\small{\emph{ --- used to acknowledge the successful reception of a packet.}}
+       \item \texttt{MAC Command Frame}
+	\small{\emph{ --- are used for commands such as requesting the data\\
+			  and association or disassociation with a network.}}
+
+\end{itemize}
+
+It is important to understand that frames from each network layer are
+encapsulated into each other, i.e. the MAC frame are encapsulated into
+PHY frames on transmission and on reception these data structure is
+being decoupled.
+
+
+\subsubsection{\WPAN\ Classification: Nodes and Topologies}
+
+  The \WPAN\ device hierarchy is defined in terms of \emph{full-}
+  and \emph{reduced-function} devices (FFD and RFD for short).
+  
+  \begin{itemize}
+ 	\item Routers (FFD) 
+	\begin{itemize}
+		\item Network Coordinator
+		\item Branch Coordinator
+		\item Border Router
+	\end{itemize}
+	\item Participant Clients (RFD or FFD)
+  \end{itemize}
+
+  \WPAN\ Topologies are:
+  \begin{itemize}
+  	\item Point-to-Point
+	\item Star
+	\item Mesh
+  \end{itemize}
+
+\subsubsection{Feature Outline}
+\emph{Source: IEEE 802.15 Task Group 4 Website}\cite{links:ieee:802:15:4}.
+
+\begin{itemize}
+	\item Data rates of 250 kbps, 40 kbps, and 20 kbps.
+
+	\item Two addressing modes: 16-bit short and 64-bit.
+
+	\item Support for critical latency devices, such as joysticks.
+
+	\item CSMA-CA channel access.
+
+	\item Automatic network establishment by the coordinator.
+
+	\item Fully hand-shaked protocol for transfer reliability.
+
+	\item Power management to ensure low power consumption.
+
+\end{itemize}
+
+\subsection{Conclusions}
+
+  It has been found that some of the concepts defined in the \emph{IEEE}
+ paper are of very little practical use. For example, the hierarchy
+ specification is only used in \emph{ZigBee} and does not apply to
+ \emph{6loWPAN} and the entire MAC layer specification is disregarded
+ by the \emph{6loWPAN} user community and many papers where presented
+ which propose various improvements, for example \cite{papers:amac}
+ (One most highly regarded papers presented at the ACM conference
+ on Embedded Networked Sensor Systems in November 2010).
+
+ It does appear that Media Access Control for \WPAN\ as well as IP
+ Routing Over Low-power and Lossy networks (ROLL) \cite{rfc:drafts:roll:survey07}
+ are subject to very extensive research at present, as well time
+ synchronisation (to a lesser extend) \cite{paper:ts1,paper:ts2,
+ paper:ts3}. The last subject is of greatest concert to the music
+ instruments application, however it was found too complex to cover
+ in the course of this project.
+
+ %http://www.cs.berkeley.edu/~stevedh/pubs/p1-Dutta.pdf
+ %http://tools.ietf.org/html/draft-ietf-roll-protocols-survey-07
+
+
+
+\subsection{Higher Layers and the Application Layer}
+
+  The greatest benefit that the OSI model gives, is that any layer
+ can be re-implemented without any changes to other layers above or
+ below. Also translation between different implementations would a
+ trivial task. \emph{6loWPAN} allows for connectivity of low-power
+ wireless nodes to the Internet, enabling the future paradigm of
+ \emph{"the Internet of Things"}. This has been developed and
+ popularised by an alliance of Internet Protocol for Smart Objects
+ (IPSO) \cite{links:ipso:homepage}. \emph{6loWPAN} takes care of
+ several aspects such as compute resources limits and address space
+ requirements due to large amount of participant nodes by providing
+ \emph{IPv6} addressing with additional features such as \emph{header
+ compression}, reduced functionality as well as other miscellaneous
+ enhancements \cite{pubs:ipso:wp3, pubs:ipso:wp1}.
+
+  By enabling Internet connectivity for the sensor nodes, the application
+ developers are presented with lesser challenge, because existing algorithms,
+ packages and libraries can be used. Care still needs to be taken due
+ to limitations such as bandwidth and data structure complexity.
+
+ For example, a Representational State Transfer Application Programming
+ Interface (\emph{RESTful API}) \cite{links:wiki:rest} would make a
+ system much simpler to integrate into existing environments,
+ there won't be a need to develop tools for any particular computer platform.
+ \emph{RESTful} approach brings a cross-platform compatibility out-of-the-box
+ by utilising web-client software with very little of extra work to be done.
+ \emph{RESTful API} is largely used in modern web-application services
+ (also known as "the cloud"), it uses human readable URL strings for
+ addressing functions on remote servers via HTTP protocol (the handling
+ of HTML or XML response is optional and not applicable here, due to above
+ mentioned data structure complexity issue).
+
+ Another feature of \emph{IPv6} that is very important for complex wireless
+ networks, is \emph{neighborhood discovery}, which eliminates any need
+ for what DHCP served in \emph{IPv4}. Regarding the scalability,
+ it is true that there is no particular use in this project for 128-bit
+ address space that \emph{IPv6} provides. Nevertheless, this network
+ may need to extend to a larger number of nodes if a orchestra of these
+ is going to be built, also including various stage automation and
+ safety sensors all in one area.
+
+
+\subsection{Alternatives and Concerns}
+
+  It is very appropriate to discuss a few alternative approaches which
+ could be taken to implement a radio network specific to the application
+ of interactive objects for live performance.
+
+  An alternative to using \WPAN\ radio would be a different, rather
+ simpler protocol and, perhaps, in a different frequency band.
+  The reason for this is obviously because of application-specific
+ concerns. The data transmission for musical performance is constrained
+ to very strict real-time latency measures. In other words, when a
+ musician is playing on stage the audience will perceive the music as
+ very odd if the latency is too high. It would be even worse if several
+ participants exhibit random latency, while not playing an improvised
+ piece of music.
+
+  Using a radio protocol which is in its own \emph{clear} frequency
+ band and uses a minimal communication abstraction stack, should be
+ more appropriate for latency optimisation. However, the cross-platform
+ networking capabilities would be lost. That might lead to incompatibilities
+ with market trends as well as radio band regulations.
+  Since \emph{IEEE 802.15.4} is the current global technology trend and
+ the 2.4GHz ISM band is accepted world-wide, the alternatives are not
+ quite appropriate.
+
+  There are a few solutions for \emph{non-P802.15.4} 2.4GHz ISM radio,
+ but these would impose a vendor locking for the transceiver interfaces
+ to such manufacturers as \emph{Nordic Semiconductors} \cite{links:nordic:rf2400}
+ or \emph{Hope Microelectronics} \cite{links:hoperf:rf2400}.
+ There might be even model-specific incompatibilities, while 
+ it is quite certain that all \emph{P802.15.4} transceiver
+ chips will be compatible in the future.
+
+\break
+
+\section{Study of Earlier Work \\and Commercial Solutions}
+
+  Earlier works in the field of wireless performance devices (i.e. music instruments and
+  devices to assist dance and theater performance) were studied. A number of links to
+  other sites and publication are listed in the WMI website sections "Links" \cite{wmi:wiki:links}
+  and "Bibliography" \cite{wmi:wiki:refs}. Below only the most relevant information is discussed.
+
+\subsection{Publications}
+
+  One publication by Paulo Jorge Bartolomeu (Univ. of Aveiro, 2005)
+ \cite{pub:bartolomeu2005} which has also been submitted to the IEEE,
+ evaluates the use of \emph{BlueTooth} for a wireless MIDI network.
+ Paulo Bartolomeu in his dissertation considered either \emph{ZigBee} or
+ \emph{UWB} as a possible alternative, however in 2005 these technologies
+ still were immature and expensive. A number of interesting results and
+ figures are provided, proving that \emph{BlueTooth} exhibits a definite
+ byte latency of, on average, 20ms and a maximum of 100ms, these figures
+ were reduced with improved network configuration to an average byte latency
+ below 10ms. A quite interesting "command aggregation algorithm" had also
+ been proposed in this paper.
+
+ A surprisingly small amount of white papers have been found on this subject, 
+ which indeed makes this study more interesting. Though, there are various
+ articles available on-line, these are listed on the WMI website. There is
+ no significant information to discuss in regards to those articles
+ \cite{links:misc:xbeemidi}.
+ 
+ A few short reports demonstrating \emph{BlueTooth} implementations were
+ found on Stanford University CCRMA (Centre for Research in Music and
+ Acoustics) website, these appear to be homework reports by CCRMA
+ students \cite{pub:ccrma:muggling, pub:ccrma:brbi}. A few more
+ interesting articles are listed in the bibliography \cite{pub:ccrma:sm,
+ pub:ccrma:bb}. One more recent publication describing a \emph{BlueTooth}
+ controller for \emph{PureData} \cite{links:wiki:pd} is by a researcher
+ at Plymouth University \cite{pub:plym:go}.
+
+
+\subsection{Commercial Wireless MIDI Products}
+
+  Currently there are four commercial solution available from different
+ manufacturers. It is most likely that the radio communication protocol
+ used by these devices is unique to each particular manufacturer, since
+ no compatibility information is provided.
+
+\emph{
+\begin{itemize}
+ 	\item Kenton MidiStream \cite{links:kenton:midistream}
+	\item M-Audio MidAir \cite{links:maudio:midair}
+	\item CME WIDI \cite{links:cme:widi}
+	\item PatchMan MidiJet \cite{links:pmm:midijet}
+\end{itemize}}
+
+ The \emph{Kenton} devices operate in the two sub-gigahertz ranges, 869MHz
+ and 433Mhz, while the other three manufactures use the 2.4GHz ISM band.
+ It may be desired to evaluate these devices before proposing any solution
+ of a commercial nature; there is no particular interest to obtain any
+ of these product otherwise.
+
+
+\subsubsection{Various Available Hardware}
+
+ \emph{MiniBee} project by Canadian group of artists \emph{Sense/Stage}
+ \cite{links:sensestage:homepage} is of particular interest, it utilizes
+ high-level frameworks such as \emph{Pure Data}, \emph{Max MSP} and
+ \emph{Super Collider} \cite{links:sensestage:host}. More details about
+ these software frameworks will be provided later in the report, as one
+ of them is also used in this project. The \emph{MiniBee} hardware
+ \cite{links:sensestage:node} is using \emph{Atmel AVR} 8-bit MCU and
+ \emph{Digi Xbee} transceiver module, which is not the most optimal
+ design solution. Again, \emph{ZigBee} is a patented technology and
+ is not appropriate for an \emph{open-source} project. Also, the
+ \emph{Xbee} module itself is already using an MCU to run its software stack.
+ 
+ In the area of sensor products, there is one interesting company called
+ \emph{Phidgets, Inc.} \cite{links:phidgets:homepage}, it manufactures rather
+ wide variety of sensor devices, ranging from base single-board computer (SBC)
+ to sensor and actuators sharing same type of 3-pin connector. The SBC board
+ runs custom-built \emph{Linux OS} on \emph{ARM9} 266MHz CPU with 64MB of
+ SDRAM and 64MB of flash memory. \emph{Phidgets SBC}
+ \cite{links:phidgets:products:sbc} has USB and 100MB Ethernet peripherals as
+ well as a number of screw terminals and 3-pin connectors for sensors.
+ \emph{Phidgets, Inc.} supplies numerous easy-to-use sensor and actuator
+ devices. The cost of their products is quite high, but the reason of
+ this is the target market. Buyers of these easy-to-use devices are not
+ professional electronics engineers and are ready to pay these prices.
+ Their website also has source code for reference in a wide selection of
+ programming languages and frameworks.
+ 
+ However the top product in the hobbyist marker remains to be \emph{Arduino}
+ \cite{links:arduino:homepage}, of course the low price factor is key of its
+ popularity. A huge number of semi-clone products emerged, all featuring
+ various additions that some users may find more useful. The most recent
+ interesting semi-clone of \emph{the Arduino} is \emph{Seeeduino Film}
+ \cite{links:seeed:products:film}, made by \emph{Seeed Studio} in China.
+ It appears to be the only product of its class that uses flexible film
+ instead of regular circuit board. For example, this could be quite
+ useful for integration into a music instrument or attached on performer's
+ body in combination with capacitive flex sensors. Even the above mentioned
+ \emph{MiniBee} in its design is also a semi-clone of \emph{the Arduino},
+ in order to support convenient \emph{Arduino C++ Library}
+ \cite{links:arduino:library}, which is in no doubt appreciated by the
+ target audience.

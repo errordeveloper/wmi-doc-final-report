@@ -10,22 +10,29 @@
   abstract, it can be classified either as \emph{soft-} or \emph{hard-real-time}.
   The classification is also an abstract matter, some operating systems provide
   various approaches and it is up to the engineer to utilise it correctly for
-  any given application. Modern RTOS should provide communication
-  protocol stack and file storage drivers.
+  any given application. A modern RTOS should also provide a communication
+  protocol stack and file storage drivers, support a set of platforms and
+  a variety of peripheral devices.
  
  It is commonly known that RTOS is a rather expensive element in embedded design.
- This is because until very recently most of well-know RTOS implementations were
+ This is because until very recently most commonly used RTOS implementations were
  provided only by specialised commercial vendors, brand names like \emph{Micrium},
  \emph{VxWorks} and perhaps \emph{QNX} are popular in specific application fields
- and there are also more obscure RTOS products offered at premium prices.
+ and there are also more obscure RTOS products offered at premium prices. Another
+ more recent commercial RTOS is \emph{Nucleus}, currently owned by \emph{Mentor
+ Graphics}. This repor does not focus on commercial products, hence these will
+ not be refer to, more information can be found in \cite{wiki:rtos,wiki:rtos:list}.
 
- Currently the open sources community has presented a number of very interesting
+ %http://en.wikipedia.org/wiki/Real-time_operating_system
+ %http://en.wikipedia.org/wiki/List_of_real-time_operating_systems
+
+ Currently the open sources community does present a number of very interesting
  RTOS projects, some of which are briefly introduced below. More details can be
  found on the WMI website \cite{wmi:wiki:rtos} (all the general project URLs are
- listed in that section of the website, and are omitted from the below text).
- It is important to note that many of the project which are listed below
- are originating from major universities, some of which previously gave
- birth to very well know UNIX software.
+ listed in that section of the website, and therefore omitted from the text below).
+ It may be important to note that many of the project which are listed here are
+ originating from major universities, some of which previously gave birth to very
+ well know UNIX software and general innovations in the computer science.
 
 
  \subsubsection{RTEMS} \label{sec:rtos:rtems}
@@ -42,23 +49,26 @@
 
 \subsubsection{TinyOS} \label{sec:rtos:tinyos}
 
- \emph{TinyOS} originates from the University of California, Berkeley as a joint
- project with a few important industry bodies \cite{links:tinyos:webs,
- links:tinyos:homepage}. The approach of \emph{TinyOS} is very different from all
- other systems, it uses a higher level abstraction language based on \emph{C},
- which is called \emph{nesC}. It has a very modular semantics and some similarity
- with Hardware Description Languages, such as \emph{VHDL} or \emph{Verilog}, can
- be noticed. The name \emph{nesC} stands for "Network Embedded Systems C", in
- analogy with HDL it describes application level connectivity of module interface,
- protocols and drivers. Despite this high level of abstraction, compiled source
- code is targeted for devices with limited compute resources \cite{links:tinyos:nesc}.
- The \emph{TinyOS} development framework also includes a simulator \emph{TOSSIM}
+ \emph{TinyOS} originates from the University of California, Berkeley and
+ Stanford and the Intel Research Laboratory at Berkeley \cite{wiki:tinyos,
+ links:tinyos:webs, links:tinyos:homepage}. The approach of \emph{TinyOS}
+ is very different from all other systems, it uses a higher level abstraction
+ language based on \emph{C}, which is called \emph{nesC}. It has a very
+ modular semantics with degredd some similarity to hardware description
+ languages (HDL), such as \emph{VHDL} or \emph{Verilog}. The name \emph{nesC}
+ stands for "Network Embedded Systems C", in analogy with HDL it describes
+ application level connectivity for modules, protocols and drivers. Despite
+ this high level of abstraction, compiled source code is targeted for devices
+ with limited compute resources \cite{links:tinyos:nesc}. The development
+ ecosystem of \TinyOS\ also includes a network simulation package \emph{TOSSIM}
  \cite{links:tinyos:tossim}, which is a rather trivial element to design when
- such level of abstraction is in place. At the start of the project \emph{TinyOS}
- was of some interest, however it had been opted out in preference to \emph{Contiki}
- for it's more tradition \emph{"plain C"} language abstractions. Nevertheless,
- it had been tried out and more details can be found in this chapter under section
- \ref{sec:TINYOS}.
+ such level of abstraction is in place. At the start of the project \TinyOS\
+ was of some interest, however it had been opted out in preference to \Contiki\
+ for it's more tradition \emph{"plain C"} language abstractions. However,
+ \TinyOS\ had been evaluated during the development phase and more details
+ can be found under section \ref{sec:TINYOS}.
+
+ %http://en.wikipedia.org/wiki/TinyOS
 
 
 \subsubsection{Nano-RK} \label{sec:rtos:nanork}
@@ -73,6 +83,11 @@
  wireless communication protocol for voice signal transmission \cite{pubs:nrk06a}
  and a presence of an audio device driver within \emph{Nano-RK} kernel.
 
+\TrackerList
+	 \IssueX{21} Test Nano-RK
+\TrackerEnd
+
+
 
 \subsubsection{Contiki - "The OS of Things"} \label{sec:rtos:contiki}
 
@@ -85,43 +100,33 @@
  {\emph{"Contiki provides IP communication, both for IPv4 and IPv6. (\dots)}}
  
  {\emph{"Many key mechanisms and ideas from Contiki have been widely adopted in
- the industry. The uIP embedded IP stack, originally released in 2001, is today used
- by hundreds of companies in systems such as freighter ships, satellites
+ the industry. The uIP embedded IP stack, originally released in 2001, is today
+ used by hundreds of companies in systems such as freighter ships, satellites
  and oil drilling equipment. (\dots) Contiki's protothreads, first released
  in 2005, have been used in many different embedded systems, ranging from
  digital TV decoders to wireless vibration sensors.}}
  
  {\emph{"Contiki introduced the idea of using IP communication in low-power
- sensor networks networks. This subsequently lead to an IETF standard and
- the IPSO Aliance, an international industry alliance. TIME Magazine
- listed Internet of Things and the IPSO Alliance as the 30th most
- important innovation of 2008.}}
+ sensor networks. This subsequently lead to an IETF standard and
+ the IPSO Aliance (\dots)}}
  
  {\emph{"Contiki is developed by a group of developers from industry and
  academia lead by Adam Dunkels from the Swedish Institute of Computer
- Science. The Contiki team currently consists of sixteen developers from
- SICS, SAP AG, Cisco, Atmel, NewAE and TU Munich."} \cite{contiki:home}
+ Science."} \cite{contiki:home}
 
- Many publication by Adam Dunkels can be found on the SICS website
+ Many publications by Adam Dunkels can be found on the SICS website
  \cite{dunkels04contiki, tsiftes09enabling}. He is also an author of
  two recent textbooks on IP WSN subject \cite{dunkels09operating,
- vasseur10interconnecting}. In addition, there is a reach set of simple
+ vasseur10interconnecting}. In addition, there is a rich set of simple
  code examples illustrating basic applications. The source code has
  well-defined directory hierarchy, build system and programming style
  \cite{contiki:code:style}.
 
- \emph{Contiki} provides a very simple API for advanced functions, such as
- real-time task scheduling, \emph{protothread} multitasking, filesystem access,
- event timers, TCP \emph{protosockets} and other networking features.
+ \emph{Contiki} provides a very simple API for advanced functions,
+ such as real-time task scheduling, \emph{protothread} multitasking,
+ filesystem access, event timers, TCP \emph{protosockets} and other
+ networking features.
 
- More detailed description \emph{Contiki} is provided in this chapter
- under section \ref{sec:CONTIKI}.
+ More detailed description \emph{Contiki} is provided the following
+ section (\ref{sec:CONTIKI}).
   
-  \emph{Contiki} includes a large set of stable drivers for various
- RCBs which were mentioned previously, such as \emph{Zolertia Z1}, \emph{Tmote
- Sky}, \emph{Atmel} \Chip{RF230}\emph{-based} and \emph{Raven} boards,
- \emph{TI} \Chip{CC2430} and \emph{MSP430} as well as \emph{ARM Conrtex-MX}
- and many older devices, including \emph{Comondore 64} and \emph{Apple II}
- computers. Details regarding the \Chip{MC1322x} port \cite{links:contiki:port:mc1322x}
- are to follow in this chapter, since \Chip{MC1322x} has been chosen as
- the target platfrom of this project.

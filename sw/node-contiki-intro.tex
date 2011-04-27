@@ -1,4 +1,4 @@
-\section{Introduction to the Contiki Operating System}\label{sec:CONTIKI}
+\section{Introducing the Contiki Operating System}\label{sec:CONTIKI}
 
   \Contiki\ operating system can be seen as collection of processes.
  In the same way as the UNIX operating system is seen as collection of
@@ -18,7 +18,7 @@
 
   The lead developer of \Contiki\, Adam Dunkels of Swedish Institute of
  Computer Science (SICS), has revolutionised embedded system world by
- implementing \emph{lwIP} in 200X and later, in 200Y, even further optimised
+ implementing \emph{lwIP} in 2000 and later, in 2002, even further optimised
  \emph{uIP} stack. It is known that until \emph{lwIP}, no complete IP stack
  existed which could run on a microcontroller device \cite{dunkels03full}.
 
@@ -52,4 +52,20 @@
  application code, since all necessary functions are provided, including
  handling of strings. Thought no packet flushing is currently possible, which
  may be desired in some application.
+
+\subsection{Initial Development Phase}
+
+  \Contiki\ source code includes a large set of stable drivers for various
+ RCBs which were mentioned previously, such as \emph{Zolertia Z1}, \emph{Tmote
+ Sky}, \emph{Atmel Raven} and \Chip{RF230}\emph{-based} boards, \emph{TI}
+ \Chip{CC2430} and \emph{MSP430} as well as \emph{ARM Conrtex-MX} and many
+ older devices, including \emph{Comondore 64} and \emph{Apple II} computers.
+
+ Details regarding the \Chip{MC1322x} port \cite{links:contiki:port:mc1322x}
+ are to follow in \ref{sec:APPDEV}, since \Chip{MC1322x} was chosen as the
+ target platfrom for this project. However, the \RFA\ platform had been the
+ original preference. Major work during the inital phase had been done to
+ port the existing driver code for \Chip{RF230} transceiver to take the
+ advantage of the single chip device. This work had been described in the
+ interim report \cite{wmi:irep}.
 

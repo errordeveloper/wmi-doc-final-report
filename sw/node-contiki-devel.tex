@@ -18,10 +18,10 @@
  which were utilised during the development process.
 
 \begin{description}
-	\item \MAN{gdb} - GNU Debugger (source-level) \cite{docs:gdb:manual}
-	\item \emph{\texttt{OpenOCD}} - On-chip Debugger \cite{links:mc1322x:ocd}
-	\item \emph{\texttt{Vim}} - text editor
-	\item \MAN{make} - GNU make program \cite{docs:make:manual}
+	\item [\MAN{gdb}] - GNU Debugger (source-level) \cite{docs:gdb:manual}
+	\item [\emph{\texttt{OpenOCD}}] - On-chip Debugger \cite{links:mc1322x:ocd}
+	\item [\emph{\texttt{Vim}}] - a text editor
+	\item [\MANX{1}{make}] - GNU make program \cite{docs:make:manual}
 \end{description}
 
 % http://mc1322x.devl.org/eclipse.md
@@ -34,7 +34,7 @@
 % http://www.gnu.org/software/make/manual/make.pdf
 % http://www.gnuarm.com/pdf/gdb.pdf
 
-  To enhance the work-flow the \emph{"Makefiles"}\footnote{\emph{These are
+  To enhance the work-flow \emph{"Makefiles"}\footnote{\emph{These are
  the file which specify a set of rules for the make program on how to
  compile the source code and also perform administrative tasks and run
  debugger or other tools.}} were amended throughout the development
@@ -42,13 +42,33 @@
  of the source tree, thought most of these inherit rules specified in
  the main \emph{Makefile} (in \Contiki\ there are two of these - one
  at in the root directory and one for each processor architecture).
+
  Most of the changes were made in \Blame{cpu/mc1322x/Makefile.mc1322x}
  to provide a variety of short command for connecting the debugger
  and sending the program to run on a development board\footnote{
- \emph{For example, to set-up the router on the Freescale board - run
- \texttt{`make.f1 router`} and to compile 'example.c', load and print
+ \emph{For example, to set-up the WPAN router on the Freescale board - run
+ \texttt{`make.f1 router'} and to compile 'example.c', load and print
  serial output on the console for the Econotag  -
- \texttt{`make.e1 example.load-print`}. If 'example.c' does not
- behave as expected - run \texttt{`make.e1 example.ocd-screen`}.}}
+ \texttt{`make.e1 example.load-print'}; in case if 'example.c' does
+ not behave as expected - run \texttt{`make.e1 example.ocd-screen'}.}}
  
+\section{Application Prerequisites}
+
+  The first step in application development was to add a driver for
+ the second UART (UART2) port. This has been done by copying an
+ existing driver code for UART1, though enhancements were required
+ at a later stage. The history of changes to the code can be viewed
+ in at the repository by utilising the commit log filter. The files
+ shown here had been modified.
+
+ \begin{itemize}
+ \item \Contrib{cpu/mc1322x/lib/include/uart1.h} \\
+ 	normal and weak prototypes, register pointers and macros
+ \item \Contrib{cpu/mc1322x/lib/uart2.c} \\
+ 	driver interrupt handlers
+ \item \Contrib{cpu/mc1322x/src/default\_lowlevel.h} \\
+	prototypes
+ \item \Contrib{cpu/mc1322x/src/default\_lowlevel.c} \\
+	initialisation functions
+ \end{itemize}
 
