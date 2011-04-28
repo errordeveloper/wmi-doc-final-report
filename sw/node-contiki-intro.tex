@@ -38,7 +38,7 @@
  independent\footnote{\emph{It is not completely true for Contiki, there
  are few additions which utilise facilities that some hardware platforms provide.}}
  and can be integrated into any C program by including only one header file.
- \emph{Protothreads} can be used with virtually any C compiler toolchain and
+ \emph{Protothreads} can be used with virtually any C compiler and,
  as described in \cite{dunkels06protothreads}, the overhead is rather
  insignificant, considering the powerful functionality; the only limitation
  is due to the use of \emph{\texttt{switch/case}} statements by the \emph{PT}
@@ -64,8 +64,24 @@
  Details regarding the \Chip{MC1322x} port \cite{links:contiki:port:mc1322x}
  are to follow in \ref{sec:APPDEV}, since \Chip{MC1322x} was chosen as the
  target platfrom for this project. However, the \RFA\ platform had been the
- original preference. Major work during the inital phase had been done to
+ first preference. Major work during the inital phase had been done to
  port the existing driver code for \Chip{RF230} transceiver to take the
  advantage of the single chip device. This work had been described in the
  interim report \cite{wmi:irep}.
 
+
+  A considerably long period of work during the first semester had been
+ towards porting of \ContikiOS\ to run on \RFA\ chip. The details were
+ included in the interim report \cite{docs:irep}. However, if the porting
+ was to be completed, the time it would have taken may have exceeded the
+ allocated period for the project (one academic year). Therefore it was
+ uderstood that some reconsideration needed to be taken and two major
+ solutions were proposed: either changing the development hardware or
+ trying a different OS with the same hardware.
+
+\subsubsection{Problems Ecountered while Proting the Driver Code}
+
+  It had been not a trivial task to compare a set of implementations
+ of the driver code, nevertheless some common fragments of code had
+ been identified. The interinm report has included the details of what
+ was acheived at the time, though most of work in this area \dots
