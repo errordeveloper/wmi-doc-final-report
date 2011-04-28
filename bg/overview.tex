@@ -6,9 +6,9 @@
 
  \emph{The terminology of the OSI 7-layer model will be used,
  therefore table \ref{tab:osi} will illustrate the stacking
- of all layers and in comparison to the Internet Protocol
- model (presuming that the reader is already familiar with
- this terminology, hence it is for only for reference).}
+ of all layers in comparison to the Internet Protocol model.
+ The reader is expected to be already familiar with this
+ terminology, hence it is shown only for their reference.}
 
 \begin{table}[h]
 \begin{center}
@@ -39,17 +39,17 @@
 
 \section{Music Control Protocols}
 
-   One of original targets of motivation to work on low-power
-  wireless network for music control, had been a desire to
-  experiment in the area of high-level representation of control
-  data specific to live music performance and audio in general.
-  Started by considering to extend not so recently proposed OSC
-  ("Open Sound Control") protocol \cite{paper:osc11} with a
-  set features which it appears to be missing. This is a subject
-  to more extensive experimentation and therefore has not been
+   One of additional motivations to work on low-power wireless
+  network for music control, had been a desire to experiment in
+  the area of high-level representation of control data, specific
+  to live music performance and audio in general.
+  Started by considering to extend, not so recently proposed, OSC
+  ("Open Sound Control") protocol \cite{paper:osc11}, with a set
+  features which it appears to be missing. This is a subject to
+  more extensive experimentation and therefore has not been
   included in the scope of the project itself.
 
-   OSC is effectively only an application layer data format and
+   OSC is effectively just an application layer data format and
   is mostly used with UDP. It had been proposed by a group of
   researchers at the Centrer for New Music \& Audio Technologies
   (CNMAT), UC Berkley \cite{links:cnmat}. It was first presented
@@ -61,12 +61,8 @@
 
   \begin{itemize}
   	\item \emph{Livid Block64 \cite{links:livid:block64}}
-	%http://www.lividinstruments.com/hardware_ohm64.php
 	\item \emph{Jazz Mutant Lemur \cite{links:jazzmutant:lemur}}
-	%http://www.jazzmutant.com/lemur_overview.php
-	\item \emph{Monome \cite{links:monome}}
-	%http://monome.org
-	%http://docs.monome.org/doku.php?id=tech:protocol:osc
+	\item \emph{Monome \cite{links:monome, links:monome:osc}}
   \end{itemize}
 
   It has to be said that OSC seems to be intended as a candidate
@@ -85,9 +81,7 @@
   designed, which would overcome most these limitations; though,
   that is already in the scope of another project.
 
-%http://cnmat.berkeley.edu/
 
-%http://archive.cnmat.berkeley.edu/ICMC97/postscript/0118030b.org-OSC-paper.ps
 
 \section{Low-power Digital Radio}
 
@@ -196,7 +190,7 @@
 
 	\item Selecting the channel frequency.
 
-	\item Performing energy detection (ED).\\
+	\item Performing Energy Detection (ED).\\
 	\small{\emph{The ED is the task of estimating the signal energy within the
 	frequency band of interest. This estimate is used to understand
 	whether or not a channel is clear and can be used for transmission.}}
@@ -301,7 +295,7 @@ being decoupled.
 	\item Mesh
   \end{itemize}
 
-\subsubsection{Feature Outline}
+\subsubsection{Feature Outline} \label{sec:P802154}
 \emph{Source: IEEE 802.15 Task Group 4 Website}\cite{links:ieee:802:15:4}.
 
 \begin{itemize}
@@ -311,7 +305,8 @@ being decoupled.
 
 	\item Support for critical latency devices, such as joysticks.
 
-	\item CSMA-CA channel access.
+	\item \emph{Carrier Sense Multiple Access with Collision
+		Avoidance \\(CSMA-CA)} channel access mode \cite{links:wiki:csma}.
 
 	\item Automatic network establishment by the coordinator.
 
@@ -328,20 +323,18 @@ being decoupled.
  specification is only used in \emph{ZigBee} and does not apply to
  \emph{6loWPAN} and the entire MAC layer specification is disregarded
  by the \emph{6loWPAN} user community and many papers where presented
- which propose various improvements, for example \cite{papers:amac}
+ which propose various improvements, for example \cite{paper:amac}
  (One most highly regarded papers presented at the ACM conference
  on Embedded Networked Sensor Systems in November 2010).
 
  It does appear that Media Access Control for \WPAN\ as well as IP
- Routing Over Low-power and Lossy networks (ROLL) \cite{rfc:drafts:roll:survey07}
- are subject to very extensive research at present, as well time
- synchronisation (to a lesser extend) \cite{paper:ts1,paper:ts2,
- paper:ts3}. The last subject is of greatest concert to the music
- instruments application, however it was found too complex to cover
- in the course of this project.
-
- %http://www.cs.berkeley.edu/~stevedh/pubs/p1-Dutta.pdf
- %http://tools.ietf.org/html/draft-ietf-roll-protocols-survey-07
+ Routing Over Low-power and Lossy networks (ROLL) \cite{ietf:draft:roll}
+ are subject to very extensive research at present, as well as time
+ synchronisation \cite{paper:ts4,paper:ts2,paper:ts3,paper:ts1,
+ Lenzen2010Clock, Lenzen2009Optimal, Sommer2009Gradient, Sommer2008Symmetric}.
+ Many papers appeared on this subject and it is of greatest concert
+ to the music instruments application, however it was found too complex
+ to cover in the course of this project.
 
 
 
@@ -451,13 +444,13 @@ being decoupled.
  \cite{links:misc:xbeemidi}.
  
  A few short reports demonstrating \emph{BlueTooth} implementations were
- found on Stanford University CCRMA (Centre for Research in Music and
- Acoustics) website, these appear to be homework reports by CCRMA
- students \cite{pub:ccrma:muggling, pub:ccrma:brbi}. A few more
- interesting articles are listed in the bibliography \cite{pub:ccrma:sm,
- pub:ccrma:bb}. One more recent publication describing a \emph{BlueTooth}
- controller for \emph{PureData} \cite{links:wiki:pd} is by a researcher
- at Plymouth University \cite{pub:plym:go}.
+ found on CCRMA (Centre for Research in Music and Acoustics at UC Stanford)
+ website \cite{links:ccrma}, these appear to be homework reports by CCRMA
+ students \cite{pub:ccrma:muggling, pub:ccrma:brbi}. Other related articles
+ are listed in the bibliography \cite{pub:ccrma:sm, pub:ccrma:bb} appeared
+ in 2005 and only one recent publication describing another \emph{BlueTooth}
+ controller for \emph{PureData} \cite{links:wiki:pd} written by a researcher
+ from Plymouth University \cite{pub:plym:go}.
 
 
 \subsection{Commercial Wireless MIDI Products}
@@ -465,7 +458,7 @@ being decoupled.
   Currently there are four commercial solution available from different
  manufacturers. It is most likely that the radio communication protocol
  used by these devices is unique to each particular manufacturer, since
- no compatibility information is provided.
+ no information on compatibility is provided.
 
 \emph{
 \begin{itemize}
@@ -482,19 +475,18 @@ being decoupled.
  of these product otherwise.
 
 
-\subsubsection{Various Available Hardware}
+\subsubsection{Other Related Hardware}
 
- \emph{MiniBee} project by Canadian group of artists \emph{Sense/Stage}
- \cite{links:sensestage:homepage} is of particular interest, it utilizes
+ The \emph{MiniBee} project by the Canadian group of artists, \emph{Sense/Stage}
+ \cite{links:sensestage:homepage}, is of particular interest, it utilizes
  high-level frameworks such as \emph{Pure Data}, \emph{Max MSP} and
- \emph{Super Collider} \cite{links:sensestage:host}. More details about
- these software frameworks will be provided later in the report, as one
- of them is also used in this project. The \emph{MiniBee} hardware
- \cite{links:sensestage:node} is using \emph{Atmel AVR} 8-bit MCU and
- \emph{Digi Xbee} transceiver module, which is not the most optimal
- design solution. Again, \emph{ZigBee} is a patented technology and
- is not appropriate for an \emph{open-source} project. Also, the
- \emph{Xbee} module itself is already using an MCU to run its software stack.
+ \emph{Super Collider} \cite{links:sensestage:host}. The \emph{MiniBee} hardware
+ \cite{links:sensestage:node} is an \emph{Atmel AVR} 8-bit MCU and \emph{Digi
+ Xbee} transceiver module, which is not the most optimal design solution.
+ Again, \emph{ZigBee} is a patented technology and is not appropriate for an
+ open-source project. Also, the \emph{Xbee} module itself is already using an
+ MCU (\Chip{HCS08}) to run its software stack \cite{links:xbee:wiki:prog}.
+
  
  In the area of sensor products, there is one interesting company called
  \emph{Phidgets, Inc.} \cite{links:phidgets:homepage}, it manufactures rather
@@ -511,8 +503,8 @@ being decoupled.
  Their website also has source code for reference in a wide selection of
  programming languages and frameworks.
  
- However the top product in the hobbyist marker remains to be \emph{Arduino}
- \cite{links:arduino:homepage}, of course the low price factor is key of its
+ However the top product in the hobbyist marker remains \emph{Arduino}
+ \cite{links:arduino:homepage}, of course the low price factor is key to its
  popularity. A huge number of semi-clone products emerged, all featuring
  various additions that some users may find more useful. The most recent
  interesting semi-clone of \emph{the Arduino} is \emph{Seeeduino Film}

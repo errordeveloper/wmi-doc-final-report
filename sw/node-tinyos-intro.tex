@@ -2,14 +2,15 @@
 
   It has been discovered that a few members of \TinyOS\ community
  have recently worked on porting \TinyOS\ to run on \Chip{ATmega128RFA1}
- \cite{tinyos:arch:rfa1-p1,tinyos:arch:rfa1-p2}. Comparing to \Contiki,
+ \cite{links:tinyos:rfa1:p1,links:tinyos:rfa1:p2}. Comparing to \Contiki,
  \TinyOS\ has rather superior abstraction layer that provides a seamless
- cross-platform integration \cite{tinyos:tepXXX,tinyos:tepYYY,tinyos:tepZZZ}.
+ cross-platform integration methods [\TEP{2}, \TEP{108}, \TEP{109}, \TEP{131}].
+
  
   Various internals of \TinyOS\ had been studied, however it is 
  certainly a very broad area to be described here. It is best described
  in the \emph{"TinyOS Programming"} book by David Gay and Philip Levis
- (it is available in print as well as a web-edition \cite{tinyos:book}).
+ (it is available in print as well as a web-edition \cite{levis2009tinyos}).
  Two authors of this book are lead developer of the \TinyOS\ project
  and are currently working at the University of California, Berkley
  and Standford.
@@ -26,9 +27,9 @@
  TEP\texttt{n}, where \texttt{n} is a number. \TEP{1} defines the format
  of the TEP documents.}}), there is also documentation generated from
  the source code comments (\emph{nescdoc}) as well as various on-line
- resources \cite{tos:wiki:docs} and the textbook mentioned above.
- It is noticeable that \TinyOS\ documentation is more extensive then
- what is currently present for the \ContikiOS.
+ resources \cite{tinyos:docs} and the textbook mentioned above. It is
+ noticeable that \TinyOS\ documentation is more extensive then what is
+ currently present for the \ContikiOS.
 
 
 \subsection{Programming with TinyOS:\\Compilers and Abstractions}
@@ -58,12 +59,12 @@
  programs are specifically suited for embedded devices. Direct
  compilation would be possible and, if desired, there is an interesting
  platform to look into. \emph{LLVM} ("Low-level Virtual Machine") is a
- new generation compiler technology. It is know that using \emph{LLVM}
- and its family member \emph{clang} implementation of a new compiler
- for a C-like language would be simplified (comparing to more traditional
- techniques). One good example of industrial grade compiler based on
- \emph{LLVM} is the \emph{XC} toolchain for \emph{XS-1} devices from
- a UK semiconductor company \emph{XMOS} \cite{paper:xmos:docs:xcc}.
+ new generation compiler technology \cite{links:wiki:llvm}. It is know
+ that using \emph{LLVM} and its family member \emph{clang} implementation
+ of a new compiler for a C-like language would be simplified (comparing
+ to more traditional techniques). One good example of industrial grade
+ compiler based on \emph{LLVM} is the \emph{XC} toolchain for \emph{XS-1}
+ devices from a UK semiconductor company \emph{XMOS} \cite{links:xmos:tools}.
 
  Nevertheless, currently \emph{nesC} compiler is known to be fully
  functional and it's task is not as complex as it may seem. Programming
@@ -101,9 +102,9 @@
  for \emph{ATmega128RFA1} transceiver. The IP layers are provided by
  \emph{BLIP} stack (this stands for Berkley Lightweight IP), the stack
  is currently undergoing major development. Details on what is required
- are available on \emph{TinyOS} wiki page \cite{tinyos:wiki:blip-2-0},
+ are available on \emph{TinyOS} wiki page \cite{tinyos:wiki:blip20},
  implementing it in \emph{nesC} was not as trivial due to the learning
- curve. Therefore this task had be postponed.
+ curve. Therefore this had be postponed.
 
   This problem requires further explanation. \emph{TinyOS} has been
  developed since 2001, while \emph{Contiki} first dates back to two
@@ -172,8 +173,8 @@
 
   Several steps were made in attempt to bring up \emph{TinyOS} on the
  hardware chosen for this project earlier, though it appeared rather
- unmanageable withing the give time frame. This is still a subject
- of interest and shall be looked into at a later time. An evidence of
+ unmanageable within the give time frame. This is still a subject of
+ interest and shall be looked into at a later time. An evidence of
  work carried out with \TinyOS\ code can be viewed on WMI website
  issue tracker.
 
@@ -182,18 +183,3 @@
 \TrackerEnd
 
 %\URL{https://github.com/errordeveloper/tinyos-wmi/commits/wmi-work?author=errordeveloper}
-
-% number of bug tracker issues were filed on the WMI website
-
-
-
-%% to be added to the bibtex file:
-
- %http://www.cs.berkeley.edu/~prabal/projects/epic/
- %http://www.cs.berkeley.edu/~prabal/
- %http://www.digi.com/products/wireless-wired-embedded-solutions/solutions-on-module/digi-connect/digiconnectme.jsp
- %http://smote.cs.berkeley.edu:8000/tracenv/wiki/blip
- %http://docs.tinyos.net/index.php/BLIP_2.0_Platform_Support_Guide
- %http://standards.ieee.org/getieee802/download/802.15.4-2006.pdf
- %http://standards.ieee.org/getieee802/download/802.15.4-2003.pdf
- %http://tools.ietf.org/pdf/rfc4944.pdf
