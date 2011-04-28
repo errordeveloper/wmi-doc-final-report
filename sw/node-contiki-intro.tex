@@ -63,25 +63,64 @@
 
  Details regarding the \Chip{MC1322x} port \cite{links:contiki:port:mc1322x}
  are to follow in \ref{sec:APPDEV}, since \Chip{MC1322x} was chosen as the
- target platfrom for this project. However, the \RFA\ platform had been the
- first preference. Major work during the inital phase had been done to
+ target platform for this project. However, the \RFA\ platform had been the
+ first preference. Major work during the initial phase had been done to
  port the existing driver code for \Chip{RF230} transceiver to take the
- advantage of the single chip device. This work had been described in the
- interim report \cite{wmi:irep}.
+ advantage of the single chip device. %This work had been described in the
+ %interim report \cite{wmi:irep}.
 
 
   A considerably long period of work during the first semester had been
- towards porting of \ContikiOS\ to run on \RFA\ chip. The details were
- included in the interim report \cite{docs:irep}. However, if the porting
- was to be completed, the time it would have taken may have exceeded the
- allocated period for the project (one academic year). Therefore it was
- uderstood that some reconsideration needed to be taken and two major
+ towards porting the \ContikiOS\ to run on the \RFA\ chip. However, if
+ the porting task was to be completed, the time it would have taken may
+ have exceeded the allocated period of one academic year. Therefore it
+ was understood that some reconsideration was required and two major
  solutions were proposed: either changing the development hardware or
  trying a different OS with the same hardware.
 
-\subsubsection{Problems Ecountered while Proting the Driver Code}
+\subsubsection{Problems Encountered while Porting the Driver Code}
 
   It had been not a trivial task to compare a set of implementations
  of the driver code, nevertheless some common fragments of code had
- been identified. The interinm report has included the details of what
- was acheived at the time, though most of work in this area \dots
+ been identified. The interim report has included the details of what
+ was achieved at the time \cite{wmi:irep}, though most of work in this
+ area was taken as a preparation to the next phase.
+
+  The log of commits made to the source code repository can be viewed at:
+
+\URL{https://github.com/contiki/contiki-rf2xx/commits/porting?author=errordeveloper}
+
+  There had been two main implementation which were compared, though
+ another two components had been looked at while working on this part
+ of the project. \dots %(LIST THE THINGS HERE with brief description)
+
+  A major issue arose, when the upstream \Contiki\ code tree has been
+ modified by one of the developers\footnote{\emph{The commit history of
+ the upstream AVR sub-tree can be viewed at:}
+ \URL{https://github.com/contiki/contiki-mirror/commits/master/cpu/avr}},
+ David Kopff, to provide an initial support for the \RFA\ chip. Those
+ change were contradicting with what has been done while working on this
+ project. Also it became apparent that no major improvements are going
+ to be made to provide simpler facilities for porting \Contiki\ to new
+ \emph{AVR} devices.
+ Nevertheless, during a discussion on the mailing list, this has been
+ agreed upon as generally a good direction for the development of the
+ \emph{AVR} branch, thought had been seen as a remote target. Further
+ study of the source code in the \emph{AVR} branch lead to a decision
+ that a complete refactoring is necessary to provide an appropriate
+ level of abstraction for the new \emph{AVR} device drivers to be
+ designed. Also the separation of radio transceiver drivers, for use
+ with other architecture branches, would be feasible. It is certainly
+ a longer term task to leverage such changes and could not be achieved
+ within the time allocated for this project.
+
+  Another reason for reconsidering the goals of the project had been
+ a possibility of encountering bugs in the driver code at some point
+ closer to the project deadline, since the application code was yet to
+ be written. In such situation, it would be difficult to find whether
+ a bug is in the driver code or it is in the application code, hence
+ the best idea is to design the application using a tested platform,
+ where a minimum of low-level code would need to be written. And then,
+ if desired, migrate it to other platforms, once it's all been approved
+ as working correctly.
+
