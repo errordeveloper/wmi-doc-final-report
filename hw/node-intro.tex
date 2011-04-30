@@ -1,0 +1,186 @@
+
+
+\section{Overview of Hardware Options}
+
+  Regarding the choice of development platform, there had been extended research
+  carried out and final decision was taken due to a number of factors. One of
+  which was familiarity with development tools for \emph{8-bit AVR}. \emph{GCC}
+  cross-compiler and \emph{AVR LIBC} were used in some earlier work with
+  \emph{Arduino}. Also the porting of driver code was considered as challenging
+  opportunity. More details will be given in further sections of this report,
+  for the purpose of this section some alternatives are discussed.  Another
+  factor narrowing the selection, was integrated MCU core and RF transceiver
+  in a single chip.
+
+\subsection{Platforms and Cores}
+
+ Currently semiconductor market presents a wide variety
+ of single-chip MCUs with \WPAN\ interfaces. There is a
+ dedicated section on the WMI website for more information
+ and references to product pages \cite{wmi:wiki:chips1, wmi:wiki:chips2}.
+
+\subsubsection{32-bit ARM Cortex}
+
+ Two different integrated \WPAN\ microcontrollers based
+ on \emph{ARM Cortex} architecture were found. Most notable
+ chips are \emph{Freescale \texttt{MC1322x}}
+ \emph{platform-in-package} family, which combine all transceiver
+ components in one chip, providing a very simple design solution.
+ Only one external RF component that \emph{\texttt{MC1322x}}
+ requires is the antenna. Alternative \emph{Cortex-M3} product is
+ \emph{Ember \texttt{EM300}-series}, these don't achieve the same
+ scale of integration on the transceiver's side and still requires
+ an external RF circuit.
+
+ The \Chip{MC1322x} gives a great benefit to a designer, as it
+ is known that layout of a radio circuit for frequencies in
+ gigahertz range is particularly challenging task and indeed
+ this is a specialist area of board design.
+
+\subsubsection{Other Microcontrollers}
+
+ \emph{ST Microelectronics} offers a 16-bit single-chip \WPAN\
+ microcontrollers \Chip{SN250} and \Chip{SN260}, both are based
+ on \emph{XAP2b} processor architecture. \emph{Ember} has \Chip{EM260}
+ \emph{network co-processor} and \Chip{EM250} \emph{system-on-chip}
+ which also use 16-bit \emph{XAP2} cores.
+
+ \emph{NEC} (now \emph{Renesas}) has a few 16-bit RF controller chips
+ available but the selection of development tools for that platform is
+ rather poor.
+
+ \emph{Freescale} has a range of 8-bit \WPAN\ microcontrollers
+ \Chip{MC13213}, there are currently three devices with 16k/32k/60k
+ of flash memory. These processors belong to well known \emph{68HC08}
+ architecture family.
+
+ A UK company \emph{Jennic} (now acquired by \emph{NXP}) produces a
+ range of wireless micorocontrollers and sub-assembly modules. These
+ are utilizing \emph{OpenRISC} 32-bit processor core combined with a
+ proprietary transceiver. The \emph{OpenRISC} core had been developed
+ as community effort of \emph{OpenCores.org}, however \emph{Jennic}
+ software source code is not available and a rather low quality binary
+ library distribution is offered. This software had been analysed, but
+ the results are irrelevant to this report.
+
+ \emph{Texas Instruments} currently offer a \Chip{CC2530} based on
+ \emph{8051} MCU with 2.4GHz radio, which is most like a product for
+ designers who prefer to use \emph{8051} and this chip doesn't feature
+ anything else in particular. Italian company \emph{Telit Communications}
+ sells sub-assembly RF and USB dongles featuring the \Chip{CC2530} chip.
+ Another interesting product from \emph{Texas} is \Chip{CC8520} which
+ allows low-power compressed audio transmission in the ISM band.
+
+ At the time of writing of this report the product range of \emph{TI}
+ wireless ICs has expanded. It now has \Chip{CC2511} \emph{SoC}
+ that is based on \Chip{CC2530} with a USB interface added and
+ yet another integrated family of \emph{TI's} \emph{MSP430} 16-bit
+ core and sub-gigahertz \Chip{CC1101} transceivers (the 2.4GHz devices
+ are expected soon).
+
+\subsubsection{8-bit Atmel AVR ATmega128RFA1}
+
+ The \Chip{ATmega128RFA1} \cite{atmel:atmega128rfa1:datasheet} chip
+ has 16MHz clock and contains 128kB of flash, 4kB of EEPROM and 16kB
+ of SRAM memories, 32 general purpose registers, 35 GPIO lines, 8
+ channels of 10-bit ADC and 6 configurable timers, counters and PWM
+ as well as USART, SPI and JTAG interfaces. \Chip{ATmega1281} core
+ of the \Chip{ATmega128RFA1} is a generic 8-bit microcontroller.
+ Apart from integrated \Chip{AT86RFA231} \cite{atmel:at86rf231:datasheet}
+ low-power 2.4GHz \emph{P802.15.4} transceiver, there are no other
+ distinct features, it is a stock-standard AVR chip, but is us first
+ Wireless MCU from \emph{Atmel}.
+
+ A choice of software stacks is provided \cite{atmel:avr2070,
+ atmel:avr2025, atmel:avr2102, atmel:zbpro}, licensing and architectural
+ aspects are being discussed in dedicated section of the WMI website
+ (\ref{sec:atmellic}) \cite{wmi:wiki:atmelsw}.
+
+\subsection{Boards and Peripherals}
+
+ \emph{Note: Product URLs are provided on dedicated page of the WMI
+ website \cite{wmi:wiki:devhw}.}
+ \newline
+
+ For a radio controller board (RCB) one of the major factors is the
+ type of antenna. Type of sensor connectors and serial interface,
+ as well as presence of JTAG header are also take in consideration.
+
+\subsubsection{\texttt{"32-bit"}}
+
+ \emph{Freescale} offers a variety of evaluation boards featuring
+ \Chip{MC1322x} chips and some interesting sensor ICs. The sensors
+ from \emph{Freescale} may be evaluated in a later stage of this
+ project, it could had been a good option to chose \emph{Freescale's}
+ evaluation boards as a platform solution for our task, however the
+ price of development hardware from original vendors is quite high
+ and does not fit into the budget. There is number of \Chip{MC1322x}
+ RCBs from 3rd-party suppliers, an up-to-date list is available
+ from \emph{Contiki} \Chip{MC1322x} port website
+ \cite{links:contiki:rcb:mc1322x}.
+
+\subsubsection{\texttt{"16-bit"}}
+
+ An interesting device that is using TI MSP430 16-bit MCU with
+ discrete transceiver chip is \emph{Zolertia Z1} board. The node
+ PCB also features 3-axis accellerometer and two 3-pin sensor
+ connectors (compatible with \emph{Phidgits} sensors).
+ USB serial interface chip and two anennas are other distinct
+ features of this device. A chip antenna is soldered on to the
+ \emph{Z1} PCB and second micro-FL socket is provied for
+ alternative antennae options. A \emph{Z1} version with
+ extra peripherals (JTAG, battery holder and external antenna)
+ as well as compact plastic enclosure will be soon available
+ from \emph{Zolertia} sore \cite{links:zolertia:store}.
+ 
+\subsubsection{\texttt{"8-bit"}}
+
+ \emph{Atmel} offers a range of RCB evaluation kits
+ \cite{links:atmel:rcb}, there a few \emph{ZigBit-series}
+ modules which feature an external RF power amplifier,
+ although those could be great board to use the 3rd-party
+ solutions are more suitable for the budget.
+
+ \begin{figure}
+ \includegraphics[scale=2.0]{../figures/images/sparkfun_atmega128rfa1_img00.jpg}
+ \caption{\emph{SparkFun} \Chip{ATmega128RFA1} \emph{Development Board}} \label{fig:sparkfun:atmega128rfa1:image}
+ \end{figure}
+
+ Two development board options were considered for this project.
+
+ First \Chip{ATmega128RFA1} board that had been looked at 
+ was \emph{Dresden Elktronik Radio Controller Board RCB128RFA1}
+ \cite{links:de:rcb}. In combination with \emph{Sensor Terminal
+ Board} \cite{links:de:stb} it is a very suitable development 
+ and prototyping solution. The \emph{RCB} has external antenna
+ connector and the MCU chip is under metal shielding and battery
+ holder. The \emph{STB} also appears to be of very good quality
+ and has screw sensors and JTAG, ISP, FIFO USB and DC power
+ connectors, as well as external 32kB SRAM chip.
+
+ The \emph{SparFun} board pictured in Figure
+ \ref{fig:sparkfun:atmega128rfa1:image}
+ is a much more minimalistic and compact device,
+ therefore is could fit into a slim enclosure with
+ \emph{I/O} breakout connections arranged, or otherwise
+ just a few sensors inside of enclosure for a basic
+ application. The circuit diagram for this device is
+ shown in Figure \ref{fig:sparkfun:atmega128rfa1:circuit}.
+
+\subsection{Popular Solutions}
+
+ The \emph{Xbee}\cite{links:digi:xbee} modules from \emph{Digi}
+ are very popular among hobbyists, however it is rather a
+ drop-in solution, and is not appropriate for a new design.
+ \emph{Xbee} modules can also be used without external MCU
+ \cite{links:misc:xbeemidi}, but the functionality is fixed
+ to what is implemented in module firmware. Also a recently
+ published \titleof{noble2009programming} book suggests to
+ use the \emph{Xbee} modules.
+ One product to mention is \emph{IcludeTech WiMi} \cite{links:includetech:wimi}
+ development board which uses an \emph{Xbee} module with whip antenna and a
+ \emph{Microchip PIC} MCU. This is appropriate as a drop-in module
+ for a MIDI device which already is being produced and wireless
+ connectivity needs to be offered as an expansion option, engineers
+ who are familiar with \emph{PIC} microcontrollers may find these
+ devices suitable for their designs.

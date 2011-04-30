@@ -88,11 +88,23 @@
 
   The log of commits made to the source code repository can be viewed at:
 
+\footnotesize
 \URL{https://github.com/contiki/contiki-rf2xx/commits/porting?author=errordeveloper}
+\normalsize
 
-  There had been two main implementation which were compared, though
+  There had been two main implementations which were compared, although
  another two components had been looked at while working on this part
  of the project. \dots %(LIST THE THINGS HERE with brief description)
+
+  After studying the source of these imlementations, it has become apparent
+ that an earlier version of \emph{Atmel RUM} has been already ported to
+ \emph{Contiki} and appears to be the base for the \Chip{AT86RF230} driver
+ and the MCU core \Chip{ATmega1281}. The codename for that driver is
+ \emph{RF230} and it's modified version is name \emph{RF230BB} (the
+ suffix \emph{"BB"} stand for \emph{bare-bones}). \emph{RF230BB} is
+ generally a stripped version of the first driver, it has been designed
+ to suite up-to-date internals of \ContikiOS.
+ 
 
   A major issue arose, when the upstream \Contiki\ code tree has been
  modified by one of the developers\footnote{\emph{The commit history of
@@ -103,7 +115,7 @@
  project. Also it became apparent that no major improvements are going
  to be made to provide simpler facilities for porting \Contiki\ to new
  \emph{AVR} devices.
- Nevertheless, during a discussion on the mailing list, this has been
+ Nevertheless, during a discussion on the mailing list, that has been
  agreed upon as generally a good direction for the development of the
  \emph{AVR} branch, thought had been seen as a remote target. Further
  study of the source code in the \emph{AVR} branch lead to a decision
