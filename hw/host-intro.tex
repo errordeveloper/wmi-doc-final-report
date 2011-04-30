@@ -20,7 +20,7 @@
 
 \subsection{x86-based Embedded Devices}
 
-  The list above does not include \emph{x86}-based CPUs due to the
+  The list above does not include the \emph{x86}-based CPUs due to a
  fact that it had been very difficult to find a target board using
  Intel or any \emph{x86} CPU from other vendors. There are many boards
  from a large variety of manufacturers, hence the selection process
@@ -55,13 +55,13 @@
  The \emph{OMAP} architecture is based around an \emph{ARM} processor
  (there are various models with different versions of \emph{ARM} core)
  and \emph{TI C64x} DSP block. However, there is a little problem
- associated with how the DSP unit is integrated with the CPU.
+ associated with how the DSP unit is integrated within the SoC.
  Very limited documentation is provided on how it can be used in the
  \emph{Linux} environment \cite{ti:omap:wiki:dsp}.
 
  One most outstanding development platform that uses an \emph{OMAP}
- chips with dual-core \emph{Cortex-A8} CPU clocked at 1GHz, is the
- \emph{PandaBoard} \cite{ti:omap:wiki:pb}, however it is available
+ chips with a dual-core \emph{Cortex-A8} CPU clocked at 1GHz - is the
+ \emph{PandaBoard} \cite{ti:omap:wiki:pb}. However, it is available
  for back-order only, the maker is producing these boards on demand
  and the lead time would be at least one month. Otherwise this board
  would have been purchased despite the fact that DSP unit would be
@@ -109,43 +109,59 @@
 % http://www.plugcomputer.org/
 
 \subsubsection{Freescale i.MX}
-% Freescale i.MX family info:
-% http://cache.freescale.com/files/32bit/doc/brochure/FLYRIMXPRDCMPR.pdf
-%^% NO DETAILS ABOUT NEON/VFP specified !!
 
-% i.MX31 - mid range (532 MHz ARM1136JF-S)
-% i.MX31 has VFP:
-% http://www.freescale.com/webapp/sps/site/prod_summary.jsp?code=i.MX31
-% http://www.freescale.com/files/32bit/doc/ref_manual/MCIMX31RM.pdf
-%^% NOT MUCH APART FROM THE VFP.
+ \emph{Freescale Semiconducters} offers a range of \emph{ARM} processors
+ branded emph{i.MX} \cite{links:freescale:imx}. The datasheets had been
+ examined to find out which chips include floating point unit. Among the
+ mid-range, \Chip{i.MX31} devices (532 MHz ARM1136JF-S) appear to have
+ support for floating point instructions (\emph{VFP}), however the clock
+ rate of this SoC would suite only a limited number of applications
+ \cite{links:freescale:imx31}. In the upper-range of \emph{Freescale i.MX}
+ solutions, there single-core \emph{Conrtex-A8} devices with clock rates
+ up to a GHz \cite{links:freescale:imx5}, namely the \Chip{i.MX535}  and
+ \Chip{i.MX538}. The second SoC has better video coding and storage
+ capabilities.
 
-% i.MX53 - top end of the family (1 GHz ARM Cortex-A8)
-% i.MX535 and i.MX538 Applications Processors Fact Sheet 
-% http://www.freescale.com/webapp/sps/site/overview.jsp?code=IMX53_FAMILY
-% http://cache.freescale.com/files/32bit/doc/fact_sheet/IMX5CNFS.pdf
-%^% IT SAYS THAT A BASIC DEV BOARD IS JUST $150, WITH TOUCHSCREEN - $200
-% i.MX538 has NEON and VFP + SATA:
-% http://www.freescale.com/webapp/sps/site/prod_summary.jsp?code=i.MX538
-% http://www.freescale.com/files/32bit/doc/ref_manual/iMX53RM.pdf
+ I has been noted that a simple development board for \Chip{i.MX535} can
+ be purchased for a relatively low price\foonote{\emph{There two basic
+ options: one for 150 US dollars, and another for 200 with a touch-screen.}}.
+
+@MISC{links:freescale:imx,
+	TITLE = "\href{http://cache.freescale.com/files/32bit/doc/brochure/FLYRIMXPRDCMPR.pdf}
+		{{i.MX Product Family Overview}}",
+	AUTHOR = {{Freescale Semiconductors}}
+}
+
+
+@MANUAL{links:freescale:imx31,
+	TITLE = "\href{http://www.freescale.com/files/32bit/doc/ref_manual/MCIMX31RM.pdf}
+		{{i.MX32 Reference Manual}}",
+	AUTHOR = {{Freescale Semiconductors}}
+}
+
+@MANUAL{links:freescale:imx5,
+	TITLE = "\href{http://cache.freescale.com/files/32bit/doc/fact_sheet/IMX5CNFS.pdf}
+		{{i.MX5 Fact Sheet}}",
+	AUTHOR = {{Freescale Semiconductors}}
+}
+
 
 \subsection{SHARC}
 
-  The DSP instruction can be used directly and a library is provided
- which \dots blah \dots blah.
+  \emph{Analog Device} is a well-known manufacturer of DSP chips, this
+ architercture is different from \emph{TI C64x} and the signal processing
+ instructions are handled directly on core. The clock frequencies are
+ not being the main performance factor for the \emph{SHARC} device and
+ range between 300 and 600 MHz. Linux has been a popular platform for
+ advanced \emph{SHARC}-based systems appearing in various application
+ markets \cite{links:adi:sharc}. It should noted that the advertisment
+ of \emph{SHARC} chips provides less details then products from other
+ vendors, hence an extensive evalution would be required for designing
+ a system with \emph{SHARC}.
 
-300MHz - 600MHz .. there dual-core Blackfin chips ..
+% http://www.analog.com/static/imported-files/product_highlights/SHARC_Proc_Family_(B)_Final.pdf
 
-
-  \emph{Analog Device SHARC} development hardware is mostly available
- from the vendor and very few third-party board could be found. Since
- this hardware architecture is more specialised, the prices of the 
- development boards are not as low as some of the \emph{ARM} boards.
-  Although the vendor offers a comprehensive free library of board
- design file \cite{links:adi:freepcb}.
-
-% http://blackfin.uclinux.org/gf/project/stamp/frs
-
-  \emph{SRARC} processor are commonly used in professional audio
+  \emph{SRARC} processors are commonly used in professional audio
  equipment. One very outstanding product has been released by
  a new British company \emph{Dark Matter Audio}, the device called
  \emph{DMA1} \cite{links:dma1} has been released this year.
@@ -157,4 +173,14 @@
  developed in the course of this project. The vendor has provided
  an SDK, thought a request has been sent to obtain more specific
  details needed to design this add-on solution appropriately.
- 
+
+
+  \emph{SHARC} development hardware is mostly available from the
+ silicon vendor itself and very few third-party boards could be found.
+ Since this architecture is more specialised, the prices of the 
+ development boards are not as low as some of the \emph{ARM} boards,
+ although the vendor offers a comprehensive free library of board
+ design file \cite{links:adi:freepcb}.
+
+% http://blackfin.uclinux.org/gf/project/stamp/frs
+
