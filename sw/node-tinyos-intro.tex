@@ -80,18 +80,33 @@
   \TinyOS\ has become widely adopted and there are many researchers
  who contributed significant work in different application areas, one
  such area of great interest to WMI project is sensor node timer
- synchronisation protocols. A number of papers are available and the
+ synchronisation protocols. A number of papers are available \cite{
+ paper:ts4,paper:ts2,paper:ts3,paper:ts1, Lenzen2010Clock,
+ Lenzen2009Optimal, Sommer2009Gradient, Sommer2008Symmetric} and the
  mainstream repository of \emph{TinyOS} source code already contains
- implementations for some of those protocols.
-
- \underline{\emph{( A few details with references needed )}}
+ implementations for some of the proposed protocols \TEP{99999}.
 
   Further study and experimentation in this area are required to design
  a system which could cope with real-time constraints of stage control
  applications. It is important to note that \emph{P802.15.4} has addressed
- some real-time application requirements, however the status of software
- support for these features of \emph{P802.15.4} is currently uncertain.
- \underline{\emph{( Perhaps mention NanoRX ? )}}
+ some real-time application requirements (\ref{sec:P802154}), however the
+ status of software support for these features of \emph{P802.15.4} is
+ currently uncertain. It is most likely that modification of the MAC layer
+ is required to implement dual-mode transmission (real-time and standard
+ non-priority). It appears however, that some reaserch
+ in this area has been done by the \emph{Nano-RK} developers
+ \cite{pubs:nrk06c}\footnote{\emph{More details are also available at:
+ \URL{http://nano-rk.org/wiki/RT-Link}}}, thought more work is needed
+ to find the most appropriate way to implement it within \TinyOS\ or
+ \Contiki.
+ 
+@Article{pubs:nrk06c,
+	AUTHOR = {Rowe, Anthony and Mangharam, Rahul and Rajkumar, Raj},
+	TITLE = "\href{http://www.ece.cmu.edu/~agr/pubpg/secon_06.pdf}
+		{{RT-Link: A Time-Synchronized Link Protocol for Energy Constrained Multi-hop Wireless Networks}}"
+	MONTH = "September",
+	YEAR = 2006
+}
 
   After several aspects of \emph{TinyOS} were studied, it was clear
  that its current implementation of \emph{6loWPAN} is fully compatible
