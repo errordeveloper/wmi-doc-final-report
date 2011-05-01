@@ -1,7 +1,7 @@
 \section{DSP Host Hardware}
 
-  A set of hardware platforms suitable for DSP host were considered.
- Among those are the following:
+  A set of hardware platforms suitable for the DSP host were
+  considered. Among those are the following:
  	\begin{itemize}
 		\item \emph{Analog Devices SHARC}
 		\item \emph{ARM:} \begin{itemize}
@@ -13,8 +13,8 @@
  All of these processor architectures are fully supported and widely
  used in embedded systems. Various other architecture families were
  considered, but found rather inappropriate due to the price range
- dictated by the target of this project. Multi-core \emph{MISP64}
- devices by \emph{NetLogic} \cite{netlogic:mips64:multicore}, for
+ dictated by the target of this project. Multi-core \emph{MIPS64}
+ devices by \emph{NetLogic} \cite{links:netlogic:mips64}, for
  example, have great computational capacity, thought these are too
  expensive for this particular application.
 
@@ -24,8 +24,8 @@
  fact that it had been very difficult to find a target board using
  Intel or any \emph{x86} CPU from other vendors. There are many boards
  from a large variety of manufacturers, hence the selection process
- becomes particularly time consuming. Quality evaluation would also
- be necessary\footnote{\emph{Due to the scale of production in this
+ becomes particularly time consuming. Quality evaluation is also a
+ necessity\footnote{\emph{Due to the scale of production in this
  market, there is a great chance to obtain a device with a failure.}},
  when looking at \emph{x86} devices. Although, there are boards that
  would match the low-power and small form-factor requirements, most
@@ -33,19 +33,17 @@
  audio and video interfaces and, if these are not present, the board
  may have two or more RS-232 connectors. Another aspect of \emph{x86}
  system design is that it comes with legacy \emph{BIOS} technology,
- while most of \emph{ARM} systems, for example, have rather more
- flexible facilities for booloader and set-up. Also in the class of
- \emph{single board computers (SBC)} there are many boards which do
- not inlude physical connectors for above mentioned peripherals,
- however isuch boards are designed for industrial use require a
- specialised chasis \cite{links:linuxfordevices:guide}.
+ while most of \emph{ARM} systems, for instance, have rather more
+ flexible facilities for bootloader and set-up. Although, in the class of
+ \emph{single board computers (SBC)}, there are many boards which do
+ not include the physical connectors for above mentioned peripherals,
+ however such boards are designed for industrial use and require a
+ specialised chassis \cite{links:linuxfordevices:guide}.
 
   Nevertheless, an \emph{x86} machine has been used for most of the
- development work on this project, that is for a rather transparent
+ development work on this project, which is for a rather transparent
  reason.
 
-%% add to bibtex file:
-% http://www.linuxfordevices.com/c/a/Linux-For-Devices-Articles/Single-Board-Computer-SBC-Quick-Reference-Guide/
 
 \subsection{OMAP}
 
@@ -65,20 +63,18 @@
  for back-order only, the maker is producing these boards on demand
  and the lead time would be at least one month. Otherwise this board
  would have been purchased despite the fact that DSP unit would be
- difficult to utilised.
-
- %http://www.omappedia.org/wiki/DSPBridge_Project
- %http://www.omappedia.org/wiki/PandaBoard
+ difficult to utilise.
 
 \subsection{Other ARM CPUs}
 
   \emph{ARM} CPUs are produced by almost any major semiconductor firm,
- so do \emph{Freescale} and \emph{Marvell}. Not all of those companies
- make very high performance \emph{ARM} chips, i.e. clocked near to 1GHz,
- and few make multi-core CPUs. And only some CPUs have an FPU.
- \emph{ARM} floating point instruction set is know as \emph{VFP}
- ("Vector Floating Point"). There are different versions of \emph{VFP},
- though in this context this wasn't a concern.
+ including \emph{Freescale} and \emph{Marvell}. Not all fabricators
+ make very high-performance \emph{ARM} chips, wich are clocked near to
+ 1 GHz, and just a few make multi-core SoCs. And only some chips have an
+ FPU. \emph{ARM} floating-point instruction set is know as \emph{VFP}
+ ("Vector Floating-Point"). There are different versions of \emph{VFP},
+ though in this context that wasn't a concern \cite{links:arm:vfp}.
+ It is needless to mention that both vendors fully support Linux OS.
 
 \subsubsection{Marvell Sheeva}
 
@@ -93,81 +89,63 @@
  of DSP host for this project is \emph{VFP}. Some of \emph{ARMADA}
  SoCs include \emph{VFP}, namely \emph{ARMADA XP} series,
  \emph{ARMADA 510} and \emph{610} \cite{links:marvell:armada}.
- \emph{Kirkwood} series are not featuring \emph{VFP}, thought there
- are some outstanding embedded development platforms available.
+ \emph{Kirkwood} series \cite{links:marvell:kirkwood} are not featuring
+ a \emph{VFP}, thought there are some outstanding embedded development
+ platforms available.
 
-  \emph{Plug Commputer} (also know as \emph{Seeva Plug}) is small, yet
+  \emph{Plug Computer} (also know as \emph{Sheeva Plug}) is small, yet
  very powerful computer in a form-factor of wall socket DC adaptor
  \cite{links:marvell:plug,links:plugcomp:homepage}. There many exciting
  application where these devices could be the best fit, thought due to
  above mentioned lack of \emph{VFP}, this CPU is not well suited as the
  DSP host.
 
-% Marvell Semiconductor, Inc. - ARMAD Processor Family
-% http://www.marvell.com/products/processors/armada.html
-% http://www.marvell.com/platforms/plug_computer/
-% http://www.plugcomputer.org/
 
 \subsubsection{Freescale i.MX}
 
- \emph{Freescale Semiconducters} offers a range of \emph{ARM} processors
- branded emph{i.MX} \cite{links:freescale:imx}. The datasheets had been
- examined to find out which chips include floating point unit. Among the
+ \emph{Freescale Semiconductors} offers a range of \emph{ARM} processors
+ branded \emph{i.MX} \cite{links:freescale:imx}. The datasheets had been
+ examined to find out which chips include a floating-point unit. Among the
  mid-range, \Chip{i.MX31} devices (532 MHz ARM1136JF-S) appear to have
- support for floating point instructions (\emph{VFP}), however the clock
- rate of this SoC would suite only a limited number of applications
+ support for vector floating-point instructions, however the clock rate of
+ the \Chip{i.MX31} SoC would suite only a limited number of applications
  \cite{links:freescale:imx31}. In the upper-range of \emph{Freescale i.MX}
- solutions, there single-core \emph{Conrtex-A8} devices with clock rates
- up to a GHz \cite{links:freescale:imx5}, namely the \Chip{i.MX535}  and
+ solutions, there are single-core \emph{Conrtex-A8} devices with clock rates
+ up to 1 GHz \cite{links:freescale:imx5}, namely the \Chip{i.MX535}  and
  \Chip{i.MX538}. The second SoC has better video coding and storage
  capabilities.
 
- I has been noted that a simple development board for \Chip{i.MX535} can
- be purchased for a relatively low price\foonote{\emph{There two basic
+ It has been noted that a simple development board for \Chip{i.MX535} can
+ be purchased for a relatively low price\footnote{\emph{There two basic
  options: one for 150 US dollars, and another for 200 with a touch-screen.}}.
-
-@MISC{links:freescale:imx,
-	TITLE = "\href{http://cache.freescale.com/files/32bit/doc/brochure/FLYRIMXPRDCMPR.pdf}
-		{{i.MX Product Family Overview}}",
-	AUTHOR = {{Freescale Semiconductors}}
-}
-
-
-@MANUAL{links:freescale:imx31,
-	TITLE = "\href{http://www.freescale.com/files/32bit/doc/ref_manual/MCIMX31RM.pdf}
-		{{i.MX32 Reference Manual}}",
-	AUTHOR = {{Freescale Semiconductors}}
-}
-
-@MANUAL{links:freescale:imx5,
-	TITLE = "\href{http://cache.freescale.com/files/32bit/doc/fact_sheet/IMX5CNFS.pdf}
-		{{i.MX5 Fact Sheet}}",
-	AUTHOR = {{Freescale Semiconductors}}
-}
 
 
 \subsection{SHARC}
 
-  \emph{Analog Device} is a well-known manufacturer of DSP chips, this
- architercture is different from \emph{TI C64x} and the signal processing
- instructions are handled directly on core. The clock frequencies are
- not being the main performance factor for the \emph{SHARC} device and
- range between 300 and 600 MHz. Linux has been a popular platform for
- advanced \emph{SHARC}-based systems appearing in various application
- markets \cite{links:adi:sharc}. It should noted that the advertisment
- of \emph{SHARC} chips provides less details then products from other
- vendors, hence an extensive evalution would be required for designing
- a system with \emph{SHARC}.
+  \emph{Analog Device} is a well-known manufacturer of DSP chips, the
+ \emph{SHARC} architecture is different from \emph{TI OMAP} and the
+ signal processing instructions are handled directly on core\footnote{%
+ \emph{As it was mentioned above, TI OMAP is a combination of ARM and
+ C64x DSP, while SHARC is a monolithic SoC. Nevertheless, some designer
+ chose to use SHARC with an ARM control CPU, e.g. the DMA1.}}.
+ The clock frequency is not being the main performance factor of the
+ \emph{SHARC} devices and range between 300 and 600 MHz, instead FLOPS
+ (Floating-Point Operations per Second) are used to define the speed of
+ these processors \cite{links:adi:sharc}.
+ Linux has been a popular platform for advanced \emph{SHARC}-based systems
+ appearing in various application markets. % It should noted that the
+%advertisment of \emph{SHARC} chips provides less details then products
+%from ARM fabricators, hence an extensive evalution would be required for
+%designing a system with \emph{SHARC}.
 
-% http://www.analog.com/static/imported-files/product_highlights/SHARC_Proc_Family_(B)_Final.pdf
 
   \emph{SRARC} processors are commonly used in professional audio
  equipment. One very outstanding product has been released by
- a new British company \emph{Dark Matter Audio}, the device called
- \emph{DMA1} \cite{links:dma1} has been released this year.
- It is an advanced system for interactive music performance with
+ a new British company \emph{Dark Matter Audio} this year, it is
+ called \emph{DMA1} \cite{links:dma1}.
+ It is a portable  system for interactive music performance with
  very novel design features and powerful \emph{SHARC} DSP engine.
- According to the product announcement it runs Linux OS and also
+ According to the product announcement it runs Linux and also
  uses an \emph{ARM} chip for graphical user interface. It would be
  possible to integrate \emph{DMA1} with current prototype system
  developed in the course of this project. The vendor has provided
@@ -180,7 +158,6 @@
  Since this architecture is more specialised, the prices of the 
  development boards are not as low as some of the \emph{ARM} boards,
  although the vendor offers a comprehensive free library of board
- design file \cite{links:adi:freepcb}.
+ design files \cite{links:adi:freepcb}.
 
-% http://blackfin.uclinux.org/gf/project/stamp/frs
 
