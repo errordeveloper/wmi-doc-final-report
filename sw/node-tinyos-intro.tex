@@ -81,10 +81,9 @@
  who contributed significant work in different application areas, one
  such area of great interest to WMI project is sensor node timer
  synchronisation protocols. A number of papers are available \cite{
- paper:ts4,paper:ts2,paper:ts3,paper:ts1, Lenzen2010Clock,
- Lenzen2009Optimal, Sommer2009Gradient, Sommer2008Symmetric} and the
- mainstream repository of \emph{TinyOS} source code already contains
- implementations for some of the proposed protocols \TEP{99999}.
+ Lenzen2010Clock, Lenzen2009Optimal, Sommer2009Gradient, Sommer2008Symmetric}
+ and the mainstream repository of \emph{TinyOS} source code already contains
+ implementations for some of the proposed protocols [\TEP{132},\TEP{133}].
 
   Further study and experimentation in this area are required to design
  a system which could cope with real-time constraints of stage control
@@ -100,14 +99,6 @@
  to find the most appropriate way to implement it within \TinyOS\ or
  \Contiki.
  
-@Article{pubs:nrk06c,
-	AUTHOR = {Rowe, Anthony and Mangharam, Rahul and Rajkumar, Raj},
-	TITLE = "\href{http://www.ece.cmu.edu/~agr/pubpg/secon_06.pdf}
-		{{RT-Link: A Time-Synchronized Link Protocol for Energy Constrained Multi-hop Wireless Networks}}"
-	MONTH = "September",
-	YEAR = 2006
-}
-
   After several aspects of \emph{TinyOS} were studied, it was clear
  that its current implementation of \emph{6loWPAN} is fully compatible
  with \emph{Contiki} and it had been desired to prove this in practice,
@@ -163,7 +154,7 @@
 
   There is a large repository of board design files featuring so called
  \emph{Epic Mote} platform, that is base around \Chip{CC2420} and the
- \Chip{MSP430} \cite{epic:homepage}. The most interesting designed by
+ \Chip{MSP430} \cite{links:epic}. The most interesting designed by
  Prabal Duta of UC Berkley \cite{duta:homepage} is shown in Figure
  \ref{fig:mote:quanto}. The reason why it is so interesting is because
  it features \emph{Digi Connect-ME} microprocessor system block that is
@@ -180,8 +171,10 @@
  Ethernet chip, unless there would be a chip with a combination of
  Ethernet and RF hardware in a single package.
 
-% INCLUDE THIS IMAGE:
-% http://www.cs.berkeley.edu/~prabal/projects/epic/epic-quanto.jpg
+\begin{figure}
+\includegraphics[scale=0.5]{../figures/images/epic_mote_quanto.png}
+\caption{\emph{Epic Quanto mote featuring Digi Connect-ME}}
+\end{figure}
 
 
 \subsection{Conclusion}

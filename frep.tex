@@ -55,6 +55,8 @@
 
 \newcommand{\TEP}[1]{\AltRef{\emph{TEP#1}}{http://www.tinyos.net/tinyos-2.x/doc/pdf/tep#1.pdf}{links:tinyos:tep#1}}
 
+\newcommand{\RFC}[1]{\AltRef{\emph{RFC#1}}{http://tools.ietf.org/pdf/rfc#1.pdf}{ietf:rfc#1}}
+
 %% usage:
 %	\MAN{gcc}
 %	\MAN{2, open}
@@ -154,12 +156,15 @@
 \include{sw/node-rtos-intro}
 \include{sw/node-contiki-intro}
 \include{sw/node-tinyos-intro}
+\chapter{Wireless Node Hardware}
+\include{hw/node-intro}
 \chapter{DSP Host System}
 \include{hw/host-intro}
 \include{sw/host-linux-intro}
 
 \chapter{Application Development}
 \include{sw/node-contiki-devel}
+\include{sw/node-midi-intro}
 
 \chapter{State Machines}
 \include{sw/node-app-sm-adv-listener}

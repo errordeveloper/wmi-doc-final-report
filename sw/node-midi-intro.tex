@@ -1,0 +1,72 @@
+\section{Implementation Decisions}
+
+  Two programs where written to test transmission of MIDI. The concept of
+ server/client communication could be applied, nevertheless it had been
+ found more appropriate to name the parties as a \emph{Talker} and a
+ \emph{Listener}. At the time of writing of this report the \emph{Talker}
+ program had been fully tested and debugged. The second program can be
+ considered only as a prototype and does require further work.
+
+  The \emph{protosocket} macros had been utilised for the implementation,
+ hence the communication protocol imposed by \emph{protosocket} was TCP.
+ There are various improvements that are still to be considered.
+ The specification of TCP includes a notion for \emph{urgent data}
+ (\RFC{0793}), however this feature has received a very limited adoption
+ and is known to be handled differently by various implementations of TCP
+ \cite{ietf:draft:tcpm:urgdata}. It has been found that the \emph{uIP}
+ stack does implement some mechanisms for the \emph{urgent data}, however
+ the documentation on how it can be applied in \Contiki\ application code,
+ could not be found. 
+
+
+\subsection{UDP Multicasting}
+
+  A variety of packages exist which utilise UDP multicasting for streaming
+ of the MIDI data on LAN. These include \emph{ipMIDI} \cite{links:ipmidi} for
+ Microsoft Windows and Apple Mac OS X platforms as well as compatible
+ packages for Linux - \emph{multimidicast} \cite{links:multimidicast} and
+ \emph{qmidinet} \cite{links:qmidinet}. This two Linux packages had been
+ tested with current implementation of the \emph{Talker} program and have
+ shown a suitable performance. The multicasting approach is considered to
+ be quite appropriate for streaming of MIDI signals on IP networks, since
+ no configuration is required, i.e. none of the participants have to set-up
+ connection between each other and only need to send data to the multicast
+ IP address\footnote{\emph{For compatibility with ipMIDI, the multicast IP
+ address should be 225.0.0.37 and the port numbers from 21928 and above.}}.
+ However the \emph{ipMIDI} is not a formal protocol, it simply streams the
+ MIDI signals to a UDP socket, i.e. there are no any error correcting
+ mechanisms or hand-shaking.
+
+
+\subsection{MIDI Networking in Linux}
+
+  On Linux, networking of MIDI clients can be implemented in user-space
+ with \emph{ALSA ("Advanced Linux Sound Architecture")} utilities package
+ \cite{links:linux:alsa}.
+ The documentation on \emph{ALSA Sequencer Network} is limited to the
+ comments in the source code of the \MAN{aseqnet} program. It is design
+ using UDP and a specific data structure. The two programs mentioned in
+ the previous section do not communicate with \MAN{aseqnet}, but use
+ the \emph{ALSA Sequencer} interface directly.
+
+
+\subsection{MIDI payload for Real-time Transport Protocol}
+
+ Two relevant Internet standards had been published by the IETF in 2006:
+ \begin{itemize}
+  \item\emph{"RTP Payload Format for MIDI"} (\RFC{4695})
+  \item\emph{An Implementation Guide for RTP MIDI} (\RFC{4696})
+ \end{itemize}
+
+ This two papers had been studied and considered as a possible solution
+ for encapsulating MIDI data stream on a \emph{6loWPAN} networks, however
+ the implementation would require a library for the \emph{Real-time
+ Transport Protocol} as well a large set of algorithms to handle various
+ aspects of the \emph{RFC4695}. It would be a very challenging task to
+ design \emph{RTP-MIDI} library which could run on a microcontroller.
+
+ This protocol is currently implemented as part of \emph{Apple CoreMidi}
+ \cite{links:wiki:rtpmidi} and an open-source library exists for Linux
+ \cite{links:rtpmidi}. However, there had been major adoption for the
+ \emph{RTP-MIDI} in the field.
+

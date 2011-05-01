@@ -95,13 +95,13 @@
   There had been two main implementations which were compared, although
  another two components had been looked at while working on this part
  of the project. \emph{Atmel} offers two software stack for \emph{6loWPAN}
- and one other package for \emph{ZigBee} implementation. Only \emph{6loWPAN}
- was of interest to this project.
+ and two other packages for \emph{ZigBee} implementation \cite{atmel:avr2102,
+ atmel:zbpro}. Only \emph{6loWPAN} was of interest to this project.
 
 \begin{itemize}
 
-	\item\emph{Atmel RUM} \cite{links:atmel:rum}
-	\item\emph{Atmel MAC} \cite{links:atmel:mac}
+	\item\emph{Atmel RUM} \cite{atmel:avr2070}
+	\item\emph{Atmel MAC} \cite{atmel:avr2025}
 	\item\emph{Contiki RF230 Driver}
 	\item\emph{Contiki RF230BB Driver}
 
@@ -118,10 +118,10 @@
 
   The \emph{MAC} stack from \emph{Atmel} has been looked at and was
  considered  not suitable for it's license terms. The license can be
- found in the source code available form \emph{Atmel} website
- \cite{links:atmel:mac}. Unlike the \emph{RUM} license, the \emph{MAC}
+ found in the source code available form the \emph{Atmel} website
+ \cite{atmel:avr2025}. Unlike the \emph{RUM} license, the \emph{MAC}
  license dictates a set of limitation on how the source code can be used, 
- this source code cannot be distributed as part of an open-source project.
+ this package cannot be distributed as part of an open-source project.
  Nevertherless, it appears that the \emph{Atmel MAC} implementation is
  generally more advanced (provides more functions) and has a clearer
  coding style and structure.
@@ -162,10 +162,10 @@
  completed now, since this part of project has been suspended. This list
  is included here for refrence only.
 
- \begin{itemize}
+ \begin{description} \em
 	\IssueX{14} Compare Avaliable Driver Implementations
 	\IssueX{15} AVR cross-compiler toolchain installation
 	\IssueX{16} Porting Methodology
 	\IssueX{20} Driver Code Licensing
 	\IssueX{24} Early Compilation Errors
- \end{itemize}
+ \end{description}

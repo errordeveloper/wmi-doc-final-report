@@ -21,8 +21,11 @@
 \subsection{MC1322x Architecture Overview}
 
  Below is the diagram of \MCX\ \emph{Platform in Package (PiP)}.
-% INCLUDE THIS IMAGE:
+
+\begin{figure}
 % http://cache.freescale.com/files/graphic/block_diagram/2150_MC1322X_BD.gif
+\caption{\emph{The block diaghram of Freescale MC1322x}}
+\end{figure}
 
   In addition to standard peripherals (UART, 12-bit A/D converters,
  SPI and I2C) this device has \emph{Synchronous Serial Interface (SSI)}
@@ -30,7 +33,7 @@
  synchronous serial peripherals. Being a 32-bit microcontroller
  it can be used for some basic audio signal processing. For example,
  with \emph{Analog Devices} \Chip{ADMP441} omnidirectional microphone
- with 24-bit I2S digital output \cite{datasheet:adi:ADMP441} an
+ with 24-bit I2S digital output \cite{datasheet:adi:admp441} an
  acoustic measurement sensor node can be designed. According to the
  datasheet, \Chip{ADMP441} has a very linear frequency response in
  the band between 100Hz to 15kHz. Such wireless node would be
@@ -42,11 +45,7 @@
  DSP techniques on accelerometer signal data, various vibration
  frequency analysis results can be produced.
 
-%% to be added to the bibtex file:
 
- %http://www.freescale.com/files/rf_if/doc/ref_manual/MC1322xRM.pdf
- %http://www.freescale.com/files/rf_if/doc/app_note/AN3751.pdf
- %http://www.analog.com/static/imported-files/data_sheets/ADMP441.pdf
  
 %% write about freescale usb stick and the Econotag, include circuits
 
@@ -74,4 +73,3 @@
  provides access to the JTAG.
 
  
-

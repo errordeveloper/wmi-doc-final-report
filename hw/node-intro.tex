@@ -1,82 +1,73 @@
+\section{Overview of Hardware Options:\\Platforms and Cores}
 
+%There had been an extended research and early decision was
+%to use \emph{Atmel} \RFA\, however this has changed for the
+%reason described in the previous chapter.
 
-\section{Overview of Hardware Options}
-
-  Regarding the choice of development platform, there had been extended research
-  carried out and final decision was taken due to a number of factors. One of
-  which was familiarity with development tools for \emph{8-bit AVR}. \emph{GCC}
-  cross-compiler and \emph{AVR LIBC} were used in some earlier work with
-  \emph{Arduino}. Also the porting of driver code was considered as challenging
-  opportunity. More details will be given in further sections of this report,
-  for the purpose of this section some alternatives are discussed.  Another
-  factor narrowing the selection, was integrated MCU core and RF transceiver
-  in a single chip.
-
-\subsection{Platforms and Cores}
-
- Currently semiconductor market presents a wide variety
- of single-chip MCUs with \WPAN\ interfaces. There is a
- dedicated section on the WMI website for more information
- and references to product pages \cite{wmi:wiki:chips1, wmi:wiki:chips2}.
+ This chapter discusses various alternatives, which had been
+ considered for the target hardware platform. To narrow this
+ selection, an MCU with an integrated radio was of primary
+ interest. Currently, the semiconductor market presents a
+ wide range of single-chip MCUs with \WPAN\ interfaces. There
+ is a dedicated section on the WMI website for more information
+ and references to product pages \cite{wmi:wiki:chips1,
+ wmi:wiki:chips2}.
 
 \subsubsection{32-bit ARM Cortex}
 
- Two different integrated \WPAN\ microcontrollers based
- on \emph{ARM Cortex} architecture were found. Most notable
- chips are \emph{Freescale \texttt{MC1322x}}
- \emph{platform-in-package} family, which combine all transceiver
- components in one chip, providing a very simple design solution.
- Only one external RF component that \emph{\texttt{MC1322x}}
- requires is the antenna. Alternative \emph{Cortex-M3} product is
- \emph{Ember \texttt{EM300}-series}, these don't achieve the same
- scale of integration on the transceiver's side and still requires
- an external RF circuit.
+ Two different integrated \WPAN\ microcontrollers based on 
+ \emph{ARM} core architecture were found. Most notable
+ chips are \emph{Freescale \texttt{MC1322x}}, which are
+ classified as a \emph{platform-in-package}. \emph{Freescale}
+ combined all transceiver components in one chip, providing
+ a very simple design solution. Only one external RF component
+ that \MCX\ requires is the antenna. Alternative \emph{Cortex-M3}
+ product is \emph{Ember \texttt{EM300}-series}, these don't
+ achieve the same scale of integration on the transceiver side
+ and still requires an external RF circuit.
 
  The \Chip{MC1322x} gives a great benefit to a designer, as it
  is known that layout of a radio circuit for frequencies in
- gigahertz range is particularly challenging task and indeed
+ gigahertz range is particularly challenging task and, indeed,
  this is a specialist area of board design.
 
 \subsubsection{Other Microcontrollers}
 
- \emph{ST Microelectronics} offers a 16-bit single-chip \WPAN\
- microcontrollers \Chip{SN250} and \Chip{SN260}, both are based
- on \emph{XAP2b} processor architecture. \emph{Ember} has \Chip{EM260}
- \emph{network co-processor} and \Chip{EM250} \emph{system-on-chip}
- which also use 16-bit \emph{XAP2} cores.
+ \emph{ST Microelectronics} and \emph{Ember} offer 16-bit single-chip
+ \WPAN\ microcontrollers based on \emph{XAP2} processor architecture.
 
- \emph{NEC} (now \emph{Renesas}) has a few 16-bit RF controller chips
- available but the selection of development tools for that platform is
- rather poor.
+ \emph{NEC} (now \emph{Renesas}) has a few 16-bit RF chips available,
+ but the selection of development tools and libraries for that platform
+ is rather poor.
 
- \emph{Freescale} has a range of 8-bit \WPAN\ microcontrollers
- \Chip{MC13213}, there are currently three devices with 16k/32k/60k
- of flash memory. These processors belong to well known \emph{68HC08}
- architecture family.
+ \emph{Freescale} has a another set of 8-bit \WPAN\ microcontrollers.
+ \Chip{MC13213} family currently consists of just three devices with
+ 16k/32k/60 kB of flash memory and \emph{Motorola 68HC08} core.
 
  A UK company \emph{Jennic} (now acquired by \emph{NXP}) produces a
  range of wireless micorocontrollers and sub-assembly modules. These
- are utilizing \emph{OpenRISC} 32-bit processor core combined with a
+ are utilising \emph{OpenRISC} 32-bit processor core combined with a
  proprietary transceiver. The \emph{OpenRISC} core had been developed
- as community effort of \emph{OpenCores.org}, however \emph{Jennic}
+ as a community effort of \emph{OpenCores.org}, however \emph{Jennic}
  software source code is not available and a rather low quality binary
  library distribution is offered. This software had been analysed, but
  the results are irrelevant to this report.
 
  \emph{Texas Instruments} currently offer a \Chip{CC2530} based on
- \emph{8051} MCU with 2.4GHz radio, which is most like a product for
- designers who prefer to use \emph{8051} and this chip doesn't feature
- anything else in particular. Italian company \emph{Telit Communications}
+ \emph{8051} MCU with 2.4 GHz radio, which is most like a product for
+ designers who prefer to use \emph{8051}. \emph{Telit Communications}
  sells sub-assembly RF and USB dongles featuring the \Chip{CC2530} chip.
  Another interesting product from \emph{Texas} is \Chip{CC8520} which
- allows low-power compressed audio transmission in the ISM band.
+ allows low-power compressed audio transmission in the ISM band, however
+ as it was mention earlier, transmission of audio is not of interest
+ to this project.
 
  At the time of writing of this report the product range of \emph{TI}
  wireless ICs has expanded. It now has \Chip{CC2511} \emph{SoC}
  that is based on \Chip{CC2530} with a USB interface added and
- yet another integrated family of \emph{TI's} \emph{MSP430} 16-bit
- core and sub-gigahertz \Chip{CC1101} transceivers (the 2.4GHz devices
- are expected soon).
+ yet another integrated family - \Chip{CC430}. These chips are using
+ \emph{TI's} \Chip{MSP430} 16-bit core and a sub-gigahertz \Chip{CC1101}
+ transceivers.
 
 \subsubsection{8-bit Atmel AVR ATmega128RFA1}
 
@@ -88,7 +79,7 @@
  of the \Chip{ATmega128RFA1} is a generic 8-bit microcontroller.
  Apart from integrated \Chip{AT86RFA231} \cite{atmel:at86rf231:datasheet}
  low-power 2.4GHz \emph{P802.15.4} transceiver, there are no other
- distinct features, it is a stock-standard AVR chip, but is us first
+ distinct features, it is a stock-standard AVR chip, but is the first
  Wireless MCU from \emph{Atmel}.
 
  A choice of software stacks is provided \cite{atmel:avr2070,
@@ -109,27 +100,23 @@
 \subsubsection{\texttt{"32-bit"}}
 
  \emph{Freescale} offers a variety of evaluation boards featuring
- \Chip{MC1322x} chips and some interesting sensor ICs. The sensors
- from \emph{Freescale} may be evaluated in a later stage of this
- project, it could had been a good option to chose \emph{Freescale's}
- evaluation boards as a platform solution for our task, however the
- price of development hardware from original vendors is quite high
- and does not fit into the budget. There is number of \Chip{MC1322x}
- RCBs from 3rd-party suppliers, an up-to-date list is available
- from \emph{Contiki} \Chip{MC1322x} port website
- \cite{links:contiki:rcb:mc1322x}.
+ \Chip{MC1322x} chips and some interesting sensor ICs. There is
+ number of \Chip{MC1322x} RCBs from 3rd-party suppliers, an
+ up-to-date list is available from \emph{Contiki} \Chip{MC1322x}
+ port website \cite{links:contiki:rcb:mc1322x}. More information
+ on this platform will appear below.
 
 \subsubsection{\texttt{"16-bit"}}
 
- An interesting device that is using TI MSP430 16-bit MCU with
- discrete transceiver chip is \emph{Zolertia Z1} board. The node
- PCB also features 3-axis accellerometer and two 3-pin sensor
- connectors (compatible with \emph{Phidgits} sensors).
- USB serial interface chip and two anennas are other distinct
- features of this device. A chip antenna is soldered on to the
- \emph{Z1} PCB and second micro-FL socket is provied for
- alternative antennae options. A \emph{Z1} version with
- extra peripherals (JTAG, battery holder and external antenna)
+ Two interesting devices which are using TI MSP430 16-bit MCU with
+ a discrete transceiver chip is \emph{Zolertia Z1} board and the
+ \emph{Epic Mote}. The \emph{Zolertia} PCB also features a 3-axis
+ accellerometer and two 3-pin sensor connectors (compatible with
+ \emph{Phidgits} sensors). USB serial interface chip and two anennas
+ are other distinct features of this device. A chip antenna is
+ soldered on to the \emph{Z1} PCB and second micro-FL socket is
+ provied for alternative antennae options. A version of \emph{Z1}
+ with extra peripherals (JTAG, battery holder and external antenna)
  as well as compact plastic enclosure will be soon available
  from \emph{Zolertia} sore \cite{links:zolertia:store}.
  
@@ -175,7 +162,7 @@
  \emph{Xbee} modules can also be used without external MCU
  \cite{links:misc:xbeemidi}, but the functionality is fixed
  to what is implemented in module firmware. Also a recently
- published \titleof{noble2009programming} book suggests to
+ published \cite{noble2009programming} book suggests to
  use the \emph{Xbee} modules.
  One product to mention is \emph{IcludeTech WiMi} \cite{links:includetech:wimi}
  development board which uses an \emph{Xbee} module with whip antenna and a
