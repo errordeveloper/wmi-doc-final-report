@@ -1,0 +1,106 @@
+\section{Selecting the Development Platform for Contiki OS} \label{sec:MCX}
+
+  Examining the code for various hardware platforms in the source
+ tree of \ContikiOS\, it was understood that source code for
+ \Chip{MC1322x} devices from \emph{Freescale} is organised in a
+ much clearer way. Current implementation appears to support most
+ of important features of these chips and, in fact, these are
+ very robust devices. As mentioned earlier, \Chip{MC1322x} is an
+ \Chip{ARM7TDMI} microcontroller with fully integrated radio and
+ the only component external to the chip itself is the antenna.
+ Apart from this, the \emph{Freescale} device has an outstanding
+ set of peripheral and rather large amount of memory (128KB of
+ flash, 96kB of RAM and 80kB of ROM) the processor clock frequency
+ is 24MHz. Comparing to the minimum amount of memory required
+ to run \Contiki (2kB of RAM and 40kB of ROM) there is a very
+ large headroom available for the application and some additional
+ drivers. This also makes it a great development platform, during
+ debugging stages compiler optimisation often needs to be disabled
+ and additional memory may be also populated with debug data.
+
+\subsection{MC1322x Architecture Overview}
+
+ Below is the diagram of \MCX\ \emph{Platform in Package (PiP)}.
+
+\begin{figure}
+% http://cache.freescale.com/files/graphic/block_diagram/2150_MC1322X_BD.gif
+\caption{\emph{The block diaghram of Freescale MC1322x}}
+\end{figure}
+
+  In addition to standard peripherals (UART, 12-bit A/D converters,
+ SPI and I2C) this device has \emph{Synchronous Serial Interface (SSI)}
+ that would allow communication with I2S devices as well as other
+ synchronous serial peripherals. Being a 32-bit microcontroller
+ it can be used for some basic audio signal processing. For example,
+ with \emph{Analog Devices} \Chip{ADMP441} omnidirectional microphone
+ with 24-bit I2S digital output \cite{datasheet:adi:admp441} an
+ acoustic measurement sensor node can be designed. According to the
+ datasheet, \Chip{ADMP441} has a very linear frequency response in
+ the band between 100Hz to 15kHz. Such wireless node would be
+ suitable for field noise measurement at popular music festivals
+ or construction sites and industrial areas.
+ Another sensor that could be included on such board would be an
+ accelerometer, according to \emph{Freescale Application
+ Note AN3751} \cite{appnote:freescale:AN3751} by utilising standard
+ DSP techniques on accelerometer signal data, various vibration
+ frequency analysis results can be produced. Another feature of
+ the \MCX\ is it's accelerated MAC unit, called \emph{MACA}.
+
+\subsection{MC1322x Development Hardware}
+
+  The homepage of \Chip{MC1322x} port of \contiki has a detailed
+ overview of what development boards are available \cite{homepage:mc1322x:hw}.
+ Two boards which were chosen for this project are \emph{Freescale
+ 1322xUSB} and \emph{Redbee Econotag}.
+
+  A minimum of two devices is required to implement a \WPAN\ network.
+ At the early stage, the \emph{SparkFun} boards were supposed to be
+ used the sensor node and gateways device. When the decision had been
+ made to use \MCX\ platform, the \emph{Freescale} dongle was found to
+ be the most appropriate device to run \Contiki border router program,
+ which implements end-to-end IP communication\footnote{\emph{The source
+ code is located in: \Blob{examples/ipv6/rpl-border-router/}}}.
+
+\subsubsection{Freescale USB Dongle}
+
+ \emph{1322xUSB} is a very small USB device that doesn't provide the
+ access to any of the pin and therefore is well suited as a network
+ gateway. The circuit diagram is shown in figure \ref{cir:freescale-usb}
+ demonstrate the minimalistic layout of this board.
+
+\subsubsection{Redbee Econotag}
+
+ \emph{Econtag} by \emph{Redbee LLC} is highly regarded open-source
+ development board. It is specifically design to meet all important
+ requirenements of a development board with very constrained bill of
+ materials. The board provides access to all of the I/O pins and
+ and is very convenient for programming and debugging. Both of these
+ functions are achived with the help of dual-port USB UART chip,
+ \emph{FTDI} \Chip{FT22232HL} \ref{datasheet:ftdi:dual}. One of the two
+ ports is connected to the primary UART interface and the second port
+ provides access to the JTAG. The \Chip{FT2232HL} IC also facilitates
+ bit-bang software reset, the \emph{Freescale} dongle cannot be reset
+ in this way.
+
+\subsection{Hardware Programming Facilities}
+
+  To program the \Chip{MC1322x}, the first UART port is used. It also
+ used for standard serial port output. The program is localed into
+ RAM and doesn't wear-off the flash memory each time. Thought, for
+ flashing the \MCX\ devices, a two-stage procedure is needed. First,
+ a self-flasher code has to be loaded, which in turns loads the
+ main program code into the flash memory.
+ 
+  \Contiki\ source code contains the self-flasher implementations as
+ well a set of utilities for programming the \MCX\ devices. These are
+ located in \Blob{cpu/mc1322x/tools/}. However, this is not the only
+ way to update the software. Dunkels describes the design of \Contiki
+ \emph{Executable and Linkable Format} \cite{dunkels06runtime} loader.
+ There are a few implecation of using ELF loader, there has to be
+ a certain amount of spare memory for the code to be downloaded into.
+ However, it gives a great advantage of reprogramming over-the-air,
+ without a need for physical access to the node.
+
+% http://mc1322x.devl.org/doc/redbee-econotag/redbee-econotag-r2.pdf
+% http://www.ftdichip.com/Products/ICs/FT2232H.htm
+% http://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT2232H.pdf

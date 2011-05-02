@@ -72,3 +72,67 @@
 	initialisation functions
  \end{itemize}
 
+  A set of macros was defined to aid the application code, though
+ most of those macros were used only for initiial debugging.
+
+  Soon, it has been understood that the original implementation
+ was missing handler functions for the UART interrupts. With
+ the help of communication on the \Contiki\ mailing list, the
+ appropriate methods were realised. One of the key techniques
+ was to use \emph{"weak"} function linking attribute. Two macro
+ named \texttt{U2\_RXI\_POLLHANDLER()} and \texttt{U2\_TXI\_CALL()}
+ are appearing in the program listing \ref{code:talker}. These
+ macros define the function which is called by the interrupt
+ routine in \Blob{cpu/mc1322x/lib/uart2.c}\footnote{\emph{For
+ the definition of the macros, see: \begin{itemize}
+	\item \Blob{cpu/mc1322x/lib/include/uart1.h}
+	\item \Blob{projects/wmi/mc1322x/midi/uart2-midi.h}
+ 	\end{itemize}}}.
+
+\section{Designing the MIDI Talker Program}
+
+  A variety of constructs had been tried for handling the
+ FIFO  buffer into the \emph{uIP} packet buffer. This was
+ rather challenging and many complicated bugs appeared
+ throughout out the process. The JTAG debugger had been
+ utilised a number of times to find these bugs.
+
+  The macro named \texttt{PSOCK\_GENERATOR\_SEND()} had
+ been found as the most direct way to transfer the data
+ from FIFO into the packet buffer. This macro is defined
+ and documented in \Blob{core/net/psock.h}, it is a part
+ of \Contiki \emph{protosockets} library.
+
+\subsection{Protosockets}
+
+  This section gives more detail on \emph{protosockets},
+ which were introduced in \ref{sec:CONTIKI}.
+
+  The \emph{protosockets}  is a set of C macros (and just
+ a few C functions) defined and documented in:
+ \begin{itemize}	
+	\item\Blob{core/net/psock.h}
+	\item\Blob{core/net/psock.c}
+ \end{itemize}
+
+ These are indeed simple methods for a TCP application to
+ utilise. Nevertheless, it is commonly known that UDP
+ communication is most appropriate for a type of program
+ that is discussed here, the results included included in
+ this chapter will show that TCP can be used for a simple
+ program like this. If UDP was to be utilised, additional
+ algorithms for retransmission and stream data ordering
+ would need to be developed. As discussed in section
+ \ref{sec:MIDI}, it should be rather more appropriate to
+ develop a library for \emph{RTP-MIDI} instead of a simple
+ UDP application. There is a great benefit to use TCP at
+ this stage, as it provides the guarantees of data being
+ transmitted correctly and in a sequential order on the
+ socket level.
+
+ For detailed documentation of the function which will
+ appear in the program listing, see the \emph{Contiki}
+ \cite{contik:docs} and the \emph{uIP} \cite{contik:uip}
+ manuals. It would be misleading to included extracts
+ of documentation here, since lower-level functions
+ and algorithms would need to be listed.

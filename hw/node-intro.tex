@@ -79,13 +79,13 @@
  of the \Chip{ATmega128RFA1} is a generic 8-bit microcontroller.
  Apart from integrated \Chip{AT86RFA231} \cite{atmel:at86rf231:datasheet}
  low-power 2.4GHz \emph{P802.15.4} transceiver, there are no other
- distinct features, it is a stock-standard AVR chip, but is the first
+ distinct features, it is a stock-standard AVR chip, though the first
  Wireless MCU from \emph{Atmel}.
 
  A choice of software stacks is provided \cite{atmel:avr2070,
- atmel:avr2025, atmel:avr2102, atmel:zbpro}, licensing and architectural
- aspects are being discussed in dedicated section of the WMI website
- (\ref{sec:atmellic}) \cite{wmi:wiki:atmelsw}.
+ atmel:avr2025, atmel:avr2102, atmel:zbpro}, although the use
+ of these packages is a subject to licensing and architectural
+ issues \cite{wmi:wiki:atmelsw}.
 
 \subsection{Boards and Peripherals}
 
@@ -95,16 +95,16 @@
 
  For a radio controller board (RCB) one of the major factors is the
  type of antenna. Type of sensor connectors and serial interface,
- as well as presence of JTAG header are also take in consideration.
+ as well as presence of JTAG header are also taken into consideration.
 
 \subsubsection{\texttt{"32-bit"}}
 
  \emph{Freescale} offers a variety of evaluation boards featuring
  \Chip{MC1322x} chips and some interesting sensor ICs. There is
- number of \Chip{MC1322x} RCBs from 3rd-party suppliers, an
+ a number of \Chip{MC1322x} RCBs from 3rd-party suppliers, an
  up-to-date list is available from \emph{Contiki} \Chip{MC1322x}
- port website \cite{links:contiki:rcb:mc1322x}. More information
- on this platform will appear below.
+ website \cite{links:contiki:rcb:mc1322x}. More information on
+ this platform will appear below \ref{sec:MCX}.
 
 \subsubsection{\texttt{"16-bit"}}
 
@@ -123,10 +123,11 @@
 \subsubsection{\texttt{"8-bit"}}
 
  \emph{Atmel} offers a range of RCB evaluation kits
- \cite{links:atmel:rcb}, there a few \emph{ZigBit-series}
+ \cite{links:atmel:rcb} and there a few \emph{ZigBit}
  modules which feature an external RF power amplifier,
- although those could be great board to use the 3rd-party
- solutions are more suitable for the budget.
+ although those could be great boards to use, the
+ 3rd-party solutions are more suitable for the budget
+ of this project.
 
  \begin{figure}
  \includegraphics[scale=2.0]{../figures/images/sparkfun_atmega128rfa1_img00.jpg}
@@ -136,23 +137,25 @@
  Two development board options were considered for this project.
 
  First \Chip{ATmega128RFA1} board that had been looked at 
- was \emph{Dresden Elktronik Radio Controller Board RCB128RFA1}
+ was \emph{Dresden Elektronik Radio Controller Board RCB128RFA1}
  \cite{links:de:rcb}. In combination with \emph{Sensor Terminal
- Board} \cite{links:de:stb} it is a very suitable development 
+ Board} \cite{links:de:stb}, it is a very suitable development 
  and prototyping solution. The \emph{RCB} has external antenna
- connector and the MCU chip is under metal shielding and battery
- holder. The \emph{STB} also appears to be of very good quality
- and has screw sensors and JTAG, ISP, FIFO USB and DC power
- connectors, as well as external 32kB SRAM chip.
+ connector and the MCU chip is enclosed in a metal shielding
+ and a battery holder is also included. The \emph{STB} boards
+ has screw terminals for sensors and JTAG, ISP, USB and DC
+ power connectors, as well as an external 32kB SRAM chip.
 
  The \emph{SparFun} board pictured in Figure
  \ref{fig:sparkfun:atmega128rfa1:image}
- is a much more minimalistic and compact device,
- therefore is could fit into a slim enclosure with
- \emph{I/O} breakout connections arranged, or otherwise
- just a few sensors inside of enclosure for a basic
- application. The circuit diagram for this device is
- shown in Figure \ref{fig:sparkfun:atmega128rfa1:circuit}.
+ has a much more compact design, therefore is could fit
+ into a slim enclosure with \emph{I/O} breakout connections
+ or, otherwise, just a few sensors placed inside of the
+ enclosure for a simpler application. The circuit diagram
+ for this device is shown in Figure
+ \ref{fig:sparkfun:atmega128rfa1:circuit}.
+ A pair of these boards has been purchased and used during
+ the first phase of development (\ref{sec:RFA}).
 
 \subsection{Popular Solutions}
 
@@ -161,13 +164,16 @@
  drop-in solution, and is not appropriate for a new design.
  \emph{Xbee} modules can also be used without external MCU
  \cite{links:misc:xbeemidi}, but the functionality is fixed
- to what is implemented in module firmware. Also a recently
- published \cite{noble2009programming} book suggests to
- use the \emph{Xbee} modules.
- One product to mention is \emph{IcludeTech WiMi} \cite{links:includetech:wimi}
- development board which uses an \emph{Xbee} module with whip antenna and a
- \emph{Microchip PIC} MCU. This is appropriate as a drop-in module
- for a MIDI device which already is being produced and wireless
- connectivity needs to be offered as an expansion option, engineers
- who are familiar with \emph{PIC} microcontrollers may find these
- devices suitable for their designs.
+ to what is implemented in module firmware. Programable
+ modules are also available \cite{links:xbee:wiki:prog},
+ however very limited information has been found. Also a
+ recently published \cite{noble2009programming} book suggests
+ to use the \emph{Xbee} modules, althogh author mentions no
+ alternatives. \emph{IcludeTech WiMi} \cite{links:includetech:wimi}
+ is a development board which uses an \emph{Xbee} module with a whip
+ antenna and a \emph{Microchip PIC} MCU. It would be appropriate as a
+ drop-in module for a MIDI device which is being produced already and
+ wireless connectivity needs to be offered as an expansion option,
+ engineers who are familiar with \emph{PIC} microcontrollers may find
+ these devices suitable for their designs.
+

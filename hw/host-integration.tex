@@ -56,13 +56,19 @@ The \emph{Sensor Node} runs software which consists of:
 
 
 \pagebreak
-\section{Final Product Design}
+\section{Aspects of Final Product Design}
 
-  The block diagrams in figure \ref{fig:products} briefly illustrate
- a subset of a product line suitable for a commercial solution. Some
- of the device proposed here can be used in a variety of applications
- and others are rather specific for the applications mention in the
- first part of this report.
+   Many commercial uses of \WPAN\ in the field of audio control were
+ considered. The block diagrams in figure \ref{fig:products} briefly
+ illustrate a few interesting solution. Some of the device proposed
+ here can be used in a variety of applications and others are rather
+ specific for the live performance instruments.
+
+  Current implementation can be used to some extend, however one
+ very important modification of hardware needs to be considered.
+ The connection between \WPAN\ gateway is currenly using USB,
+ however it would be more appropriate to design a board with
+ direct SPI link between the host CPU and the transciever.
 
 \begin{figure}
 \centering
