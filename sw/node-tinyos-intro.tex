@@ -32,7 +32,7 @@
  currently present for the \ContikiOS.
 
 
-\subsection{Programming with TinyOS:\\Compilers and Abstractions}
+\subsection{Programming with TinyOS: \\Compilers and Abstractions}
 
   The greatest achievement of \emph{TinyOS} is its specialised language,
  benefits of which had been overlooked at the earlier stage of research
@@ -55,7 +55,7 @@
  a ratio of lines of code in C versus lines of assembly code.
 
  It is important to note, that current implementation of the compiler
- translates higher-level \emoh{nesC} code into C language. The resulting
+ translates higher-level \emph{nesC} code into C language. The resulting
  programs are specifically suited for embedded devices. Direct
  compilation would be possible and, if desired, there is an interesting
  platform to look into. \emph{LLVM} ("Low-level Virtual Machine") is a
@@ -106,7 +106,7 @@
   
   A problem exists however, there was no fully working IP-enabled driver
  for \emph{ATmega128RFA1} transceiver. The IP layers are provided by
- \emph{BLIP} stack (this stands for Berkley Lightweight IP), the stack
+ \emph{BLIP} stack (this stands for Berkeley Lightweight IP), the stack
  is currently undergoing major development. Details on what is required
  are available on \emph{TinyOS} wiki page \cite{tinyos:wiki:blip20},
  implementing it in \emph{nesC} was not as trivial due to the learning
@@ -124,8 +124,9 @@
  protocol called \emph{ActiveMessage}.
 
   Currently \TinyOS\ incorporates \emph{BLIP} stack, which initially
- was released by UC Berkley Wireless Embedded Systems research group
- in the summer 2008, know as \emph{bl6lowpan} at that time \cite{ucb:webs:blip}.
+ was released by UC Berkeley Wireless Embedded Systems research group
+ in the summer 2008, know as \emph{bl6lowpan} at that time
+ \cite{links:tinyos:blip}.
  As mentioned below, major code changes are currently still in progress.
  The driver code which fully implements all new features of the \emph{BLIP}
  stack (including point-to-point tunnelling for simple UART wired
@@ -187,7 +188,7 @@
  issue tracker.
 
 \TrackerList
- \IssueX{30} Porting Radio Interface to BLIP 2.0
+ \IssueX{30} Porting Radio Driver Interface to BLIP 2.0
 \TrackerEnd
 
 %\URL{https://github.com/errordeveloper/tinyos-wmi/commits/wmi-work?author=errordeveloper}

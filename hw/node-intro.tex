@@ -1,4 +1,4 @@
-\section{Overview of Hardware Options:\\Platforms and Cores}
+\section{Overview of Hardware Options: \\Platforms and Cores} \label{sec:hwintro}
 
 %There had been an extended research and early decision was
 %to use \emph{Atmel} \RFA\, however this has changed for the
@@ -13,7 +13,7 @@
  and references to product pages \cite{wmi:wiki:chips1,
  wmi:wiki:chips2}.
 
-\subsubsection{32-bit ARM Cortex}
+\subsubsection{32-bit ARM}
 
  Two different integrated \WPAN\ microcontrollers based on 
  \emph{ARM} core architecture were found. Most notable
@@ -30,6 +30,9 @@
  is known that layout of a radio circuit for frequencies in
  gigahertz range is particularly challenging task and, indeed,
  this is a specialist area of board design.
+
+ More details on \MCX\ will appear in section \ref{sec:MCX},
+ including a block diagram of the architecture (Figure \ref{fig:mc1322x}).
 
 \subsubsection{Other Microcontrollers}
 
@@ -127,14 +130,8 @@
  modules which feature an external RF power amplifier,
  although those could be great boards to use, the
  3rd-party solutions are more suitable for the budget
- of this project.
-
- \begin{figure}
- \includegraphics[scale=2.0]{../figures/images/sparkfun_atmega128rfa1_img00.jpg}
- \caption{\emph{SparkFun} \Chip{ATmega128RFA1} \emph{Development Board}} \label{fig:sparkfun:atmega128rfa1:image}
- \end{figure}
-
- Two development board options were considered for this project.
+ of this project. Two development board options are
+ briefly described below.
 
  First \Chip{ATmega128RFA1} board that had been looked at 
  was \emph{Dresden Elektronik Radio Controller Board RCB128RFA1}
@@ -148,7 +145,7 @@
 
  The \emph{SparFun} board pictured in Figure
  \ref{fig:sparkfun:atmega128rfa1:image}
- has a much more compact design, therefore is could fit
+ has a much more compact design, therefore it could fit
  into a slim enclosure with \emph{I/O} breakout connections
  or, otherwise, just a few sensors placed inside of the
  enclosure for a simpler application. The circuit diagram
@@ -156,24 +153,32 @@
  \ref{fig:sparkfun:atmega128rfa1:circuit}.
  A pair of these boards has been purchased and used during
  the first phase of development (\ref{sec:RFA}).
+ This preference was due to the buget concerns.
 
 \subsection{Popular Solutions}
 
- The \emph{Xbee}\cite{links:digi:xbee} modules from \emph{Digi}
+ The \emph{Xbee} \cite{links:digi:xbee} modules from \emph{Digi}
  are very popular among hobbyists, however it is rather a
  drop-in solution, and is not appropriate for a new design.
  \emph{Xbee} modules can also be used without external MCU
  \cite{links:misc:xbeemidi}, but the functionality is fixed
- to what is implemented in module firmware. Programable
- modules are also available \cite{links:xbee:wiki:prog},
- however very limited information has been found. Also a
- recently published \cite{noble2009programming} book suggests
- to use the \emph{Xbee} modules, althogh author mentions no
- alternatives. \emph{IcludeTech WiMi} \cite{links:includetech:wimi}
+ to what is implemented in the firmware. Programable modules
+ are also available \cite{links:xbee:wiki:prog}, however very
+ limited information has been found. One recently published
+ book \cite{noble2009programming} does suggest to use the
+ \emph{Xbee} modules, althogh author mentions no alternatives.
+ \emph{IcludeTech WiMi} \cite{links:includetech:wimi}
  is a development board which uses an \emph{Xbee} module with a whip
  antenna and a \emph{Microchip PIC} MCU. It would be appropriate as a
  drop-in module for a MIDI device which is being produced already and
  wireless connectivity needs to be offered as an expansion option,
  engineers who are familiar with \emph{PIC} microcontrollers may find
  these devices suitable for their designs.
+
+\begin{figure}
+\centering
+\includegraphics[scale=2.8]{../figures/images/sparkfun_atmega128rfa1_img00c.png}
+\caption{\emph{SparkFun} \Chip{ATmega128RFA1} \emph{Development Board}} \label{fig:sparkfun:atmega128rfa1:image}
+\end{figure}
+\pagebreak
 

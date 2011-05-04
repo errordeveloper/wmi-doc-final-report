@@ -27,28 +27,38 @@
  packages for Linux - \emph{multimidicast} \cite{links:multimidicast} and
  \emph{qmidinet} \cite{links:qmidinet}. This two Linux packages had been
  tested with current implementation of the \emph{Talker} program and have
- shown a suitable performance. The multicasting approach is considered to
- be quite appropriate for streaming of MIDI signals on IP networks, since
- no configuration is required, i.e. none of the participants have to set-up
- connection between each other and only need to send data to the multicast
- IP address\footnote{\emph{For compatibility with ipMIDI, the multicast IP
+ shown a suitable performance\footnote{\emph{This has been achived by
+ piping the data from the Talker node to a multicast client on the host and
+ then receiving this at another host on the same LAN. This was done with
+ a few standard network testing utilities available on Linux, however for
+ a deployment, a specialised program needs to be developed.}}. The multicasting
+ approach is considered to be quite appropriate for streaming of MIDI signals
+ on IP networks, since no configuration is required, i.e. none of the
+ participants have to set-up connection between each other and only need
+ to send data to the multicast IP address\footnote{\emph{For compatibility
+ with ipMIDI, the multicast IP
  address should be 225.0.0.37 and the port numbers from 21928 and above.}}.
  However the \emph{ipMIDI} is not a formal protocol, it simply streams the
  MIDI signals to a UDP socket, i.e. there are no any error correcting
  mechanisms or hand-shaking.
 
+  There had been no implmentation of UDP multicast in \emph{uIP} and there 
+ are certain difficulties associated with this, since \emph{P802.15.4}
+ only defines broadcasting and doesn't define multicasting. However,
+ with the help of \Contiki\ mailing list, a patch had been received from
+ Anuj Sehgal and tested. There had been no feasible test results of using
+ this implementation.
 
-\subsection{MIDI Networking in Linux}
+ \TrackerList\em
+ \IssueX{33} Testing UDP Multicasting (with uIP)
+ \TrackerEnd
 
-  On Linux, networking of MIDI clients can be implemented in user-space
- with \emph{ALSA ("Advanced Linux Sound Architecture")} utilities package
- \cite{links:linux:alsa}.
- The documentation on \emph{ALSA Sequencer Network} is limited to the
- comments in the source code of the \MAN{aseqnet} program. It is design
- using UDP and a specific data structure. The two programs mentioned in
- the previous section do not communicate with \MAN{aseqnet}, but use
- the \emph{ALSA Sequencer} interface directly.
+  One simple test has also been made with UDP broadcast. However, this
+  is not appropriate to use, since that would be considered as flooding
+  of the entire network. More suitable use of broadcasting will be shown
+  in the upcoming chapter (\ref{sec:APPADV}).
 
+%\pagebreak
 
 \subsection{MIDI payload for Real-time Transport Protocol}
 
@@ -65,8 +75,37 @@
  aspects of the \emph{RFC4695}. It would be a very challenging task to
  design \emph{RTP-MIDI} library which could run on a microcontroller.
 
+  One very important aspect that is defined in \RFC{4695}, is the
+ \emph{recovery journal}. The journal has to be maintained by each
+ participant and it is of a concern, whether the journal could be
+ implemented on a microcontroller or it requires a larger amount
+ of RAM. The function of the \emph{recovery journal} in \emph{RTP-MIDI}
+ is to keep the history of events and, if a packet had been lost, prevent
+ \emph{stuck notes} in the musical performance.
+ 
  This protocol is currently implemented as part of \emph{Apple CoreMidi}
  \cite{links:wiki:rtpmidi} and an open-source library exists for Linux
  \cite{links:rtpmidi}. However, there had been major adoption for the
  \emph{RTP-MIDI} in the field.
+
+\subsection{MIDI Networking in Linux}
+
+  On Linux, networking of MIDI clients can be implemented in user-space
+ with \emph{ALSA ("Advanced Linux Sound Architecture")} utilities package
+ \cite{links:linux:alsa}.
+ The documentation on \emph{ALSA Sequencer Network} is limited to the
+ comments in the source code of the \MAN{aseqnet} program. It is design
+ using UDP and a specific data structure. The two programs mentioned in
+ the previous section do not communicate with \MAN{aseqnet}, but use
+ the \emph{ALSA Sequencer} interface directly.
+
+  It would reasonable to implement the same protocol which \emph{ALSA
+ Sequencer Network} is using, however this will be incompatible with
+ other operating systems.
+
+\section{Conclusion}
+
+  The final decision had been to apply the simples data structure, i.e.
+ \emph{raw binary MIDI}, since it is more important to prove the concept
+ before progressing towards an implementation of a more advanced protocol.
 

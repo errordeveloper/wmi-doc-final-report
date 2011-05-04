@@ -56,13 +56,14 @@
 \subsection{Initial Development Phase}
 
   \Contiki\ source code includes a large set of stable drivers for various
- RCBs which were mentioned previously, such as \emph{Zolertia Z1}, \emph{Tmote
- Sky}, \emph{Atmel Raven} and \Chip{RF230}\emph{-based} boards, \emph{TI}
- \Chip{CC2430} and \emph{MSP430} as well as \emph{ARM Conrtex-MX} and many
- older devices, including \emph{Comondore 64} and \emph{Apple II} computers.
+ RCBs, which will be described in \ref{sec:hwintro}, including \emph{Zolertia Z1},
+ \emph{Tmote Sky}, \emph{Atmel Raven} and \Chip{RF230}\emph{-based} boards,
+ \emph{TI} \Chip{CC2430} and \emph{MSP430} as well as \emph{ARM Conrtex-MX}
+ and many older devices, including \emph{Comondore 64} and \emph{Apple II}
+ computers.
 
  Details regarding the \Chip{MC1322x} port \cite{links:contiki:port:mc1322x}
- are to follow in \ref{sec:APPDEV}, since \Chip{MC1322x} was chosen as the
+ are to follow in \ref{sec:MCX}, since \Chip{MC1322x} was chosen as the
  target platform for this project. However, the \RFA\ platform had been the
  first preference. Major work during the initial phase had been done to
  port the existing driver code for \Chip{RF230} transceiver to take the
@@ -76,7 +77,7 @@
  have exceeded the allocated period of one academic year. Therefore it
  was understood that some reconsideration was required and two major
  solutions were proposed: either changing the development hardware or
- trying a different OS with the same hardware.
+ trying a different OS with the same hardware (\ref{sec:MCX}).
 
 \subsubsection{Problems Encountered while Porting the Driver Code}
 

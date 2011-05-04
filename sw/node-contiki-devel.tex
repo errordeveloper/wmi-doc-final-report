@@ -5,34 +5,24 @@
  simplify the work-flow in \Contiki\ application development environment.
  It may be noted here, that an integrated development environment (IDE)
  could be used and some programmers do prefer to use an IDE, such as
- \emph{Eclipse} \cite{links:contiki:wiki:eclipse}, nevertheless the
- command line tools are known to be the most efficient approach.
+ \emph{Eclipse} \cite{links:contiki:eclipse, links:mc1322x:eclipse},
+ nevertheless the command line tools are known to be the most efficient approach.
  It should be noted that this section is rather brief description of what
  has been done and was not intended to provide a detailed guidance on how
  to reproduce the results.
 
   Apart from the revision control tools\footnote{\emph{This project used
  git system, however the details on how that has been done are considered
- to be irrelevant to the subject of this report}} and the GCC toolchain
- for ARM \cite{links:mc1322x:gcc}, there are four key command-line tools
- which were utilised during the development process.
+ to be irrelevant to the subject of this report.}}, a text editor and the
+ GCC toolchain for ARM \cite{links:mc1322x:gcc}, there are three essential
+ command-line tools which were utilised during the development process:
 
 \begin{description}
 	\item [\MAN{gdb}] - GNU Debugger (source-level) \cite{docs:gdb:manual}
-	\item [\emph{\texttt{OpenOCD}}] - On-chip Debugger \cite{links:mc1322x:ocd}
-	\item [\emph{\texttt{Vim}}] - a text editor
 	\item [\MANX{1}{make}] - GNU make program \cite{docs:make:manual}
+	\item [\emph{\texttt{OpenOCD}}] - On-chip Debugger \cite{links:mc1322x:ocd}
 \end{description}
 
-% http://mc1322x.devl.org/eclipse.md
-% http://www.sics.se/contiki/wiki/index.php/Setting_up_Eclipse_for_Contiki_Development
-
-% http://mc1322x.devl.org/openocd.html
-
-% http://mc1322x.devl.org/toolchain.md
-
-% http://www.gnu.org/software/make/manual/make.pdf
-% http://www.gnuarm.com/pdf/gdb.pdf
 
   To enhance the work-flow \emph{"Makefiles"}\footnote{\emph{These are
  the file which specify a set of rules for the make program on how to
@@ -41,10 +31,10 @@
  process. Generally there is one \emph{Makefile} in each subdirectory
  of the source tree, thought most of these inherit rules specified in
  the main \emph{Makefile} (in \Contiki\ there are two of these - one
- at in the root directory and one for each processor architecture).
+ in the root directory and one for each processor architecture).
 
  Most of the changes were made in \Blame{cpu/mc1322x/Makefile.mc1322x}
- to provide a variety of short command for connecting the debugger
+ to provide a few of shorter commands for setting-up the debugger
  and sending the program to run on a development board\footnote{
  \emph{For example, to set-up the WPAN router on the Freescale board - run
  \texttt{`make.f1 router'} and to compile 'example.c', load and print
@@ -63,23 +53,23 @@
 
  \begin{itemize}
  \item \Contrib{cpu/mc1322x/lib/include/uart1.h} \\
- 	normal and weak prototypes, register pointers and macros
+ 	\emph{normal and weak prototypes, register pointers and macros}
  \item \Contrib{cpu/mc1322x/lib/uart2.c} \\
- 	driver interrupt handlers
+ 	\emph{driver interrupt handlers}
  \item \Contrib{cpu/mc1322x/src/default\_lowlevel.h} \\
-	prototypes
+	\emph{prototypes}
  \item \Contrib{cpu/mc1322x/src/default\_lowlevel.c} \\
-	initialisation functions
+	\emph{initialisation functions}
  \end{itemize}
 
   A set of macros was defined to aid the application code, though
- most of those macros were used only for initiial debugging.
+ most of those macros were used only for initial debugging.
 
   Soon, it has been understood that the original implementation
  was missing handler functions for the UART interrupts. With
  the help of communication on the \Contiki\ mailing list, the
  appropriate methods were realised. One of the key techniques
- was to use \emph{"weak"} function linking attribute. Two macro
+ was to use \emph{"weak"} function linking attribute. Two macros
  named \texttt{U2\_RXI\_POLLHANDLER()} and \texttt{U2\_TXI\_CALL()}
  are appearing in the program listing \ref{code:talker}. These
  macros define the function which is called by the interrupt
@@ -88,6 +78,12 @@
 	\item \Blob{cpu/mc1322x/lib/include/uart1.h}
 	\item \Blob{projects/wmi/mc1322x/midi/uart2-midi.h}
  	\end{itemize}}}.
+
+\TrackerList\em
+\IssueX{27} Compiling various example programs
+\IssueX{31} Wireless transmission of MIDI is proven working
+\IssueX{32} Requirenments for the MIDI UART driver
+\TrackerEnd
 
 \section{Designing the MIDI Talker Program}
 
@@ -101,7 +97,7 @@
  been found as the most direct way to transfer the data
  from FIFO into the packet buffer. This macro is defined
  and documented in \Blob{core/net/psock.h}, it is a part
- of \Contiki \emph{protosockets} library.
+ of \Contiki\ \emph{protosockets} library.
 
 \subsection{Protosockets}
 

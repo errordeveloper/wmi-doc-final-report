@@ -1,12 +1,20 @@
+\pagebreak
 \section{Initial Hardware Consideration} \label{sec:RFA}
 
-  At the initial stage of this project the hardware platform was chosen
+  At the initial stage of this project, the hardware platform was chosen
  based on previous experience of using development tools for \emph{Atmel
  AVR} microcontrollers. The original orientation was towards using a chip
  with integrated radio transceiver, \emph{Atmel} advertises the \RFA\ chip
  as having the lowest power consumption and most appropriate link budget.
 
 \subsubsection{Development Boards for ATmega128RFA1}
+
+\begin{figure}
+\centering
+\includegraphics[angle=90,scale=2]{../figures/SparkFun_ATmega128RFA1_board_top.pdf}
+\includegraphics[angle=90,scale=2]{../figures/SparkFun_ATmega128RFA1_board_bot.pdf}
+\caption{\emph{SparkFun development board layout (top and bottom)}} \label{fig:sparkfun:atmega128rfa1:layout}
+\end{figure}
 
   As it was already mentioned, two choises of development boards were considered:
 
@@ -15,21 +23,30 @@
 		\item SparkFun (Figure \ref{fig:sparkfun:atmega128rfa1:image})
 	\end{itemize}
 
-  \emph{DE} hardware features a useful set of components, including a spear 32 kB
+  \emph{DE} hardware features a useful set of components, including a spare 32 kB
  of memory and robust screew terminals for I/O connections. However, the board
- from \emph{SparkFun} has been chosen for it's low price.
+ from \emph{SparkFun} has been chosen for it's low price and the GPIO pins of all
+ ports are made available on the PCB edges.
+
   It has been found later that this board was inconvenient to use in various
  ways, for example the layout of serial port pins on the side of the board
- could be design to fit standard serial USB cables\footnote{\emph{SparkFun
- sells few different serial USB adaptors all of which have the same layout.
- These are know to be very popular among most of hobbists and professional
- engineers and therefore are considered to be a de-facto standard.}}.
- Also the layout of transciever side of the PCB was found to be quite primitive
- and, most importantly, has not included a suitable ground plane nor it has a
- shield. Nevertheless, this board is of a rather small footprint and could be
- used in a prototype product.
+ could had been designed to fit standard serial USB cables\footnote{\emph{%
+ SparkFun sells few different serial USB adaptors all of which have the same
+ layout. These are know to be very popular among most of hobbists and professional
+ engineers and therefore are considered to be a de-facto standard.}}. As it
+ can be seen in figure \ref{fig:sparkfun:atmega128rfa1:layout}, the layout of
+ transciever side of the PCB was found to be quite primitive and, most importantly,
+ has not included a suitable ground plane nor it has a shield. Nevertheless,
+ this board is of a rather small footprint and could be used in a prototype product.
 
-%% inlude: CIRCUIT & BOARD LAYOUTS
-%% copy the section of interim report
-%% where some stuff is said regarding
-%% the circuit ... or may be not ???
+  Certainly some rework can be done to improve the layout, since \emph{SparkFun}
+ published this design under the \emph{Creative Commons License}, which allows
+ freedom of sharing and adoption of the circuit, provided that the original
+ copyright notice is attributed \cite{links:license:cc:by:sa:3:0, links:wiki:cclic}.
+
+\pagebreak
+
+\begin{figure}
+\includegraphics[scale=0.8]{../figures/SparkFun_ATmega128RFA1_circuit_monochrome.pdf}
+\caption{\emph{SparkFun development board schematics}} \label{fig:sparkfun:atmega128rfa1:circuit}
+\end{figure}

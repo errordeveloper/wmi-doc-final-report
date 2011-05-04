@@ -1,7 +1,7 @@
-\section{Selecting the Development Platform for Contiki OS} \label{sec:MCX}
+\section{Selecting the Development \\Platform for Contiki OS} \label{sec:MCX}
 
   Examining the code for various hardware platforms in the source
- tree of \ContikiOS\, it was understood that source code for
+ tree of \Contiki, it was understood that source code for
  \Chip{MC1322x} devices from \emph{Freescale} is organised in a
  much clearer way. Current implementation appears to support most
  of important features of these chips and, in fact, these are
@@ -9,22 +9,25 @@
  \Chip{ARM7TDMI} microcontroller with fully integrated radio and
  the only component external to the chip itself is the antenna.
  Apart from this, the \emph{Freescale} device has an outstanding
- set of peripheral and rather large amount of memory (128KB of
- flash, 96kB of RAM and 80kB of ROM) the processor clock frequency
- is 24MHz. Comparing to the minimum amount of memory required
- to run \Contiki (2kB of RAM and 40kB of ROM) there is a very
- large headroom available for the application and some additional
- drivers. This also makes it a great development platform, during
- debugging stages compiler optimisation often needs to be disabled
- and additional memory may be also populated with debug data.
+ set of peripheral and rather large amount of memory\footnote{\emph{%
+ An average size of compiled code for the Talker program was
+ reported to be 79 kB.}} (128KB of flash, 96kB of RAM and 80kB
+ of ROM) the processor clock frequency is 24MHz. Comparing to
+ the minimum amount of memory required to run \Contiki\ (2kB of RAM
+ and 40kB of ROM) there is a very large headroom available for the
+ application and some additional drivers. This also makes it a great
+ development platform, during debugging stages compiler optimisation
+ often needs to be disabled and additional memory may be also
+ populated with debug data.
 
 \subsection{MC1322x Architecture Overview}
 
- Below is the diagram of \MCX\ \emph{Platform in Package (PiP)}.
+ %Below is the diagram of \MCX\ \emph{Platform in Package (PiP)}.
 
 \begin{figure}
-% http://cache.freescale.com/files/graphic/block_diagram/2150_MC1322X_BD.gif
-\caption{\emph{The block diaghram of Freescale MC1322x}}
+\centering
+\includegraphics[angle=-90,scale=0.76]{../figures/images/freescale_mc1322x_bd.png}
+\caption{\emph{The block diagram of Freescale MC1322x}} \label{fig:mc1322x}
 \end{figure}
 
   In addition to standard peripherals (UART, 12-bit A/D converters,
@@ -48,37 +51,51 @@
 
 \subsection{MC1322x Development Hardware}
 
-  The homepage of \Chip{MC1322x} port of \contiki has a detailed
- overview of what development boards are available \cite{homepage:mc1322x:hw}.
+  The homepage of \Chip{MC1322x} port of \Contiki\ has a detailed
+ overview of what development boards are available
+ \cite{links:contiki:rcb:mc1322x}.
  Two boards which were chosen for this project are \emph{Freescale
  1322xUSB} and \emph{Redbee Econotag}.
 
   A minimum of two devices is required to implement a \WPAN\ network.
  At the early stage, the \emph{SparkFun} boards were supposed to be
- used the sensor node and gateways device. When the decision had been
+ used as the sensor node and the gateway. When the decision had been
  made to use \MCX\ platform, the \emph{Freescale} dongle was found to
- be the most appropriate device to run \Contiki border router program,
- which implements end-to-end IP communication\footnote{\emph{The source
- code is located in: \Blob{examples/ipv6/rpl-border-router/}}}.
+ be the most appropriate device to run the \Contiki\ \emph{Border Router}
+ program, which implements end-to-end IP communication\footnote{\emph{The
+ source code is located in: \Blob{examples/ipv6/rpl-border-router/}}}.
 
 \subsubsection{Freescale USB Dongle}
 
  \emph{1322xUSB} is a very small USB device that doesn't provide the
  access to any of the pin and therefore is well suited as a network
- gateway. The circuit diagram is shown in figure \ref{cir:freescale-usb}
- demonstrate the minimalistic layout of this board.
+ gateway. The circuit diagram is shown in figure \ref{fig:freescale-usb}
+ to demonstrate the minimalistic layout of this board. One the bottom
+ side of the board, there is a header for a JTAG connector and a few
+ test points. It has appeared that the board has already been flashed
+ in the factory, and the firmware had to be erased when the board was
+ used for the first time to run the \Contiki\ code. The information on
+ how to erase the firmware was obtained from the datasheet
+ \cite{links:freescale:1322xusb}. This device was found rather primitive,
+ its only benefit is the size, though it also serves as the minimal reference design.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{../figures/images/freescale_1322xusb.png}
+\caption{\emph{The circuit layout of Freescale 1322xUSB}} \label{fig:freescale-usb}
+\end{figure}
 
 \subsubsection{Redbee Econotag}
 
- \emph{Econtag} by \emph{Redbee LLC} is highly regarded open-source
+ \emph{Econotag} by \emph{Redbee LLC} is highly regarded open-source
  development board. It is specifically design to meet all important
  requirenements of a development board with very constrained bill of
  materials. The board provides access to all of the I/O pins and
  and is very convenient for programming and debugging. Both of these
  functions are achived with the help of dual-port USB UART chip,
- \emph{FTDI} \Chip{FT22232HL} \ref{datasheet:ftdi:dual}. One of the two
- ports is connected to the primary UART interface and the second port
- provides access to the JTAG. The \Chip{FT2232HL} IC also facilitates
+ \emph{FTDI} \Chip{FT22232HL} \cite{datasheet:ftdi:dual}. One of the
+ two ports is connected to the primary UART interface and the second
+ port provides access to the JTAG. The \Chip{FT2232HL} IC also facilitates
  bit-bang software reset, the \emph{Freescale} dongle cannot be reset
  in this way.
 
@@ -92,15 +109,92 @@
  main program code into the flash memory.
  
   \Contiki\ source code contains the self-flasher implementations as
- well a set of utilities for programming the \MCX\ devices. These are
- located in \Blob{cpu/mc1322x/tools/}. However, this is not the only
- way to update the software. Dunkels describes the design of \Contiki
- \emph{Executable and Linkable Format} \cite{dunkels06runtime} loader.
- There are a few implecation of using ELF loader, there has to be
- a certain amount of spare memory for the code to be downloaded into.
- However, it gives a great advantage of reprogramming over-the-air,
+ well a set of utilities for programming the \MCX\ devices\footnote{%
+ \emph{These are located in \Blob{cpu/mc1322x/tools/}.}} However, this
+ is not the only way to update the software. Dunkels describes the design
+ of \Contiki \emph{Executable and Linkable Format} \cite{dunkels06runtime}
+ loader.  There are a few implication of using ELF loader, e.g. there
+ has to be a certain amount of spare memory for the code to be downloaded
+ into. However, it gives a great advantage of reprogramming over-the-air,
  without a need for physical access to the node.
 
-% http://mc1322x.devl.org/doc/redbee-econotag/redbee-econotag-r2.pdf
-% http://www.ftdichip.com/Products/ICs/FT2232H.htm
-% http://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT2232H.pdf
+
+\begin{figure}
+\centering
+\includegraphics[angle=90]{../figures/econotag_circuit_sheet1_monochrome.pdf}
+\caption{\emph{Econotag schematics (sheet 1)}}\label{fig:econotag:circuit:s1}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[angle=90]{../figures/econotag_circuit_sheet2_monochrome.pdf}
+\caption{\emph{Econotag schematics (sheet 2)}}\label{fig:econotag:circuit:s2}
+\end{figure}
+
+\pagebreak
+\subsection{Econotag Circuit}
+
+
+  The schematics show in figures \ref{fig:econotag:circuit:s1},
+  \ref{fig:econotag:circuit:s2} and
+  the board layout in \ref{fig:econotag:layout} had been taken
+  from the design package \cite{links:econotag:design} that is
+  distribute by \emph{RedWire} under \emph{Creative Commons}
+  license. These are included here to approve the simplicity
+  of circuit layout with highly integrated \MCX\ chip.
+
+   Comparing to the \emph{SparkFun} board, the \emph{Econotag}
+  demonstrates much superior development solution with the
+  inclusion of dual USB chip, that provides software reset and
+  JTAG facilitates. Also many other minor aspects of this board
+  provide a greater benefit then the earlier board. Althought,
+  the layout shown above does not include the ground plane, by
+  by visual comparison, the \emph{Econotag} has a very solid
+  ground plane, unlike the \emph{SparkFun} board.
+
+   The area where more experiments are still to be done, is the
+  power consumption measurement. It is know however, that the
+  \emph{Econtag} will run of two cell batteries for up to 48
+  hours without utilising any of the sleep modes, however this
+  information still has to be proven.
+
+
+\begin{figure}
+\centering
+\includegraphics[angle=90,scale=1.75]{../figures/econotag_board_top.pdf}
+\includegraphics[angle=90,scale=1.75]{../figures/econotag_board_bot.pdf}
+\caption{\emph{Econotag development board layout (top and bottom)}} \label{fig:econotag:layout}
+\end{figure}
+
+\pagebreak
+\subsection{Photographs of the Hardware in Use}
+
+  The photograph in figure \ref{fig:photo:1} shows the top view
+ of the \emph{Econotag} with an \Chip{ADXL345}\footnote{\emph{%
+ More details on the use of the sensor are to follow.}}.
+ break-out board soldered to the SPI pins. The second image
+ (\ref{fig:photo:2}) is the bottom view of the Econotag with
+ MIDI cable soldered to the UART2 pins, the DIN5 MIDI connector
+ and the \emph{Freescale} dongle. It can observed the size of
+ the dongle is very close to the size of DIN5 connector,
+ therefore a device can be designed which would be of a size
+ little bigger then the DIN5 connector body, though the power
+ would need to be supplied. The standard midi connector
+ has 5 pins and only two are used by most of the devices,
+ hence, theoretically, this could be implemented. However,
+ in practice, a battery will be required, since the modification
+ of MIDI device to provide a power supply is not an option.
+ The lack of bus power is another reason to consider MIDI
+ being a legacy protocol.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.8]{../figures/images/photos/1c.png}
+\caption{\emph{Econotag (top view)}}\label{fig:photo:1}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.8,angle=90]{../figures/images/photos/2c.png}
+\caption{\emph{Freescale USB dongle and the Econotag (bottom view)}}\label{fig:photo:2}
+\end{figure}
