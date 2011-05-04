@@ -19,25 +19,37 @@
 \usepackage{multirow}
 \usepackage{graphicx}
 
+\usepackage{listings}
+
+\lstset{%
+numbersep=5pt,
+showspaces=false,
+showtabs=false,
+showstringspaces=false,
+frame=single,
+breaklines=true,
+breakatwhitespace=false,
+captionpos=tb,
+title=\lstcaption,
+}
+
 %02:36 <kahrl> errordeveloper: http://physics.wm.edu/~norman/latexhints/conditional_macros.html
 %01:37 <kahrl> so \makeatletter \ifx \PRINTING \@empty \renewcommand{\href}{FAKE_VERSION_OF_HREF} \fi \makeatother
 %01:39 <kahrl> or \makeatletter \ifx \PRINTING \@empty \relax \else \renewcommand{\href}{FAKE_VERSION_OF_HREF} \fi \makeatother
 
 % `latex '\def\NOHREF{}\input{foo.tex}'`
 
-\ifdefined \NOHREF
+\def\NOHREF{}
 
-	\usepackage{url}
-	\newcommand{\URL}[1]{\[ \texttt{\emph{#1}} \]}
-	%% \newcommand{\href}[2]{#2 (\texttt{\emph{\url{#1}}})} %% not needed probably
-	
-	\newcommand{\Href}[2]{{#2}} %% fake version for printing
+\ifdefined\NOHREF
+\usepackage{url}
+\newcommand{\URL}[1]{\[ \texttt{\emph{#1}} \]}
+\newcommand{\href}[2]{#2 (\texttt{\emph{\url{#1}}})} %% not needed probably
+\newcommand{\Href}[2]{{#2}} %% fake version for printing
 \else
-
 \usepackage{hyperref}
 \newcommand{\Href}[2]{\href{#1}{#2}} %% use this for proper href
 \newcommand{\URL}[1]{\[ \Href{#1}{\texttt{\emph{#1}}} \]}
-
 \fi
 
 
@@ -166,11 +178,12 @@
 
 \chapter{Application Development}
 \include{sw/node-contiki-devel}
-\include{sw/node-midi-intro}
-
-\chapter{State Machines}
+\include{sw/node-app-sm-listener}
+\include{sw/node-app-sm-talker}
 \include{sw/node-app-sm-adv-listener}
 \include{sw/node-app-sm-adv-talker}
+\include{sw/node-midi-intro}
+\include{sw/node-app-tests}
 
 \chapter{System View}
 \include{hw/host-integration}

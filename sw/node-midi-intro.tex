@@ -1,4 +1,4 @@
-\section{Implementation Decisions}
+\section{Implementation Decisions} \label{sec:MIDI}
 
   Two programs where written to test transmission of MIDI. The concept of
  server/client communication could be applied, nevertheless it had been
@@ -55,8 +55,8 @@
 
   One simple test has also been made with UDP broadcast. However, this
   is not appropriate to use, since that would be considered as flooding
-  of the entire network. More suitable use of broadcasting will be shown
-  in the upcoming chapter (\ref{sec:APPADV}).
+  of the entire network. More suitable use of broadcasting was shown in
+  the  previous section (figures \ref{sm:advlistener} \& \ref{sm:advtalker}).
 
 %\pagebreak
 
@@ -65,7 +65,7 @@
  Two relevant Internet standards had been published by the IETF in 2006:
  \begin{itemize}
   \item\emph{"RTP Payload Format for MIDI"} (\RFC{4695})
-  \item\emph{An Implementation Guide for RTP MIDI} (\RFC{4696})
+  \item\emph{"An Implementation Guide for RTP MIDI"} (\RFC{4696})
  \end{itemize}
 
  This two papers had been studied and considered as a possible solution
@@ -106,6 +106,6 @@
 \section{Conclusion}
 
   The final decision had been to apply the simples data structure, i.e.
- \emph{raw binary MIDI}, since it is more important to prove the concept
+ \emph{raw MIDI bitstream}, since it is more important to prove the concept
  before progressing towards an implementation of a more advanced protocol.
 

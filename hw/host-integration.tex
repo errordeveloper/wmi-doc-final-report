@@ -58,20 +58,35 @@ The \emph{Sensor Node} runs software which consists of:
 \pagebreak
 \section{Aspects of Final Product Design}
 
-   Many commercial uses of \WPAN\ in the field of audio control were
+   Many commercial uses of \WPAN in the field of audio control were
  considered. The block diagrams in figure \ref{fig:products} briefly
- illustrate a few interesting solution. Some of the device proposed
+ illustrate a few interesting solutions. Some of the device proposed
  here can be used in a variety of applications and others are rather
- specific for the live performance instruments.
+ specific to live sound and stage performance.
 
   Current implementation can be used to some extend, however one
  very important modification of hardware needs to be considered.
- The connection between \WPAN\ gateway is currenly using USB,
- however it would be more appropriate to design a board with
- direct SPI link between the host CPU and the transciever.
+ The connectivity between the host and border router, in current
+ development system, is implement via the USB serial interface.
+ This involves unnecessary hardware and software components and
+ should eliminated from a commercial design.
+  One Solution would to utilise SPI bus, which is available on
+ most of the SoCs. A transceiver can be connected directly to
+ the host SoC and there will need to be a Linux driver for it.
+ The second solution is to implement an abstract Linux/Contiki
+ framework, such that would use SPI for the datapath and GPIO
+ for the interrupts. In this way, a very robust device can be
+ designed (see the \emph{"Wired Gateway Board"} diagram in figure
+ \ref{fig:products}).
+
+  Another important idea presented in \ref{fig:products}, is the
+ \emph{"Tiny Node"}. It proposes a general-purpose boar, which
+ would suite a wide range of application. Provided that an
+ appropriate physical connection is defined, this board may
+ have removable sensor part for each of the possible uses.
 
 \begin{figure}
 \centering
 \includegraphics[scale=0.8]{../../poster/figures/figure1.pdf}
-\caption{\emph{TEST}} \label{fig:products}
+\caption{\emph{Block diagrams of some possible commercial solutions}} \label{fig:products}
 \end{figure}

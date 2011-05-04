@@ -7,17 +7,9 @@
 (run)
 	{\texttt{Listener Initialised}};
 
-\node [C, below of =run, minimum width=10em]
-(adv)
-	{\emph{Wait for Talker Broadcast}};
-
-\node [E, left of =adv, node distance =6cm]
-(wup)
-	{\texttt{Wake-up}};
-
-\node [F, below of =adv, text width=10em]
+\node [F, below of =run, text width=10em]
 (rep)
-	{Attempt to Reply\\to the Advertisement};
+	{Attempt to Connect\\to a known Talker};
 
 \node [C, below of =rep]
 (req)
@@ -35,29 +27,25 @@
 (use)
 	{\emph{\underline{Submit Data to}\\\underline{the Processing Thread}}};
 
-\node [E, right of =adv, node distance =6cm]
+\node [E, right of =rep, node distance =6cm]
 (int)
 	{\texttt{Connection Failure}};
 
 \node [F, left of =rep, node distance =3.5cm, text width=7em]
 (del)
-	{\emph{Decreasing\\Exponential\\Sleep Delay}};
+	{\emph{Short Delay}};
 
 \coordinate [right of =use] (ret);
 
-\path[L, dashed] (run) -- (adv);
+\path[L, dashed] (run) -- (rep);
 
-\path[L, dashed] (int) -- (adv);
-
-\path[L, dashed] (wup) -- (del);
-
-\path[L] (adv) -- node {Yes, Talker is Present} (rep);
+\path[L, dashed] (int) -- (rep);
 
 \path[L] (rep) -- (req);
 
 \path[L] (req) -- node [near start] {No, Request Failed} (del);
 
-\path[L] (del) |- (adv);
+\path[L] (del) |- (rep);
 
 \path[L] (req) -- node {Yes, Ready to Connect} (con);
 
@@ -68,5 +56,5 @@
 \path[L] (use) |- (ret) |- node [near end] {Return} (buf);
 
 \end{tikzpicture}
-\caption{\emph{Flow-chat of self-advertising Listener program}}\label{sm:advlistener}
+\caption{\emph{Flow-chat of simple Listener program}}\label{sm:listener}
 \end{figure}

@@ -128,7 +128,54 @@
 
  For detailed documentation of the function which will
  appear in the program listing, see the \emph{Contiki}
- \cite{contik:docs} and the \emph{uIP} \cite{contik:uip}
+ \cite{contiki:docs} and the \emph{uIP} \cite{uip:docs}
  manuals. It would be misleading to included extracts
  of documentation here, since lower-level functions
  and algorithms would need to be listed.
+
+\section{The Source Code}
+
+  The Talker program is considered to be complete
+ and most of the possible bugs had been eliminated
+ from this code, therefore it shall be presented
+ here. Some lines had been omitted for clarity and
+ complete version can be viewed in the repository
+ (\Blob{projects/wmi/mc1322x/midi/psock-taker.c}).
+
+
+  The Listener program, however, was not finished
+ at the time of submission of this report. The
+ current version is missing an algorithm which
+ would process the packet buffer before it had
+ been filled-up. This is considered a major design
+ problem, which should be solved within a short
+ period of time after the submission of this report
+ (see \Blob{projects/wmi/mc1322x/midi/psock-listener.c}
+ for the current implementation).
+
+
+\subsection{Further Enhancements}
+
+  The flow diagram of the Talker program is show in
+ figure \ref{sm:talker} and the Listener flow is
+ shown in \ref{sm:listener}. There is problem with
+ this approach - the Listener has to know the address
+ of the Talker, which doesn't make this network
+ very flexible. It would be rather appropriate to
+ implement a self-advertising device. That can be
+ achieved by adding message broadcast thread, as shown
+ in figures \ref{sm:advtalker} and \ref{sm:advlistener}.
+ These diagrams also include an additional sleep state,
+ which may be considered an optional element. The
+ sleep delay calculation would need to be defined in
+ such way that there is possibility of nodes not detecting
+ each other. It should be also noted that these flow
+ charts demonstrate the behaviour of wireless nodes,
+ thought a similar flow can be used for the host program.
+
+
+\pagebreak
+\lstinputlisting[caption={\emph{The Talker program}},
+label=code:talker,language=C]
+{sw/code_talker.c}
+

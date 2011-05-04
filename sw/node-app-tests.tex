@@ -1,0 +1,170 @@
+\section{Test Results}
+
+  The most generic test that provides nearly ultimate performance measure
+ for an IP network, is the \emph{ping} test. No other particular formal
+ tests were performed during the work on this project, however some
+ possible test scenarios had been considered. The results obtained from
+ several ping tests are presented first, then other basic tests are described.
+
+\subsection{Latency Measurement: Idle}
+
+
+   Ping tests, while the devices are idle, had been made first. These are
+  summarised in terms of packet loss, and minimum/average/maximum ratio.
+  A total of 8 tests had been made on two Linux hosts with different
+  version of Linux kernel and different generation of commodity hardware
+  (\texttt{host2} being a desktop PC from 2005 and \texttt{host1} being
+  a laptop PC from 2009). As shown below, only at one test there had
+  been 1\% packets lost in transmission (0\% at all other tests).
+
+   The tests done from \texttt{host1} shall be presented first. Being a
+  newer generation laptop with more recent kernel, it appears to have
+  faster USB interface (being either due to the chipset or the driver).
+  It has also been noted that sending the code to the development
+  board takes a shorter time the on \texttt{host2}.
+
+\begin{verbatim}
+
+* ping_idle_e1_set1: 64 bytes (host1 <=> econotag1)
+128 packets transmitted, 128 received, 0% packet loss, time 127123ms
+rtt min/avg/max/mdev = 31.592/32.374/33.810/0.534 ms
+
+* ping_idle_e1_set2: 24 bytes (host1 <=> econotag1)
+128 packets transmitted, 128 received, 0% packet loss, time 127210ms
+rtt min/avg/max/mdev = 21.617/22.517/23.810/0.544 ms
+
+* ping_idle_f1_set1: 64 bytes (host1 <=> freescale-usb1)
+128 packets transmitted, 128 received, 0% packet loss, time 127183ms
+rtt min/avg/max/mdev = 20.707/21.775/25.786/0.688 ms
+
+* ping_idle_f1_set2: 24 bytes (host1 <=> freescale-usb1)
+128 packets transmitted, 128 received, 0% packet loss, time 127196ms
+rtt min/avg/max/mdev = 13.222/14.530/16.305/0.544 ms
+
+\end{verbatim}
+
+
+  The above results show that the \texttt{freescale-usb1} device is
+ responding faster, since it is connected directly to the host.
+ Also, due to the device being idle, there is not fluctuation in
+ the timing of these responses.
+
+ Below are the results obtained from the \texttt{host2}, which
+ appear to be generally slower by 10 milliseconds. And there
+ had been a packet lost in \texttt{ping\_idle\_e1\_set3}.
+
+\begin{verbatim}
+
+* ping_idle_e1_set3: 64 bytes (host2 <=> econotag1)
+128 packets transmitted, 126 received, 1% packet loss, time 127237ms
+rtt min/avg/max/mdev = 41.780/42.089/44.828/0.585 ms
+
+
+* ping_idle_e1_set4: 24 bytes (host2 <=> econotag1)
+128 packets transmitted, 128 received, 0% packet loss, time 127262ms
+rtt min/avg/max/mdev = 34.896/35.919/40.954/0.673 ms
+
+* ping_idle_f1_set3: 64 bytes (host2 <=> freescale-usb1)
+128 packets transmitted, 128 received, 0% packet loss, time 127322ms
+rtt min/avg/max/mdev = 31.016/35.269/46.437/2.706 ms
+
+* ping_idle_f1_set4: 24 bytes (host2 <=> freescale-usb1)
+128 packets transmitted, 128 received, 0% packet loss, time 127355ms
+rtt min/avg/max/mdev = 25.006/27.833/33.993/1.443 ms
+
+\end{verbatim}
+
+  The idle test results show the precise measurement of the potential
+ network performance. A few improvements can be made here, the kernel
+ on the \texttt{host2} needs to be updated and tested afterwards. Also,
+ the border router program should be tested with higher baud rate
+ settings and flow-control enabled on UART1; however, for the time being,
+ this was kept unmodified to prevent any unexpected behaviour.
+
+\subsection{Latency Measurement: Glitch}
+
+  Much less ideal results had been found in non-idle operation mode,
+ that is when the \texttt{econotag1} had been receiving interrupts
+ on UART2 and copying the buffer without proceeding to transfer the
+ data, before the TCP connection had been established. The \emph{"glitch"}
+ results are shown in \ref{ping:glitch}\footnote{\emph{%
+ These results are deliberately presented on separate graphs for clarity.
+ Even if simultaneous ping tests were to be attempted, those may not be
+ combined in one-to-one graphs, unless the size of the network had been
+ greater then 2 nodes. Then it would be appropriate to consider overlaying
+ the datasets based on latency intervals, instead of sequential timebase
+ as presented here.}}.
+
+\begin{figure}
+\centering
+\includegraphics[scale=1.2]{../../tests/data/ping_glitch_set1.pdf}
+\includegraphics[scale=1.2]{../../tests/data/ping_glitch_set2.pdf}
+\caption{\emph{Non-idle ping test response (64 and 24 byte packets)}}\label{ping:glitch}
+\end{figure}
+
+  The stability of the idle latency leads to consideration of the non-idle
+ response being a subject to event-driven design of the \emph{uIP} stack and
+ \ContikiOS\ in general. It is reasonable to propose that non-idle ping response
+ can be disregarded, since there is no practical purpose for it to be prioritised.
+
+
+\subsection{Other Test Scenarios}
+
+  It had been desired to set-up a test, where one MIDI device would send
+ data to the same host via a wireless link and a wired MIDI interface
+ simultaneously. However, wireless transceiver would need to provide packet
+ timestamping, otherwise no precise measurement can be taken. This facility
+ could be added to \MCX\ driver code, though it has not yet been studied
+ how this would need to be integrated. Additionally, synchronisation of the
+ timer on the node and the clock of the host system is necessary, which
+ largely extends the complexity of the problem. Without synchronisation
+ protocol there is no particular use for hardware packet timestamps and
+ vise versa.
+
+ Few tests were performed with a scripts written in Ruby programming language,
+ the source code of these scripts can found in the project repository under
+ directory \Blob{projects/wmi/native/tests/}.
+
+%% CAN WE DO A BASIC LOOPBACK TEST WITH A RUBY SCRIPT ?
+ 
+\subsubsection{Throughput Observations}
+
+  An attempt has been made to measure relative throughput of wireless MIDI
+ link, it would be quite difficult to measure this precisely and more work
+ is required to find out the most accurate way to calculate exact figures
+ of bytes arriving from the MIDI port and bytes received on the other end
+ of the wireless link per unit time. As said above, precision is an issue
+ due to the lack of support for packet timestamping in the current code.
+ First estimations of the performance was certainly a difficult task.
+ The reason why this has been difficult is because the estimated figures
+ did not match any expectations and it had been difficult to compare
+ results between subsequent tests. A graph in figure \ref{fig:fail}
+ shows the worst case of system throughput. This measurements were take
+ once before improved algorithm with additional polling callback was
+ implemented.
+
+\begin{figure}
+\centering
+\includegraphics{../../tests/data/trans_stats_report_fail.pdf}
+\caption{\emph{Throughput failure (accumulating untransmitted bytes)}}\label{fig:fail}
+\end{figure}
+
+
+  With the help of these test results a bug was found and eliminated.
+ This problem appeared to be due to needless and misused timer in the
+ application code and missing callback to poll the TCP thread.
+ Nevertheless, at first this was misunderstood as a limitation in the
+ \emph{uIP} stack or the capabilities of the device under test. Further
+ test has proven that performance of the system is adequate. Figures
+ \ref{fig:good} demonstrate this, though the time base is rather relative,
+ it serves the purpose for this test. The statistics counters were omitted
+ from the listing \ref{code:talker} for clarity. The current implementation
+ can be viewed in the repository
+ (\Blob{projects/wmi/mc1322x/midi/psock-talker.c}).
+
+\begin{figure}
+\centering
+\includegraphics[angle=-90,scale=1.5]{../../tests/data/trans_stats_report_good.pdf}
+\caption{\emph{Normal throughput results (two tests combined)}}\label{fig:good}
+\end{figure}
+
